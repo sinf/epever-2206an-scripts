@@ -269,23 +269,23 @@
 	"name": "batt_status",
 	"description": "D3-D0: 01H Overvolt , 00H Normal ,\n02H Under Volt, 03H Low Volt\nDisconnect, 04H Fault\nD7-D4: 00H Normal, 01H Over\nTemp.(Higher than the warning\nsettings), 02H Low Temp.(Lower\nthan the warning settings),\nD8: Battery inner resistance\nabnormal 1,\nnormal 0\nD15: 1-Wrong identification for rated\nvoltage",
 	"status_bits": {
-		"000Fh": {
+		"000Fh|input.volt": {
 			"0": "normal",
 			"1": "overvolt",
 			"2": "undervolt",
 			"3": "low volt disconnect"
 		},
-		"00F0h": {
+		"00F0h|input.temp": {
 			"0": "normal",
 			"1": "over temp (higher than the warning setting E24)",
 			"2": "low temp (lower than the warning setting E25)",
 			"3": "invalid state"
 		},
-		"0100h": {
+		"0100h|input.intr": {
 			"0": "normal",
 			"1": "battery inner resistance abnormal"
 		},
-		"8000h": {
+		"8000h|input.id": {
 			"0": "ok",
 			"1": "wrong identification for rated voltage"
 		}
@@ -301,54 +301,54 @@
 	"name": "qu_charging_status",
 	"description": "charging equipment status;\nD15-D14: Input volt status. 00\nnormal, 01 no\npower connected, 02H Higher volt\ninput, 03H\nInput volt error.\nD13: Charging MOSFET is short.\nD12: Charging or Anti-reverse\nMOSFET is short.\nD11: Anti-reverse MOSFET is short.\nD10: Input is over current.\nD9: The load is Over current.\nD8: The load is short.\nD7: Load MOSFET is short.\nD4: PV Input is short.\nD3-2: Charging status. 00 No\ncharging,01 Float,02\nBoost, 03 Equalization.\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.\n",
 	"status_bits": {
-		"0001h": {
+		"0001h|c.unk": {
 			"0": "standby",
 			"1": "running"
 		},
-		"0002h": {
+		"0002h|c.unk": {
 			"0": "normal",
 			"1": "fault"
 		},
-		"000Ch": {
-			"0": "no charging",
+		"000Ch|c.status": {
+			"0": "not charging",
 			"1": "float",
 			"2": "boost",
 			"3": "equalization"
 		},
-		"0010h": {
+		"0010h|c.input": {
 			"0": "ok",
 			"1": "PV input is short"
 		},
-		"0080h": {
+		"0080h|c.load.mosfet": {
 			"0": "ok",
 			"1": "load MOSFET is short"
 		},
-		"0100h": {
+		"0100h|c.load.short": {
 			"0": "ok",
 			"1": "the load is short"
 		},
-		"0200h": {
+		"0200h|c.load.oc": {
 			"0": "ok",
 			"1": "the load is Over current."
 		},
-		"0400h": {
+		"0400h|c.input.oc": {
 			"0": "ok",
 			"1": "input is over current."
 		},
-		"0800h": {
+		"0800h|c.antirev.mosfet": {
 			"0": "ok",
 			"1": "anti-reverse MOSFET is short."
 		},
-		"1000h": {
+		"1000h|c.antirev.mosfet2": {
 			"0": "ok",
 			"1": "charging or anti-reverse MOSFET is short."
 		},
-		"2000h": {
+		"2000h|c.chg.mosfet": {
 			"0": "ok",
 			"1": "charging MOSFET is short"
 		},
-		"C000h": {
-			"0": "normal",
+		"C000h|c.input.status": {
+			"0": "ok",
 			"1": "no power connected",
 			"2": "higher volt input",
 			"3": "input volt error"
@@ -365,53 +365,53 @@
 	"name": "eq_discharging_status",
 	"description": "equipment discharging status\nD15-D14: 00H normal, 01H low,\n02H High, 03H no access\nInput volt error.\nD13-D12: output power:00-light\nload,01-moderate,02-rated,03-overlo\nad\nD11: short circuit\nD10: unable to discharge\nD9: unable to stop discharging\nD8: output voltage abnormal\nD7: input overpressure\nD6: high voltage side short circuit\nD5: boost overpressure\nD4: output overpressure\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.",
 	"status_bits": {
-		"0001h": {
+		"0001h|d.unk": {
 			"0": "standby",
 			"1": "running"
 		},
-		"0002h": {
+		"0002h|d.unk2": {
 			"0": "normal",
 			"1": "fault"
 		},
-		"0010h": {
+		"0010h|d.out.ov": {
 			"0": "ok",
 			"1": "output overpressure"
 		},
-		"0020h": {
+		"0020h|d.boost.ov": {
 			"0": "ok",
 			"1": "boost overpressure"
 		},
-		"0040h": {
+		"0040h|d.hvshort": {
 			"0": "ok",
 			"1": "high voltage side short circuit"
 		},
-		"0080h": {
+		"0080h|d.input.ov": {
 			"0": "ok",
 			"1": "input overpressure"
 		},
-		"0100h": {
+		"0100h|d.out.v": {
 			"0": "ok",
 			"1": "output voltage abnormal"
 		},
-		"0200h": {
+		"0200h|d.out.mosfetmaybe": {
 			"0": "ok",
 			"1": "unable to stop discharging"
 		},
-		"0400h": {
+		"0400h|d.out.mosfetmaybe2": {
 			"0": "ok",
 			"1": "unable to discharge"
 		},
-		"0800h": {
+		"0800h|d.short": {
 			"0": "ok",
 			"1": "short circuit"
 		},
-		"7000h": {
+		"7000h|d.out.power": {
 			"0": "light load",
 			"1": "moderate load",
 			"2": "rated load",
 			"3": "overload"
 		},
-		"C000h": {
+		"C000h|d.input.v": {
 			"0": "normal",
 			"1": "low",
 			"2": "high",

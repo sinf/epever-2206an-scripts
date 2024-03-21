@@ -1,4 +1,4 @@
-#import traceback
+import traceback
 import socket
 import struct
 import base64
@@ -41,10 +41,11 @@ def tzcnt(x):
 
 def parse_status_bits(status_bits, value):
     status={}
-    for mask_s, flags_info in status_bits.items():
+    for mask_desc, flags_info in status_bits.items():
+        mask_s, desc = mask_desc.split('|')
         mask = parse_address(mask_s)
         state = (value & mask) >> tzcnt(mask)
-        status[mask_s] = f'[0x{state:x}]'
+        status[mask_s] = f'[0x{state:x}] {desc}'
         for flag_state, flag_msg in flags_info.items():
             if state == parse_address(flag_state):
                 status[mask_s] += ' '+flag_msg
@@ -346,7 +347,12 @@ class Device:
                     for i,b in enumerate(thing.bits): # convert True/False bitmask to integer
                         value |= b<<i
                 else:
-                    value = thing.getRegister(offset)
+                    try:
+                        value = thing.getRegister(offset)
+                    except IndexError as ex:
+                        traceback.print_exc()
+                        debug_msg += ['(IndexError')]
+                        continue
                 self.mem[addr].set(value, set_ts)
                 debug_msg += [hex(value)]
             debug_print('read range:', addr_s, 'data:', ' '.join(debug_msg))
