@@ -9,8 +9,8 @@ modbus register type, which function code to use when reading
 ## address
 if ends with 'h', it means base-16
 
-## number
-same as Epever's datasheet
+## ip
+same as "number" in Epever's datasheet
 (in lowercase) used as ID for each entry, key in database, HTTP endpoint
 
 ## name
