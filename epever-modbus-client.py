@@ -21,7 +21,7 @@ def debug_print(*args, **kwargs):
     pass
 
 def read_config():
-    with open('epever-modbus-client-config.json', 'r') as f:
+    with open('config/epever-modbus-client-config.json', 'r') as f:
         global the_config
         the_config = json.load(f)
 
@@ -485,7 +485,7 @@ def create_device():
         timeout=3, retries=3, retry_on_empty=True)
 
     dev = Device(client=client, slave=1)
-    dev.parse_config('mppt-device.json')
+    dev.parse_config('config/mppt-device.json')
     dev.read_regs(['b5']) # try to trigger an early error if something isn't right
     return dev
 

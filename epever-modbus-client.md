@@ -5,11 +5,15 @@ This program can:
 - periodically dump the registers into MQTT or a SQL database  
 
 Relevant files:  
-- epever-modbus-client-config.json (see epever-modbus-client-config.json.template)
-- mppt-device.json
+- config/epever-modbus-client-config.json (see epever-modbus-client-config.json.template)
+- config/mppt-device.json
 
 Usage:  
 python epever-modbus-client.py  
+
+Or:  
+podman build -t epever  
+podman run --rm -it -v ./config:/app/config:ro localhost/epever  
 
 # Configuration options
 

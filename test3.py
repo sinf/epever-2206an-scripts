@@ -165,7 +165,7 @@ def main():
     client = ModbusTcpClient(host=host, port=port, framer='rtu', timeout=3)
 
     dev = Device(client=client, slave=1)
-    dev.parse_config('mppt-device.json')
+    dev.parse_config('config/mppt-device.json')
     #dev.read_regs(['B5'])
     dev.read_regs()
     dev.table()
