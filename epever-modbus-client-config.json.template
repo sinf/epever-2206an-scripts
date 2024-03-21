@@ -2,7 +2,7 @@
 	"modbus_client": {
 		"ip": "x.y.z.w",
 		"port": 4196,
-		"polling": false
+		"poll_delay_s": -1
 	},
 	"http_api": {
 		"bind_ip": "127.0.0.1",
@@ -10,8 +10,18 @@
 		"can_write": true,
 		"enable": true
 	},
+	"mqtt": {
+		"ip": "x.y.z.w",
+		"port": 1883,
+		"topic": "mytopic",
+		"poll_delay_s": 15,
+		"max_publish_interval": 300,
+		"enable": true
+	},
 	"db": {
 		"url": "sqlite:///testing.db",
+		"table_prefix": "epever_",
+		"poll_delay_s": 15,
 		"enable": true
 	}
 }

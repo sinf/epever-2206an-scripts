@@ -1,32 +1,15 @@
 # Startup
 
-Need files:  
+This program can:
+- read/write modbus registers via HTTP  
+- periodically dump the registers into MQTT or a SQL database  
+
+Relevant files:  
 - epever-modbus-client-config.json (see epever-modbus-client-config.json.template)
 - mppt-device.json
 
+Usage:  
 python epever-modbus-client.py  
-
-Query status and error codes  
-curl http://localhost:8000/C1  
-curl http://localhost:8000/C2  
-curl http://localhost:8000/C7  
-
-Query real time clock:  
-curl http://localhost:8000/E20-E21-E22  
-
-Set real time clock:  
-curl http://localhost:8000/E20-E21-E22 -d now  
-curl http://localhost:8000/E20-E21-E22 -d $(date +%s)  
-curl http://localhost:8000/E20-E21-E22 -d 2024-03-07T17:15:02  
-
-Set load on/off  
-curl http://localhost:8000/H3 -d 1  
-curl http://localhost:8000/H3 -d 0  
-
-Set delays
-curl http://localhost:8000/E63 -d 02:30  
-curl http://localhost:8000/E67-E68-E69 -d 01:23:45
-
 
 # Configuration options
 
@@ -34,40 +17,68 @@ curl http://localhost:8000/E67-E68-E69 -d 01:23:45
 |value|use|
 |modbus\_client.ip|required|
 |modbus\_client.port|required|
-|modbus\_client.polling|set true to read full state periodically|
+|modbus\_client.poll\_delay\_s|set to >=0 to read registers periodically even if they aren't sent anywhere|
 |http\_api.bind\_ip||
 |http\_api.port||
 |http\_api.can\_write|if false, writing is disabled|
 |http\_api.enable|http only available if true|
+|mqtt\_.ip||
+|mqtt\_.port||
+|mqtt\_.topic|actual topic becomes $topic/<id>|
+|mqtt\_.poll\_delay\_s|publish interval (only changed values)|
+|mqtt\_.max\_publish\_interval|(seconds) publish values even if they haven't changed when they become older than this|
+|mqtt\_.enable|true or false|
 |db\_.url|database URL for SQL alchemy|
+|db\_.table\_prefix|each register goes into a table named $table\_prefix<id> with columns t (time,s) and x (value)|
+|db\_.poll\_delay\_s|db write interval (only changed values)|
 |db\_.enable|if true and modbus\_client.polling=true, write state to database when polling|
-|mqtt\_.\*|todo|
-
-# ID
-
-Each variable is identified by ID ("number" in mppt-device.json)
-Variables using more than 1 register have longer ID such as E20-E21-E22 
 
 # HTTP API
 
-## GET /status
+### Example
+
+export addr=http://localhost:8000  
+
+Query status and error codes  
+curl $addr/c1  
+curl $addr/c2  
+curl $addr/c7  
+
+Query real time clock:  
+curl $addr/e20
+
+Set real time clock:  
+curl $addr/e20 -d now  
+curl $addr/e20 -d $(date +%s)  
+curl $addr/e20 -d 2024-03-07T17:15:02  
+
+Set load on/off (H2 does nothing, ignore it)  
+curl $addr/h3 -d 1  
+curl $addr/h3 -d 0  
+
+Set delays
+curl $addr/e63 -d 02:30  
+curl $addr/e67 -d 01:23:45
+
+
+### GET /status
 
 outputs all memory
 
-## GET /status2
+### GET /status2
 
 outputs less things than /status
 
-## GET /<id>
+### GET /<id>
 
 output only one register
 
-## POST /write
+### POST /write
 
 body: key=value pairs (application/x-www-form-urlencoded)  
 sets multiple registers and returns (no) error for each  
 
-## POST /<id>
+### POST /<id>
 
 set one register to value of post body
 

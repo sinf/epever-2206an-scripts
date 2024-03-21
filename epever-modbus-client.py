@@ -15,9 +15,10 @@ from typing import Tuple
 from http import HTTPStatus
 from urllib.parse import parse_qsl
 
-import sqlalchemy as sql 
+reg_ids_subset = ["i1", "i12", "e20", "e110", "e111", "b1", "b2", "b3", "b5", "b7", "b13", "b14", "b15", "b17", "b18", "b27", "b28", "b30", "c1", "c2", "c7", "d0", "d1", "d2", "d3", "d4", "d6", "d8", "d10", "d12", "d14", "d16", "d18", "d26", "d27"]
 
-reg_ids_subset = ["I1", "I12", "E20-E21-E22", "E110", "E111", "B1", "B2", "B3-B4", "B5", "B7-B8", "B13", "B14", "B15-B16", "B17", "B18", "B27", "B28", "B30", "C1", "C2", "C7", "D0", "D1", "D2", "D3", "D4-D5", "D6-D7", "D8-D9", "D10-D11", "D12-D13", "D14-D15", "D16-D17", "D18-D19", "D26", "D27-D28"]
+def debug_print(*args, **kwargs):
+    pass
 
 def read_config():
     with open('epever-modbus-client-config.json', 'r') as f:
@@ -60,14 +61,14 @@ class Register:
         self.config = j
         self.type = j['type']
         self.number = j['number']
-        self.id = '-'.join(self.number) if type(self.number) is list else self.number
+        self.id = (self.number[0] if type(self.number) is list else self.number).lower()
         self.name = j['name']
         self.address = parse_address(j['address'])
         self.description = j.get('description')
         self.hidden = j.get('hidden', False)
         self.unit = j.get('unit','')
         self.scale = j.get('scale', 1)
-        self.dtype = j.get('dtype', 'short')
+        self.dtype = j.get('dtype', 'short') # short, long, delay_hm, delay_smh, date_sm_hd_MY
         self.addresses = [self.address]
         if self.dtype == 'long':
             # 2 big endian 16bit pieces make up one "little endian" 32bit word :S
@@ -77,11 +78,13 @@ class Register:
             self.addresses += [self.address + 2]
         self.value = 0
         self.raw = b''
-        self.rawh = b''
-        self.error = False
+        self.rawh = ''
+        self.error = True
         self.last_write_t = 0
         self.lock = Lock()
         self.is_dirty = False
+        self.last_push_value = {}
+        self.last_push_t = {}
 
     def set_from_memcells(self, mem):
         with self.lock:
@@ -98,6 +101,9 @@ class Register:
         self.error = False
         self.raw = data
         self.rawh = ' '.join(f'{x:4x}' for x in self.raw)
+
+    def is_integer_type(self):
+        return self.scale==1
 
     def _update_value(self):
         data = self.raw
@@ -152,14 +158,35 @@ class Register:
             thing = {
                 'id': self.id,
                 'name': self.name,
-                'unit': self.unit,
                 'value': self.value,
+                'raw': self.rawh.strip(),
                 'error': int(self.error),
                 'ts': self.last_write_t,
             }
+            if self.unit:
+                thing['unit'] = self.unit
             if self.config.get('status_bits'):
                 thing['status_bits'] = parse_status_bits(self.config['status_bits'], self.value)
         return thing
+
+    def should_always_skip_logging(self):
+        # chooses if the data goes to DB and MQTT
+        if self.config.get('skip_db'): return True ;
+        if self.config.get('write_only'): return True ;
+        return False
+
+    def collect_for_push(self, output, key, deadline=None, now=None):
+        if self.should_always_skip_logging(): return ;
+        value = self.rawh
+        if value == '': return ;
+        if self.error: return ;
+        old_value = self.last_push_value.get(key)
+        changed = old_value != value
+        deadline_passed = False if deadline is None else (self.last_push_t.get(key,deadline) <= deadline)
+        if changed or deadline_passed:
+            self.last_push_value[key] = value
+            self.last_push_t[key] = now
+            output += [self]
 
     def __str__(self):
         return self.__repr__()
@@ -195,17 +222,33 @@ class Device:
         self.lock = Lock()
         self.last_update_t = 0
 
-    def to_json(self, ids=None, **kwargs):
+    def state_dict(self, ids=None):
         if ids is None:
             regs_needed = self.regs.values()
         else:
             regs_needed = (self.regs[i] for i in ids)
         with self.lock:
             regs_d = [r.to_dict() for r in regs_needed]
-        return json.dumps({
+        return {
             'last_update_t': self.last_update_t,
             'regs': regs_d,
-        }, **kwargs)
+        }
+
+    def to_json(self, ids=None, **kwargs):
+        return json.dumps(self.state_dict(ids), **kwargs)
+
+    def collect_for_push(self, key, max_update_interval=None, ids=None):
+        now=None
+        deadline=None
+        if max_update_interval is not None:
+            now = time.time()
+            deadline = now - max_update_interval
+        with self.lock:
+            output=[]
+            for r in self.regs.values():
+                if ids is None or r.id in ids:
+                    r.collect_for_push(output, key, deadline, now)
+        return output
 
     def parse_config(self, path):
         with open(path) as f:
@@ -215,6 +258,7 @@ class Device:
                     if reg.get('disable'):
                         continue
                     r = Register(reg)
+                    assert r.id not in self.regs
                     self.regs[r.id] = r
                     for addr in r.addresses:
                         self.mem[addr] = MemoryCell()
@@ -233,11 +277,11 @@ class Device:
             words = reg.parse_str(value)
         except ValueError as e:
             return True, str(e)
-        reg.is_dirty = True
-        self.set_all_dirty() # in case 1 register somehow affects others
-        addr = reg.address
-        print('write', id, words)
         with self.lock:
+            reg.is_dirty = True
+            self.set_all_dirty() # in case 1 register somehow affects others
+            addr = reg.address
+            debug_print('write', id, words)
             if reg.type == 'holding':
                 if len(words) == 1:
                     resp=self.client.write_register(addr, words[0], self.slave)
@@ -278,7 +322,7 @@ class Device:
                     value = thing.getRegister(offset)
                 self.mem[addr].set(value, set_ts)
                 debug_msg += [hex(value)]
-            print('read range:', addr_s, 'data:', ' '.join(debug_msg))
+            debug_print('read range:', addr_s, 'data:', ' '.join(debug_msg))
 
     def read_bulk(self, addresses, func):
         """
@@ -442,17 +486,80 @@ def create_device():
 
     dev = Device(client=client, slave=1)
     dev.parse_config('mppt-device.json')
-    dev.read_regs(['B5']) # try to trigger an early error if something isn't right
+    dev.read_regs(['b5']) # try to trigger an early error if something isn't right
     return dev
 
-def start_device_poller():
-    def dev_main():
+def start_mqtt():
+    import paho.mqtt.client as paho
+
+    def mqtt_main():
+        client = paho.Client(client_id="epever-modbus-client",
+             protocol=paho.MQTTv5,
+             callback_api_version=paho.CallbackAPIVersion.VERSION2)
+        client.connect(config("mqtt.ip"), config("mqtt.port"))
+        client.loop_start()
         while True:
             the_device.read_regs()
-            time.sleep(30)
-    t=Thread(target=dev_main, daemon=True, name='modbus-client')
+            if regs := the_device.collect_for_push('mqtt', config('mqtt.max_publish_interval')):
+                for reg in regs:
+                    if reg.config.get('skip_db'):
+                        continue
+                    j = json.dumps(reg.to_dict(), indent=1)
+                    client.publish(config("mqtt.topic")+'/'+reg.id, payload=j, qos=0)
+            time.sleep(config("mqtt.poll_delay_s",30))
+    t=Thread(target=mqtt_main, daemon=True, name='mqtt-client')
     t.start()
     return t
+
+def start_db():
+    import sqlalchemy as db 
+
+    url=config("db.url")
+    print('starting db thread:', url)
+    en = db.create_engine(url)
+    co = en.connect()
+    me = db.MetaData()
+    ids = []
+    tables = {}
+
+    for reg in the_device.regs.values():
+        if reg.should_always_skip_logging():
+            continue
+        ids += [reg.id]
+
+        if reg.dtype in ('short', 'long'):
+            x_type = db.Integer() if reg.is_integer_type() else db.Float()
+        elif reg.dtype in ('delay_hm', 'delay_smh'):
+            x_type = db.String(length=8)
+        elif reg.dtype == 'date_sm_hd_MY':
+            raise NotImplementedError('start_db '+str(reg.dtype))
+
+        tables[reg.id] = db.Table(config('table_prefix','')+reg.id, me,
+            db.Column('t', db.Float(), primary_key=True),
+            db.Column('x', x_type, nullable=False))
+    me.create_all(en)
+    co.commit()
+
+    def db_main():
+        while True:
+            if things := the_device.collect_for_push('db', ids=tables.keys()):
+                for r in things:
+                    co.execute(db.insert(tables[r.id]).values(t=r.last_write_t, x=r.value))
+                co.commit()
+            time.sleep(config("db.poll_delay_s",30))
+    t=Thread(target=db_main, daemon=True, name='db-client')
+    t.start()
+    return t
+
+def main_loop():
+    poll_delay = config('modbus_client.poll_delay_s', -1)
+    if poll_delay < 0:
+        while True:
+            time.sleep(10)
+    else:
+        while True:
+            read_regs()
+            time.sleep(poll_delay)
 
 def main():
 
@@ -465,12 +572,16 @@ def main():
     try:
         if config('http_api.enable') == True:
             th += [sv := start_http_server()]
-        if config('modbus_client.polling') == True:
-            th += [dev := start_device_poller()]
+        if config('mqtt.enable') == True:
+            th += [dev := start_mqtt()]
+        if config('db.enable') == True:
+            th += [dev := start_db()]
+
+        the_device.read_regs()
         time.sleep(1)
+
         if all(t.is_alive() for t in th):
-            while True:
-                time.sleep(1)
+            main_loop()
     except KeyboardInterrupt:
         pass
 

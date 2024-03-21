@@ -687,7 +687,8 @@
 	"address": "9013h",
 	"name": "real time clock sec min",
 	"description": "D7-0 Sec, D15-8\nMin.(Year, Month, Day, Min, Sec.\nshould be written simultaneously)",
-	"dtype": "date_sm_hd_MY"
+	"dtype": "date_sm_hd_MY",
+	"skip_db": true
 }
 ,
 {

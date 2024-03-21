@@ -1,11 +1,14 @@
 
-# WIP
+# Modbus-MQTT-SQL integration
 
-This repository will have scripts for interacting with Epever 2206AN and other similar charge controllers via TCP.  
+The main beef is [epever-modbus-client.py](epever-modbus-client.md).  
+This repository will also have other scripts for interacting with Epever 2206AN and other similar charge controllers.  
 
 # Epever 2206AN
 
-No load, no PV, current 22-26 mA , 12.74 V -> 0.28 W idle
+No load, no PV, current 22-26 mA , 12.74 V -> 0.28 W idle  
+Year 2K problem (only 2 digits for year in clock) xD  
+Some registers always give error: E103, H2  
 
 # The RS485 gadget
 
