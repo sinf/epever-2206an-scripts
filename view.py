@@ -45,16 +45,17 @@ def tzcnt(x):
 
 def decode_bits():
     var_num=0
-    q1='''SELECT
-TO_TIMESTAMP(t/1000) as time,
+    def q123():
+        q1='''(SELECT
+TO_TIMESTAMP(t/1000) as time'''
+        q2='''FROM ( SELECT
 '''
-    q2='''
-FROM ( SELECT t,
-'''
-    q3='''FROM epever_stats
+        q3='''t FROM epever_stats
 ORDER BY t DESC
-LIMIT 500
-)'''
+LIMIT 1
+))'''
+        return q1, q2, q3
+    output=[]
     for reg in regs:
         id=reg['id'].lower()
         sb = reg.get('status_bits')
@@ -63,15 +64,20 @@ LIMIT 500
             for mask, statusvalues in sb.items():
                 var = f'var{var_num}'
                 var_num += 1
+                q1, q2, q3 = q123()
+                q1 += f",'{id}.{mask}' AS bit\n"
+                q1 += ',\n'
                 q1 += 'CASE\n'
                 for state, msg in statusvalues.items():
                     q1 += f"WHEN {var}={state} THEN '{msg}'\n"
-                q1 += f"END '{id}.{mask}'\n"
+                q1 += f'END msg\n'
+                #q1 += f'END "{id}.{mask}"\n'
                 mask_nr = parse_address(mask)
                 shr = tzcnt(mask_nr)
-                q2 += f"(({id} & {hex(mask_nr)}) >> {shr}) AS {var}\n"
-    return q1+q2+q3
+                q2 += f"(({id} & {hex(mask_nr)}) >> {shr}) AS {var},\n"
+                output += [q1+q2+q3]
+    return 'SELECT time,bit,msg FROM\n' + '\nUNION\n'.join(output)
 
-print()
-print(decode_bits())
+with open('statusbits-transpose.sql', 'w') as f:
+    f.write(decode_bits())
 
