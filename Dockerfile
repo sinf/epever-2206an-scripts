@@ -16,5 +16,5 @@ COPY config/epever-modbus-client-config.json.template .
 COPY epever-modbus-client.py .
 COPY docker-entrypoint.sh .
 
-ENTRYPOINT ["/bin/sh", "/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 
