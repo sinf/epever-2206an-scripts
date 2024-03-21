@@ -1,0 +1,609 @@
+{
+"registers_RO":[
+{
+	"address": "3000h",
+	"name": "array rated voltage",
+	"description": "PV array rated voltage",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"address": "3001h",
+	"name": "array rated current",
+	"description": "PV array rated current",
+	"unit": "A",
+	"scale": 0.01
+}
+,
+{
+	"address": "3002h",
+	"name": "array rated power",
+	"description": "PV array rated power",
+	"unit": "W",
+	"scale": 0.01,
+	"dtype": "int32le"
+}
+,
+{
+	"address": "3004h",
+	"name": "battery rated voltage",
+	"description": "rated voltage to battery",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"address": "3005h",
+	"name": "battery rated current",
+	"description": "rated current to battery",
+	"unit": "A",
+	"scale": 0.01
+}
+,
+{
+	"address": "3006h",
+	"name": "battery rated power",
+	"description": "rated power to battery",
+	"unit": "V",
+	"scale": 0.01,
+	"dtype": "int32le"
+}
+,
+{
+	"address": "3008h",
+	"name": "charging mode",
+	"description": "charging mode 0=connect/disconnect, 1=PWM, 2=MPPT"
+}
+,
+{
+	"address": "300Eh",
+	"name": "rated current of load",
+	"description": "rated current of load",
+	"unit": "A",
+	"scale": 0.01
+}
+],
+"realtime_datum_RO":[
+{
+	"number": "B1",
+	"address": "3100h",
+	"name": "PV array input voltage",
+	"description": "Solar charge controller--PV array voltage",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "B2",
+	"address": "3101h",
+	"name": "PV array input current",
+	"description": "Solar charge controller--PV array current",
+	"unit": "A",
+	"scale": 0.01
+}
+,
+{
+	"number": ["B3", "B4"],
+	"address": "3102h",
+	"name": "PV array input power",
+	"description": "Solar charge controller--PV array power",
+	"unit": "W",
+	"scale": 0.01,
+	"dtype": "int32le"
+}
+,
+{
+	"number": "B5",
+	"address": "3104h",
+	"name": "real time battery voltage",
+	"description": "undocumented in ControllerProtocolV2.3 table but mentioned in example",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": ["B7", "B8"],
+	"address": "3106h",
+	"name": "battery power",
+	"description": "battery charging power",
+	"unit": "W",
+	"scale": 0.01,
+	"dtype": "int32le"
+}
+,
+{
+	"number": "B13",
+	"address": "310Ch",
+	"name": "load voltage",
+	"description": "load voltage",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "B14",
+	"address": "310Dh",
+	"name": "load current",
+	"description": "load current",
+	"unit": "A",
+	"scale": 0.01
+}
+,
+{
+	"number": ["B15", "B16"],
+	"address": "310Eh",
+	"name": "load power",
+	"description": "load power",
+	"unit": "W",
+	"scale": 0.01,
+	"dtype": "int32le"
+}
+,
+{
+	"number": "B17",
+	"address": "3110h",
+	"name": "battery temperature",
+	"description": "battery temperature",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "B18",
+	"address": "3111h",
+	"name": "temperature inside equipment",
+	"description": "temperature inside case",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "B27",
+	"address": "311Ah",
+	"name": "battery SOC",
+	"description": "The percentage of battery's remaining capacity",
+	"unit": "%",
+	"scale": 0.01
+}
+,
+{
+	"number": "B28",
+	"address": "311Bh",
+	"name": "remote battery temperature",
+	"description": "The battery temperature measured by remote temperature sensor",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "B30",
+	"address": "311Dh",
+	"name": "battery's real rated power",
+	"description": "Current system rated voltage. 1200, 2400, 3600, 4800 represent 12V， 24V，36V，48V",
+	"unit": "V",
+	"scale": 0.01
+}
+
+],
+"realtime_status_RO":[
+{
+	"number": "C1",
+	"address": "3200h",
+	"name": "battery status",
+	"description": "D3-D0: 01H Overvolt , 00H Normal ,\n02H Under Volt, 03H Low Volt\nDisconnect, 04H Fault\nD7-D4: 00H Normal, 01H Over\nTemp.(Higher than the warning\nsettings), 02H Low Temp.(Lower\nthan the warning settings),\nD8: Battery inner resistance\nabnormal 1,\nnormal 0\nD15: 1-Wrong identification for rated\nvoltage"
+}
+,
+{
+	"number": "C2",
+	"address": "3201h",
+	"name": "charging equipment status",
+	"description": "D15-D14: Input volt status. 00\nnormal, 01 no\npower connected, 02H Higher volt\ninput, 03H\nInput volt error.\nD13: Charging MOSFET is short.\nD12: Charging or Anti-reverse\nMOSFET is short.\nD11: Anti-reverse MOSFET is short.\nD10: Input is over current.\nD9: The load is Over current.\nD8: The load is short.\nD7: Load MOSFET is short.\nD4: PV Input is short.\nD3-2: Charging status. 00 No\ncharging,01 Float,02\nBoost, 03 Equalization.\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.\n"
+}
+,
+{
+	"number": "C7",
+	"address": "3202h",
+	"name": "discharging equipment status",
+	"description": "D15-D14: 00H normal, 01H low,\n02H High, 03H no access\nInput volt error.\nD13-D12: output power:00-light\nload,01-moderate,02-rated,03-overlo\nad\nD11: short circuit\nD10: unable to discharge\nD9: unable to stop discharging\nD8: output voltage abnormal\nD7: input overpressure\nD6: high voltage side short circuit\nD5: boost overpressure\nD4: output overpressure\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby."
+}
+],
+"stats_RO":[
+{
+	"number": "D0",
+	"address": "3300h",
+	"name": "maximum PV voltage today",
+	"description": "00:00 refresh every day",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "D1",
+	"address": "3301h",
+	"name": "minimum PV voltage today",
+	"description": "00:00 refresh every day",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "D2",
+	"address": "3302h",
+	"name": "maximum battery voltage today",
+	"description": "00:00 refresh every day",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "D3",
+	"address": "3303h",
+	"name": "minimum battery voltage today",
+	"description": "00:00 refresh every day",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D4", "D5"],
+	"address": "3304h",
+	"name": "consumed energy today",
+	"description": "00:00 clear every day",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D6", "D7"],
+	"address": "3306h",
+	"name": "consumed energy this month",
+	"description": "00:00 clear on the first day of month",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D8", "D9"],
+	"address": "3308h",
+	"name": "consumed energy this year",
+	"description": "00:00 clear on 1, Jan",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D10", "D11"],
+	"address": "330Ah",
+	"name": "total consumed energy",
+	"description": "",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D12", "D13"],
+	"address": "330Ch",
+	"name": "generated energy today",
+	"description": "00:00 clear every day",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D14", "D15"],
+	"address": "330Eh",
+	"name": "generated energy this month",
+	"description": "00:00 clear on first day of month",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D16", "D17"],
+	"address": "3310h",
+	"name": "generated energy this year",
+	"description": "00:00 clear on 1, Jan",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D18", "D19"],
+	"address": "3312h",
+	"name": "total generated energy",
+	"description": "",
+	"unit": "kWh",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+,
+{
+	"number": "D26",
+	"address": "331Ah",
+	"name": "battery voltage",
+	"description": "battery voltage",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": ["D27", "D28"],
+	"address": "331Bh",
+	"name": "battery current",
+	"description": "battery current",
+	"unit": "A",
+	"dtype": "int32le",
+	"scale": 0.01
+}
+],
+"registers_RW":[
+{
+	"number": "E1",
+	"address": "9000h",
+	"name": "battery type",
+	"description": "1=sealed, 2=GEL, 3=flooded, 0=user defined"
+}
+,
+{
+	"number": "E2",
+	"address": "9001h",
+	"name": "battery capacity",
+	"description": "rated capacity of battery",
+	"unit": "Ah",
+	"scale": 1
+}
+,
+{
+	"number": "E3",
+	"address": "9002h",
+	"name": "temperature compensation coefficient",
+	"description": "range 0-9",
+	"unit": "mV/℃C/2V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E4",
+	"address": "9003h",
+	"name": "high volt disocnnect",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E5",
+	"address": "9004h",
+	"name": "charging limit voltage",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E6",
+	"address": "9005h",
+	"name": "over voltage reconnect",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E7",
+	"address": "9006h",
+	"name": "equalization voltage",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E8",
+	"address": "9007h",
+	"name": "boost voltage",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E9",
+	"address": "9008h",
+	"name": "float voltage",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E10",
+	"address": "9009h",
+	"name": "boost reconnect voltage",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E11",
+	"address": "900Ah",
+	"name": "low voltage reconnect",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E12",
+	"address": "900Bh",
+	"name": "under voltage recover",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E13",
+	"address": "900Ch",
+	"name": "under voltage warning",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E14",
+	"address": "900Dh",
+	"name": "low voltage disconnect",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E15",
+	"address": "900Eh",
+	"name": "discharging limit voltage",
+	"description": "",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E20",
+	"address": "9013h",
+	"name": "real time clock sec min",
+	"description": "D7-0 Sec, D15-8\nMin.(Year, Month, Day, Min, Sec.\nshould be written simultaneously)"
+}
+,
+{
+	"number": "E21",
+	"address": "9014h",
+	"name": "real time clock hour day",
+	"description": "D7-0 Hour, D15-8 Day"
+}
+,
+{
+	"number": "E22",
+	"address": "9015h",
+	"name": "real time clock mon year",
+	"description": "D7-0 Month, D15-8 Year"
+}
+,
+{
+	"number": "E24",
+	"address": "9017h",
+	"name": "battery temperature warning upper limit",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "E25",
+	"address": "9018h",
+	"name": "battery temperature warning lower limit",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "E26",
+	"address": "9019h",
+	"name": "controller inner temperature upper limit",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "E27",
+	"address": "901Ah",
+	"name": "controller inner temperature upper limit recover",
+	"description": "Over Temperature, system recover once it drop to lower than this value",
+	"unit": "℃C",
+	"scale": 0.01
+}
+,
+{
+	"number": "E31",
+	"address": "901Eh",
+	"name": "day time threshold volt (DTTV)",
+	"description": "PV lower than this value, controller would detect it as sundown",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E32",
+	"address": "901Fh",
+	"name": "light signal startup (night) delay time",
+	"description": "PV voltage lower than NTTV, and duration exceeds the Light signal startup (night) delay time, controller would detect it as night time",
+	"unit": "min"
+}
+,
+{
+	"number": "E33",
+	"address": "9020h",
+	"name": "light time threshold volt (NTTV)",
+	"description": "PV voltage higher than this value, controller would detect it as sunrise",
+	"unit": "V",
+	"scale": 0.01
+}
+,
+{
+	"number": "E34",
+	"address": "9021h",
+	"name": "light signal close (day) delay time",
+	"description": "PV voltage higher than DTTV, and duration exceeds the Light signal close (day) delay time, controller would detect it as day time",
+	"unit": "min"
+}
+,
+{
+	"number": "E62",
+	"address": "903Dh",
+	"name": "load controlling modes",
+	"description": "0=manual, 1=light on/off, 2=light on+timer, 3=time control"
+}
+
+
+
+
+,
+{
+	"number": "E104",
+	"address": "9067h",
+	"name": "battery rated voltage code",
+	"description": "0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V"
+}
+
+
+
+,
+{
+	"number": "E110",
+	"address": "906Dh",
+	"name": "discharging percentage",
+	"description": "Usually 20%-80%. The percentage of battery's remaining capacity when stop charging",
+	"unit": "%",
+	"scale": 0.01
+}
+,
+{
+	"number": "E111",
+	"address": "906Eh",
+	"name": "charging percentage",
+	"description": "depth of charge, 100%",
+	"unit": "%",
+	"scale": 0.01
+}
+
+]
+}
+
