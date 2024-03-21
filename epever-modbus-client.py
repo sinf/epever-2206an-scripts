@@ -351,7 +351,7 @@ class Device:
                         value = thing.getRegister(offset)
                     except IndexError as ex:
                         traceback.print_exc()
-                        debug_msg += ['(IndexError')]
+                        debug_msg += ['(IndexError)']
                         continue
                 self.mem[addr].set(value, set_ts)
                 debug_msg += [hex(value)]
