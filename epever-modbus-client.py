@@ -118,12 +118,16 @@ class Device:
         self.lock = Lock()
         self.last_update_t = 0
 
-    def to_json(self, regs=None):
+    def to_json(self, ids=None):
+        if ids is None:
+            regs_needed = self.regs.values()
+        else:
+            regs_needed = (self.regs[i] for i in ids)
         with self.lock:
-            regs = [r.to_dict() for r in self.regs.values()]
+            regs_d = [r.to_dict() for r in regs_needed]
         return json.dumps({
             'last_update_t': self.last_update_t,
-            'regs': regs,
+            'regs': regs_d,
         })
 
     def parse_config(self, path):
@@ -228,7 +232,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     def status2_response(self):
         global the_device
         the_device.read_regs(ids=reg_ids_subset, update_older_than = self.oldest_good_time())
-        return the_device.to_json()
+        return the_device.to_json(ids=reg_ids_subset)
 
     def bad_request(self):
         self.send_response(HTTPStatus.NOT_IMPLEMENTED)
