@@ -386,7 +386,7 @@ class Device:
             or any(type(i) is not str or (i not in self.regs) for i in ids):
                 raise ValueError('invalid ids: ' + str(ids))
 
-            #print('read regs', ids)
+            debug_print('read regs', ids)
             regs_to_read = (self.regs[i] for i in ids)
 
             if update_older_than is not None:
@@ -563,7 +563,10 @@ def start_db():
     tables = {}
 
     for table_name, regs in the_device.dbtable_regs.items():
-        cols = [db.Column('t', db.BigInteger(), primary_key=True)]
+        cols = [
+            db.Column('t', db.BigInteger(), primary_key=True),
+            db.Column('device_id', db.Integer(), nullable=False),
+        ]
         for reg in regs.values():
             if reg.dtype in ('short', 'long'):
                 x_type = db.Integer() if reg.is_integer_type() else db.Float()
@@ -606,6 +609,7 @@ def start_db():
                         t = max(t, r.last_write_t)
                     t = int(t*1000) # s -> ms
                     values['t'] = t
+                    values['device_id'] = 0 # future proofing database for when I have more devices
                     try:
                         co.execute(db.insert(tables[table_name]).values(**values))
                         co.commit()
@@ -617,15 +621,30 @@ def start_db():
     t.start()
     return t
 
+rtc_sync_interval = 2*60*60
+next_rtc_sync_t = 0
+def do_sync_rtc():
+    global next_rtc_sync_t
+    now = time.time()
+    if now > next_rtc_sync_t:
+        next_rtc_sync_t = now + rtc_sync_interval
+        date = time.strftime('%Y-%m-%dT%H:%M:%S')
+        debug_print('set rtc to', date)
+        is_error, msg = the_device.write('e20', date)
+        if is_error:
+            print('failed to write RTC register:', msg, file=sys.stderr)
+
 def main_loop():
     poll_delay = config('modbus_client.poll_delay_s', -1)
-    print('Enter main loop. Delay:', poll_delay, 's')
+    print('Enter main loop. Delay:', 10 if poll_delay<0 else poll_delay, 's')
     try:
         if poll_delay < 0:
             while True:
-                time.sleep(10)
+                do_sync_rtc()
+                time.sleep(60)
         else:
             while True:
+                do_sync_rtc()
                 the_device.read_all()
                 time.sleep(poll_delay)
     except KeyboardInterrupt:
@@ -635,8 +654,9 @@ def main():
     ap = ArgumentParser()
     ap.add_argument('-c', '--config-file', type=str, default='config/epever-modbus-client-config.json')
     ap.add_argument('-d', '--debug', action='store_true', default=False)
+    ap.add_argument('-t', '--test-once', action='store_true', default=False)
     args = ap.parse_args()
-    if args.debug:
+    if args.debug or args.test_once:
         global debug_print
         debug_print = print
 
@@ -648,6 +668,9 @@ def main():
     th=[]
     debug_print('read all regs')
     the_device.read_all()
+
+    if args.test_once:
+        return
 
     debug_print('start threads')
     if config('http_api.enable') == True:
