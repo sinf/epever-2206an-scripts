@@ -1,0 +1,28 @@
+{
+	"modbus_client": {
+		"ip": "10.220.220.214",
+		"port": 4196,
+		"poll_delay_s": -1
+	},
+	"http_api": {
+		"bind_ip": "127.0.0.1",
+		"port": 8000,
+		"can_write": true,
+		"enable": true
+	},
+	"mqtt": {
+		"ip": "10.220.220.0",
+		"port": 1883,
+		"topic": "iot/epever2206an-1",
+		"poll_delay_s": 5,
+		"max_publish_interval": 60,
+		"enable": false
+	},
+	"db": {
+		"url": "sqlite:///testing.db",
+		"table_prefix": "epever_",
+		"poll_delay_s": 5,
+		"enable": false
+	}
+}
+

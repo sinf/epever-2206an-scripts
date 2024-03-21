@@ -20,7 +20,9 @@
 	"name": "array rated voltage",
 	"description": "PV array rated voltage",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -30,7 +32,8 @@
 	"name": "array rated current",
 	"description": "PV array rated current",
 	"unit": "A",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
 }
 ,
 {
@@ -41,7 +44,8 @@
 	"description": "PV array rated power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "long"
+	"dtype": "long",
+	"dbtable": "config"
 }
 ,
 {
@@ -51,7 +55,8 @@
 	"name": "battery rated voltage",
 	"description": "rated voltage to battery",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
 }
 ,
 {
@@ -61,7 +66,8 @@
 	"name": "battery rated current",
 	"description": "rated current to battery",
 	"unit": "A",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
 }
 ,
 {
@@ -72,7 +78,8 @@
 	"description": "rated power to battery",
 	"unit": "V",
 	"scale": 0.01,
-	"dtype": "long"
+	"dtype": "long",
+	"dbtable": "config"
 }
 ,
 {
@@ -80,7 +87,8 @@
 	"number": "x6",
 	"address": "3008h",
 	"name": "charging mode",
-	"description": "charging mode 0=connect/disconnect, 1=PWM, 2=MPPT"
+	"description": "charging mode 0=connect/disconnect, 1=PWM, 2=MPPT",
+	"dbtable": "config"
 }
 ,
 {
@@ -90,7 +98,8 @@
 	"name": "rated current of load",
 	"description": "rated current of load",
 	"unit": "A",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
 }
 ],
 "realtime_datum_RO":[
@@ -101,7 +110,8 @@
 	"name": "PV array input voltage",
 	"description": "Solar charge controller--PV array voltage",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
 }
 ,
 {
@@ -111,7 +121,8 @@
 	"name": "PV array input current",
 	"description": "Solar charge controller--PV array current",
 	"unit": "A",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
 }
 ,
 {
@@ -122,7 +133,9 @@
 	"description": "Solar charge controller--PV array power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "long"
+	"dtype": "long",
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -132,7 +145,9 @@
 	"name": "real time battery voltage",
 	"description": "undocumented in ControllerProtocolV2.3 table but mentioned in example",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -143,7 +158,9 @@
 	"description": "battery charging power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "long"
+	"dtype": "long",
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -153,7 +170,9 @@
 	"name": "load voltage",
 	"description": "load voltage",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -163,7 +182,9 @@
 	"name": "load current",
 	"description": "load current",
 	"unit": "A",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -174,7 +195,9 @@
 	"description": "load power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "long"
+	"dtype": "long",
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -184,7 +207,9 @@
 	"name": "battery temperature",
 	"description": "battery temperature",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -194,7 +219,9 @@
 	"name": "temperature inside equipment",
 	"description": "temperature inside case",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -204,7 +231,9 @@
 	"name": "battery SOC",
 	"description": "The percentage of battery's remaining capacity",
 	"unit": "%",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -214,7 +243,9 @@
 	"name": "remote battery temperature",
 	"description": "The battery temperature measured by remote temperature sensor",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -224,7 +255,9 @@
 	"name": "battery's real rated power",
 	"description": "Current system rated voltage. 1200, 2400, 3600, 4800 represent 12V， 24V，36V，48V",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 
 ],
@@ -256,7 +289,9 @@
 			"0": "ok",
 			"1": "wrong identification for rated voltage"
 		}
-	}
+	},
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -318,7 +353,9 @@
 			"2": "higher volt input",
 			"3": "input volt error"
 		}
-	}
+	},
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -380,7 +417,9 @@
 			"2": "high",
 			"3": "no access input volt error"
 		}
-	}
+	},
+	"dbtable": "stats"
+
 }
 ],
 "stats_RO":[
@@ -391,7 +430,9 @@
 	"name": "maximum PV voltage today",
 	"description": "00:00 refresh every day",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -401,7 +442,9 @@
 	"name": "minimum PV voltage today",
 	"description": "00:00 refresh every day",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -411,7 +454,9 @@
 	"name": "maximum battery voltage today",
 	"description": "00:00 refresh every day",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -421,7 +466,9 @@
 	"name": "minimum battery voltage today",
 	"description": "00:00 refresh every day",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -432,7 +479,9 @@
 	"description": "00:00 clear every day",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -443,7 +492,9 @@
 	"description": "00:00 clear on the first day of month",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -454,7 +505,9 @@
 	"description": "00:00 clear on 1, Jan",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -465,7 +518,9 @@
 	"description": "",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -476,7 +531,9 @@
 	"description": "00:00 clear every day",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -487,7 +544,9 @@
 	"description": "00:00 clear on first day of month",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -498,7 +557,9 @@
 	"description": "00:00 clear on 1, Jan",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -509,7 +570,9 @@
 	"description": "",
 	"unit": "kWh",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -519,7 +582,9 @@
 	"name": "battery voltage",
 	"description": "battery voltage",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ,
 {
@@ -530,7 +595,9 @@
 	"description": "battery current",
 	"unit": "A",
 	"dtype": "long",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "stats"
+
 }
 ],
 "registers_RW":[
@@ -539,7 +606,9 @@
 	"number": "E1",
 	"address": "9000h",
 	"name": "battery type",
-	"description": "1=sealed, 2=GEL, 3=flooded, 0=user defined"
+	"description": "1=sealed, 2=GEL, 3=flooded, 0=user defined",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -549,7 +618,9 @@
 	"name": "battery capacity",
 	"description": "rated capacity of battery",
 	"unit": "Ah",
-	"scale": 1
+	"scale": 1,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -559,7 +630,9 @@
 	"name": "temperature compensation coefficient",
 	"description": "range 0-9",
 	"unit": "mV/℃C/2V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -569,7 +642,9 @@
 	"name": "high volt disocnnect",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -578,7 +653,9 @@
 	"address": "9004h",
 	"name": "charging limit voltage",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -588,7 +665,9 @@
 	"name": "over voltage reconnect",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -598,7 +677,9 @@
 	"name": "equalization voltage",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -608,7 +689,9 @@
 	"name": "boost voltage",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -618,7 +701,9 @@
 	"name": "float voltage",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -628,7 +713,9 @@
 	"name": "boost reconnect voltage",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -638,7 +725,9 @@
 	"name": "low voltage reconnect",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -648,7 +737,9 @@
 	"name": "under voltage recover",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -658,7 +749,9 @@
 	"name": "under voltage warning",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -668,7 +761,9 @@
 	"name": "low voltage disconnect",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -678,7 +773,9 @@
 	"name": "discharging limit voltage",
 	"description": "",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -688,7 +785,8 @@
 	"name": "real time clock sec min",
 	"description": "D7-0 Sec, D15-8\nMin.(Year, Month, Day, Min, Sec.\nshould be written simultaneously)",
 	"dtype": "date_sm_hd_MY",
-	"skip_db": true
+	"dbtable": "daily"
+
 }
 ,
 {
@@ -697,7 +795,9 @@
 	"address": "9017h",
 	"name": "battery temperature warning upper limit",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -706,7 +806,9 @@
 	"address": "9018h",
 	"name": "battery temperature warning lower limit",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -715,7 +817,9 @@
 	"address": "9019h",
 	"name": "controller inner temperature upper limit",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -725,7 +829,9 @@
 	"name": "controller inner temperature upper limit recover",
 	"description": "Over Temperature, system recover once it drop to lower than this value",
 	"unit": "℃C",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -735,7 +841,9 @@
 	"name": "day time threshold volt (DTTV)",
 	"description": "PV lower than this value, controller would detect it as sundown",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -744,7 +852,9 @@
 	"address": "901Fh",
 	"name": "light signal startup (night) delay time",
 	"description": "PV voltage lower than NTTV, and duration exceeds the Light signal startup (night) delay time, controller would detect it as night time",
-	"unit": "min"
+	"unit": "min",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -754,7 +864,9 @@
 	"name": "light time threshold volt (NTTV)",
 	"description": "PV voltage higher than this value, controller would detect it as sunrise",
 	"unit": "V",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -763,7 +875,9 @@
 	"address": "9021h",
 	"name": "light signal close (day) delay time",
 	"description": "PV voltage higher than DTTV, and duration exceeds the Light signal close (day) delay time, controller would detect it as day time",
-	"unit": "min"
+	"unit": "min",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -771,7 +885,9 @@
 	"number": "E62",
 	"address": "903Dh",
 	"name": "load controlling modes",
-	"description": "0=manual, 1=light on/off, 2=light on+timer, 3=time control"
+	"description": "0=manual, 1=light on/off, 2=light on+timer, 3=time control",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -780,7 +896,9 @@
 	"address": "903Eh",
 	"name": "Working time length 1",
 	"description": "The length of load output timer1, D15-D8: hour , D7-D0: minute",
-	"dtype": "delay_hm"
+	"dtype": "delay_hm",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -789,7 +907,9 @@
 	"address": "903Fh",
 	"name": "Working time length 2",
 	"description": "The length of load output timer2, D15-D8: hour , D7-D0: minute",
-	"dtype": "delay_hm"
+	"dtype": "delay_hm",
+	"dbtable": "config"
+
 }
 ,
 
@@ -800,7 +920,9 @@
 	"address": "9042h",
 	"name": "Turn on timing 1",
 	"description": "Turn on timing of load output",
-	"dtype": "delay_smh"
+	"dtype": "delay_smh",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -809,7 +931,9 @@
 	"address": "9045h",
 	"name": "Turn off timing 1",
 	"description": "Turn off timing of load output",
-	"dtype": "delay_smh"
+	"dtype": "delay_smh",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -818,7 +942,9 @@
 	"address": "9048h",
 	"name": "Turn on timing 2",
 	"description": "Turn on timing of load output",
-	"dtype": "delay_smh"
+	"dtype": "delay_smh",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -827,7 +953,9 @@
 	"address": "904Bh",
 	"name": "Turn off timing 2",
 	"description": "Turn off timing of load output",
-	"dtype": "delay_smh"
+	"dtype": "delay_smh",
+	"dbtable": "config"
+
 }
 
 ,
@@ -837,7 +965,9 @@
 	"address": "9063h",
 	"name": "backlight time",
 	"description": "Close after LCD backlight light setting the number of seconds",
-	"unit": "s"
+	"unit": "s",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -845,7 +975,9 @@
 	"number": "E102",
 	"address": "9065h",
 	"name": "Length of night",
-	"description": "Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute"
+	"description": "Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute",
+	"dbtable": "config",
+	"dtype": "delay_hm"
 }
 ,
 {
@@ -854,7 +986,9 @@
 	"address": "9066h",
 	"name": "Device configure of main power supply",
 	"description": "1=battery is main, 2= AC-DC power mainly",
-	"hidden": true
+	"dbtable": "config",
+	"write_only": true,
+	"read_alone": true
 }
 ,
 {
@@ -862,7 +996,8 @@
 	"number": "E104",
 	"address": "9067h",
 	"name": "battery rated voltage code",
-	"description": "0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V"
+	"description": "0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V",
+	"dbtable": "config"
 }
 ,
 {
@@ -870,7 +1005,9 @@
 	"number": "E107",
 	"address": "906Ah",
 	"name": "Default Load On/Off in manual mode",
-	"description": "0=off, 1=on"
+	"description": "0=off, 1=on",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -879,7 +1016,9 @@
 	"address": "906Bh",
 	"name": "Equalize duration",
 	"description": "Usually 0-120 minutes",
-	"unit": "min"
+	"unit": "min",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -888,7 +1027,9 @@
 	"address": "906Ch",
 	"name": "Boost duration",
 	"description": "Usually 10-120 minutes",
-	"unit": "min"
+	"unit": "min",
+	"dbtable": "config"
+
 }
 ,
 {
@@ -898,7 +1039,9 @@
 	"name": "discharging percentage",
 	"description": "Usually 20%-80%. The percentage of battery's remaining capacity when stop charging",
 	"unit": "%",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -908,7 +1051,9 @@
 	"name": "charging percentage",
 	"description": "depth of charge, 100%",
 	"unit": "%",
-	"scale": 0.01
+	"scale": 0.01,
+	"dbtable": "config"
+
 }
 ,
 {
@@ -916,7 +1061,9 @@
 	"number": "E113",
 	"address": "9070h",
 	"name": "Management modes of battery charging and discharging",
-	"description": "Management modes of battery charge and discharge, voltage compensation: 0 and SOC: 1"
+	"description": "Management modes of battery charge and discharge, voltage compensation: 0 and SOC: 1",
+	"dbtable": "config"
+
 }
 ],
 "coils_RW":[
@@ -925,7 +1072,8 @@
 	"number": "H1",
 	"address": 0,
 	"name": "charging device on/off",
-	"description": "1 charging device on, 0 charging device off"
+	"description": "1 charging device on, 0 charging device off",
+	"dbtable": "config"
 }
 ,
 {
@@ -934,8 +1082,8 @@
 	"address": 1,
 	"name": "output control mode manual/automatic",
 	"description": "1 output control mode manual, 0 output control mode automatic",
-	"hidden": true,
-	"write_only": true
+	"write_only": true,
+	"dbtable": "config"
 }
 ,
 {
@@ -943,7 +1091,8 @@
 	"number": "H3",
 	"address": 2,
 	"name": "Manual control the load",
-	"description": "When the load is manual mode, 1=manual on, 0=manual off"
+	"description": "When the load is manual mode, 1=manual on, 0=manual off",
+	"dbtable": "stats"
 }
 ,
 {
@@ -951,7 +1100,8 @@
 	"number": "H4",
 	"address": 3,
 	"name": "Default control the load",
-	"description": "When the load is default mode, 1=manual on, 0=manual off"
+	"description": "When the load is default mode, 1=manual on, 0=manual off",
+	"dbtable": "stats"
 }
 ,
 {
@@ -959,7 +1109,8 @@
 	"number": "H6",
 	"address": 5,
 	"name": "Enable load test mode",
-	"description": "1 enable, 0 disable (normal)"
+	"description": "1 enable, 0 disable (normal)",
+	"dbtable": "config"
 }
 ,
 {
@@ -967,7 +1118,8 @@
 	"number": "H7",
 	"address": 6,
 	"name": "force the load on/off",
-	"description": "1 turn on, 0 turn off (used for temporary test of the load)"
+	"description": "1 turn on, 0 turn off (used for temporary test of the load)",
+	"dbtable": "stats"
 }
 ,
 {
@@ -976,8 +1128,9 @@
 	"address": "13h",
 	"name": "restore system defaults",
 	"description": "1 yes, 0 no",
-	"hidden": true,
-	"write_only": true
+	"write_only": true,
+	"dbtable": "none"
+
 }
 ,
 {
@@ -986,8 +1139,9 @@
 	"address": "14h",
 	"name": "clear generating electricity statistics",
 	"description": "1 clear. Root privileges to perform",
-	"hidden": true,
-	"write_only": true
+	"write_only": true,
+	"dbtable": "none"
+
 }
 ],
 "discrete_inputs_RO": [
@@ -996,7 +1150,8 @@
 	"number": "I1",
 	"address": "2000h",
 	"name": "Over temperature inside the device",
-	"description": "1 The temperature inside the controller is higher than the over-temperature protection point. 0 Normal"
+	"description": "1 The temperature inside the controller is higher than the over-temperature protection point. 0 Normal",
+	"dbtable": "stats"
 }
 ,
 {
@@ -1004,7 +1159,8 @@
 	"number": "I12",
 	"address": "200Ch",
 	"name": "day/night",
-	"description": "1-Night, 0-Day"
+	"description": "1-Night, 0-Day",
+	"dbtable": "stats"
 }
 ]
 }

@@ -1,3 +1,4 @@
+#import traceback
 import socket
 import struct
 import base64
@@ -22,6 +23,7 @@ def debug_print(*args, **kwargs):
     pass
 
 def read_config(path):
+    print('config file:', path)
     with open(path, 'r') as f:
         global the_config
         the_config = json.load(f)
@@ -70,6 +72,7 @@ class Register:
         self.unit = j.get('unit','')
         self.scale = j.get('scale', 1)
         self.dtype = j.get('dtype', 'short') # short, long, delay_hm, delay_smh, date_sm_hd_MY
+        self.dbtable = j.get('dbtable', 'none')
         self.addresses = [self.address]
         if self.dtype == 'long':
             # 2 big endian 16bit pieces make up one "little endian" 32bit word :S
@@ -177,6 +180,10 @@ class Register:
         return False
 
     def collect_for_push(self, output, key, deadline=None, now=None):
+        """
+        deadline parameter is used to force push (to db) even if value hasn't changed in a long time
+        key is used to track last update time for each category of things
+        """
         if self.should_always_skip_logging(): return ;
         value = self.rawh
         if value == '': return ;
@@ -194,13 +201,13 @@ class Register:
     def __repr__(self):
         return f'({self.id}) {self.name}'
 
-def find_contiguous_ranges(numbers, max_delta):
+def find_contiguous_ranges(numbers, max_delta, singles=[]):
     start = 0
     numbers = sorted(numbers)
     for i in range(1,len(numbers)):
         a = numbers[i-1]
         b = numbers[i]
-        if b-a > max_delta:
+        if (b-a > max_delta) or (a in singles) or (b in singles):
             yield numbers[start:i]
             start = i
     if start <= len(numbers)-1:
@@ -221,7 +228,13 @@ class Device:
         self.client = client
         self.slave = slave
         self.lock = Lock()
+        self.lock2 = Lock()
         self.last_update_t = 0
+        self.dbtable_regs = {}
+
+    def read_all(self):
+        for tab in self.dbtable_regs.keys():
+            self.read_regs(ids=self.ids(tab))
 
     def state_dict(self, ids=None):
         if ids is None:
@@ -239,10 +252,11 @@ class Device:
         return json.dumps(self.state_dict(ids), **kwargs)
 
     def collect_for_push(self, key, max_update_interval=None, ids=None):
+        """ doesn't call .read_regs, may operate on stale data """
         now=None
         deadline=None
+        now = time.time()
         if max_update_interval is not None:
-            now = time.time()
             deadline = now - max_update_interval
         with self.lock:
             output=[]
@@ -263,6 +277,21 @@ class Device:
                     self.regs[r.id] = r
                     for addr in r.addresses:
                         self.mem[addr] = MemoryCell()
+                    if (r.dbtable and r.dbtable != 'none') and not r.should_always_skip_logging():
+                        f = self.dbtable_regs.get(r.dbtable, {})
+                        f[r.id] = r
+                        self.dbtable_regs[r.dbtable] = f
+
+        singles = []
+        for r in self.regs.values():
+            if r.config.get('read_alone'):
+                singles += r.addresses
+        self.singles = tuple(singles)
+
+        print('tables:')
+        for table_name, regs in self.dbtable_regs.items():
+            print(table_name+':', ' '.join(regs))
+        print()
         return self
 
     def set_all_dirty(self):
@@ -330,7 +359,7 @@ class Device:
         reading via the RS485-to-TCP converter is very slow
         so here we attempt to merge multiple reads into one request
         """
-        for addr_sequence in find_contiguous_ranges(addresses, max_delta=1):
+        for addr_sequence in find_contiguous_ranges(addresses, max_delta=1, singles=self.singles):
             a = addr_sequence[0]
             n = addr_sequence[-1] - a + 1
             self.read_range_1(a, n, func)
@@ -339,39 +368,43 @@ class Device:
         for a in addresses:
             self.read_range_1(a, 1, func)
 
-    def default_regs(self):
-        return list(filter(lambda x: not x.hidden, self.regs.values()))
+    def ids(self, dbtable):
+        return list(self.dbtable_regs[dbtable].keys())
 
-    def read_regs(self, ids=None, update_older_than=None):
-        addr_by_type = {
-            'input': [],
-            'holding': [],
-            'coil': [],
-            'discrete': [],
-        }
+    def read_regs(self, ids, update_older_than=None):
+        with self.lock2:
+            t0=time.time()
+            assert update_older_than is None or update_older_than > 100000
+            addr_by_type = {
+                'input': [],
+                'holding': [],
+                'coil': [],
+                'discrete': [],
+            }
 
-        if ids is None:
-            regs_to_read = self.default_regs()
-        else:
             if type(ids) not in (tuple,list,set) \
             or any(type(i) is not str or (i not in self.regs) for i in ids):
-                raise ValueError('invalid id: ' + str(ids))
+                raise ValueError('invalid ids: ' + str(ids))
+
+            #print('read regs', ids)
             regs_to_read = (self.regs[i] for i in ids)
 
-        if update_older_than is not None:
-            regs_to_read = filter(lambda r: r.is_dirty or r.last_write_t < update_older_than, regs_to_read)
+            if update_older_than is not None:
+                regs_to_read = filter(lambda r: r.is_dirty or r.last_write_t < update_older_than, regs_to_read)
 
-        regs_to_read = list(regs_to_read)
-        for reg in regs_to_read:
-            addr_by_type[reg.type] = addr_by_type[reg.type] + reg.addresses
+            regs_to_read = list(regs_to_read)
+            for reg in regs_to_read:
+                addr_by_type[reg.type] = addr_by_type[reg.type] + reg.addresses
 
-        self.read_bulk(addr_by_type['input'], self.client.read_input_registers)
-        self.read_bulk(addr_by_type['holding'], self.client.read_holding_registers)
-        self.read_single(addr_by_type['discrete'], self.client.read_discrete_inputs)
-        self.read_single(addr_by_type['coil'], self.client.read_coils)
+            self.read_bulk(addr_by_type['input'], self.client.read_input_registers)
+            self.read_bulk(addr_by_type['holding'], self.client.read_holding_registers)
+            self.read_single(addr_by_type['discrete'], self.client.read_discrete_inputs)
+            self.read_single(addr_by_type['coil'], self.client.read_coils)
 
-        for r in regs_to_read:
-            r.set_from_memcells([self.mem[x] for x in r.addresses])
+            for r in regs_to_read:
+                r.set_from_memcells([self.mem[x] for x in r.addresses])
+            t1=time.time()
+            debug_print(f'reading registers took {t1-t0:.6f} s')
 
     def table(self):
         print()
@@ -400,28 +433,33 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_HEAD(self):
         self.bad_request()
 
+    def sane_update_interval(self, dbtable):
+        if dbtable == 'stats':
+            return 10
+        else:
+            return 24*60*60
+
     def do_GET(self):
         path=self.path
-        min_t = self.oldest_good_time()
-        if path.startswith('/status'):
+        path_parts = path.lstrip('/').split('/')
+        p0 = path_parts[0].strip().lower() if len(path_parts)>0 else None
+        if (dbtable := p0) in the_device.dbtable_regs:
+            min_t = time.time() - self.sane_update_interval(dbtable)
+            ids = the_device.ids(dbtable)
+            the_device.read_regs(ids=ids, update_older_than=min_t)
+            resp = the_device.to_json(ids=ids, indent=1)
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            if path == '/status':
-                the_device.read_regs(update_older_than=min_t)
-                resp = the_device.to_json(indent=1)
-            elif path == '/status2':
-                the_device.read_regs(ids=reg_ids_subset, update_older_than=min_t)
-                resp = the_device.to_json(ids=reg_ids_subset, indent=1)
-            else:
-                resp = 'nope\n'
             self.wfile.write(resp.encode())
-        elif (id:=path[1:]) in the_device.regs: # /<id>
-            self.send_response(HTTPStatus.OK)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
+        elif (id := p0) in the_device.regs: # /<id>
+            reg = the_device.regs[id]
+            min_t = time.time() - self.sane_update_interval(reg.dbtable)
             the_device.read_regs(ids=[id], update_older_than=min_t)
             resp = the_device.to_json(ids=[id], indent=1)
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
             self.wfile.write(resp.encode())
         else:
             self.bad_request()
@@ -487,7 +525,7 @@ def create_device():
 
     dev = Device(client=client, slave=1)
     dev.parse_config('config/mppt-device.json')
-    dev.read_regs(['b5']) # try to trigger an early error if something isn't right
+    dev.read_regs(ids=['b5']) # try to trigger an early error if something isn't right
     return dev
 
 def start_mqtt():
@@ -500,14 +538,16 @@ def start_mqtt():
         client.connect(config("mqtt.ip"), config("mqtt.port"))
         client.loop_start()
         while True:
-            the_device.read_regs()
+            delay = config("mqtt.poll_delay_s",30)
+            now=time.time()
+            the_device.read_regs(the_device.ids('stats'), update_older_than=now-delay)
             if regs := the_device.collect_for_push('mqtt', config('mqtt.max_publish_interval')):
                 for reg in regs:
-                    if reg.config.get('skip_db'):
+                    if reg.should_always_skip_logging() or reg.dtype == 'date_sm_hd_MY':
                         continue
                     j = json.dumps(reg.to_dict(), indent=1)
                     client.publish(config("mqtt.topic")+'/'+reg.id, payload=j, qos=0)
-            time.sleep(config("mqtt.poll_delay_s",30))
+            time.sleep(delay)
     t=Thread(target=mqtt_main, daemon=True, name='mqtt-client')
     t.start()
     return t
@@ -520,53 +560,85 @@ def start_db():
     en = db.create_engine(url)
     co = en.connect()
     me = db.MetaData()
-    ids = []
     tables = {}
 
-    for reg in the_device.regs.values():
-        if reg.should_always_skip_logging():
-            continue
-        ids += [reg.id]
+    for table_name, regs in the_device.dbtable_regs.items():
+        cols = [db.Column('t', db.BigInteger(), primary_key=True)]
+        for reg in regs.values():
+            if reg.dtype in ('short', 'long'):
+                x_type = db.Integer() if reg.is_integer_type() else db.Float()
+            elif reg.dtype in ('delay_hm', 'delay_smh'):
+                x_type = db.String(length=8)
+            elif reg.dtype == 'date_sm_hd_MY':
+                x_type = db.String(length=20)
+            else:
+                assert False, "unimplemented"
+                continue
+            cols += [db.Column(reg.id.lower(), x_type, nullable=False)]
+        tables[table_name] = db.Table(config('table_prefix','')+table_name, me, *cols)
 
-        if reg.dtype in ('short', 'long'):
-            x_type = db.Integer() if reg.is_integer_type() else db.Float()
-        elif reg.dtype in ('delay_hm', 'delay_smh'):
-            x_type = db.String(length=8)
-        elif reg.dtype == 'date_sm_hd_MY':
-            raise NotImplementedError('start_db '+str(reg.dtype))
-
-        tables[reg.id] = db.Table(config('table_prefix','')+reg.id, me,
-            db.Column('t', db.Float(), primary_key=True),
-            db.Column('x', x_type, nullable=False))
     me.create_all(en)
     co.commit()
 
     def db_main():
+        last_update_day = None
+        debug_print('db main loop')
         while True:
-            if things := the_device.collect_for_push('db', ids=tables.keys()):
-                for r in things:
-                    co.execute(db.insert(tables[r.id]).values(t=r.last_write_t, x=r.value))
-                co.commit()
-            time.sleep(config("db.poll_delay_s",30))
+            delay = config("db.poll_delay_s",30)
+            for table_name in tables:
+                tv = int(config(f'db.{table_name}.interval', 24*60*60))
+                if table_name == 'daily':
+                    today = time.strftime('%Y-%m-%d')
+                    if last_update_day == today:
+                        continue
+                    last_update_day = today
+                    tv=1
+
+                ids = the_device.ids(table_name)
+                the_device.read_regs(ids=ids, update_older_than=time.time()-delay)
+                things = the_device.collect_for_push(key='db_'+table_name, max_update_interval=tv, ids=ids)
+                if things:
+                    debug_print('sql push update to', table_name)
+                    values = {}
+                    t=0
+                    for r in the_device.dbtable_regs[table_name].values():
+                        values[r.id] = r.value
+                        t = max(t, r.last_write_t)
+                    t = int(t*1000) # s -> ms
+                    values['t'] = t
+                    try:
+                        co.execute(db.insert(tables[table_name]).values(**values))
+                        co.commit()
+                    except db.exc.IntegrityError as e:
+                        debug_print(e) # same timestamp. ignore
+
+            time.sleep(delay)
     t=Thread(target=db_main, daemon=True, name='db-client')
     t.start()
     return t
 
 def main_loop():
     poll_delay = config('modbus_client.poll_delay_s', -1)
-    if poll_delay < 0:
-        while True:
-            time.sleep(10)
-    else:
-        while True:
-            read_regs()
-            time.sleep(poll_delay)
+    print('Enter main loop. Delay:', poll_delay, 's')
+    try:
+        if poll_delay < 0:
+            while True:
+                time.sleep(10)
+        else:
+            while True:
+                the_device.read_all()
+                time.sleep(poll_delay)
+    except KeyboardInterrupt:
+        pass
 
 def main():
-
     ap = ArgumentParser()
     ap.add_argument('-c', '--config-file', type=str, default='config/epever-modbus-client-config.json')
+    ap.add_argument('-d', '--debug', action='store_true', default=False)
     args = ap.parse_args()
+    if args.debug:
+        global debug_print
+        debug_print = print
 
     read_config(args.config_file)
 
@@ -574,25 +646,24 @@ def main():
     the_device = create_device()
 
     th=[]
-    try:
-        if config('http_api.enable') == True:
-            th += [sv := start_http_server()]
-        if config('mqtt.enable') == True:
-            th += [dev := start_mqtt()]
-        if config('db.enable') == True:
-            th += [dev := start_db()]
+    debug_print('read all regs')
+    the_device.read_all()
 
-        the_device.read_regs()
-        time.sleep(1)
+    debug_print('start threads')
+    if config('http_api.enable') == True:
+        th += [sv := start_http_server()]
+    if config('mqtt.enable') == True:
+        th += [dev := start_mqtt()]
+    if config('db.enable') == True:
+        th += [dev := start_db()]
 
-        if all(t.is_alive() for t in th):
-            main_loop()
-    except KeyboardInterrupt:
-        pass
+    time.sleep(1)
+    if all(t.is_alive() for t in th):
+        main_loop()
 
     if False:
         for i,t in enumerate(th):
-            print(f'waiting for thread {i}/{len(th)}')
+            debug_print(f'waiting for thread {i}/{len(th)}')
             t.join(timeout=30)
         print('done')
 
