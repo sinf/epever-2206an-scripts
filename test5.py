@@ -1,27 +1,11 @@
 
-import json
 import sqlalchemy as db 
-import os
 import subprocess
-import time
 
 """
 testing what sqlalchemy decides to use as data type
 since it makes numeric range not very obvious
 """
-
-def read_config(path):
-    with open(path, 'r') as f:
-        global the_config
-        the_config = json.load(f)
-
-def config(path, default=None):
-    x=the_config
-    for item in path.split('.'):
-        x=x.get(item)
-        if x is None:
-            return default
-    return x
 
 def pg_exec(args):
     container='postgres_testing'
@@ -61,7 +45,6 @@ def main():
     en = db.create_engine(url)
     co = en.connect()
     me = db.MetaData()
-    co.commit()
 
     names=[]
     for i, t_type in enumerate((
