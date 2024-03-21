@@ -575,7 +575,7 @@ def start_db():
                 assert False, "unimplemented"
                 continue
             cols += [db.Column(reg.id.lower(), x_type, nullable=False)]
-        tables[table_name] = db.Table(config('table_prefix','')+table_name, me, *cols)
+        tables[table_name] = db.Table(config('db.table_prefix','')+table_name, me, *cols)
 
     me.create_all(en)
     co.commit()
