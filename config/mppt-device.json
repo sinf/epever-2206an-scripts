@@ -431,7 +431,7 @@
 	"description": "00:00 refresh every day",
 	"unit": "V",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
@@ -443,7 +443,7 @@
 	"description": "00:00 refresh every day",
 	"unit": "V",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
@@ -455,7 +455,7 @@
 	"description": "00:00 refresh every day",
 	"unit": "V",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
@@ -467,7 +467,7 @@
 	"description": "00:00 refresh every day",
 	"unit": "V",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
@@ -480,7 +480,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
@@ -532,7 +532,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,
