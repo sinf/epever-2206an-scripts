@@ -30,6 +30,9 @@ class Register:
         if self.dtype == 'long':
             # 2 big endian 16bit pieces make up one "little endian" 32bit word :S
             self.addresses += [self.address + 1]
+        elif self.dtype in ('delay_smh', 'date_sm_hd_MY'):
+            self.addresses += [self.address + 1]
+            self.addresses += [self.address + 2]
         self.value = 0
         self.raw = b''
         self.rawh = b''
@@ -37,12 +40,17 @@ class Register:
     def set(self, data):
         self.raw = data
         self.rawh = ' '.join(f'{x:4x}' for x in self.raw)
-        self.value = data[0]
+        self.value = data[0] * self.scale
         if self.dtype == 'long':
-            self.value = (data[1]<<16) | data[0]
-            if self.value > 0x7fffffff:
-                self.value = -( (self.value - 1) ^ 0xffffffff )
-        self.value *= self.scale
+            self.value = struct.unpack('<i', struct.pack('<HH', data[0], data[1]))[0]
+            self.value *= self.scale
+        elif self.dtype == 'date_sm_hd_MY':
+            sec,min,hour,day,mon,year = struct.unpack('BBBBBB', struct.pack('<HHH',*data))
+            year += 2000 # Y3K problem haha
+            self.value = f'{year:04d}-{mon:02d}-{day:02d}T{hour:02d}:{min:02d}:{sec:02d}'
+        elif self.dtype == 'delay_smh':
+            sec,min,hour = data
+            self.value = f'{hour:02d}:{min:02d}:{sec:02d}'
 
     def __str__(self):
         return self.__repr__()

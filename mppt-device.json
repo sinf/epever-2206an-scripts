@@ -553,26 +553,11 @@
 ,
 {
 	"type": "holding",
-	"number": "E20",
+	"number": ["E20", "E21", "E22"],
 	"address": "9013h",
 	"name": "real time clock sec min",
-	"description": "D7-0 Sec, D15-8\nMin.(Year, Month, Day, Min, Sec.\nshould be written simultaneously)"
-}
-,
-{
-	"type": "holding",
-	"number": "E21",
-	"address": "9014h",
-	"name": "real time clock hour day",
-	"description": "D7-0 Hour, D15-8 Day"
-}
-,
-{
-	"type": "holding",
-	"number": "E22",
-	"address": "9015h",
-	"name": "real time clock mon year",
-	"description": "D7-0 Month, D15-8 Year"
+	"description": "D7-0 Sec, D15-8\nMin.(Year, Month, Day, Min, Sec.\nshould be written simultaneously)",
+	"dtype": "date_sm_hd_MY"
 }
 ,
 {
@@ -678,118 +663,38 @@
 
 {
 	"type": "holding",
-	"number": "E67",
+	"number": ["E67", "E68", "E69"],
 	"address": "9042h",
-	"name": "Turn on timing 1 sec",
+	"name": "Turn on timing 1",
 	"description": "Turn on timing of load output",
-	"unit": "s"
+	"dtype": "delay_smh"
 }
 ,
 {
 	"type": "holding",
-	"number": "E68",
-	"address": "9043h",
-	"name": "Turn on timing 1 min",
-	"description": "Turn on timing of load output",
-	"unit": "min"
-}
-,
-{
-	"type": "holding",
-	"number": "E69",
-	"address": "9044h",
-	"name": "Turn on timing 1 hour",
-	"description": "Turn on timing of load output",
-	"unit": "h"
-}
-
-
-,
-{
-	"type": "holding",
-	"number": "E70",
+	"number": ["E70", "E71", "E72"],
 	"address": "9045h",
-	"name": "Turn off timing 1 sec",
+	"name": "Turn off timing 1",
 	"description": "Turn off timing of load output",
-	"unit": "s"
+	"dtype": "delay_smh"
 }
 ,
 {
 	"type": "holding",
-	"number": "E71",
-	"address": "9046h",
-	"name": "Turn off timing 1 min",
-	"description": "Turn off timing of load output",
-	"unit": "min"
-}
-,
-{
-	"type": "holding",
-	"number": "E72",
-	"address": "9047h",
-	"name": "Turn off timing 1 hour",
-	"description": "Turn off timing of load output",
-	"unit": "h"
-}
-
-
-
-,
-{
-	"type": "holding",
-	"number": "E73",
+	"number": ["E73", "E74", "E75"],
 	"address": "9048h",
-	"name": "Turn on timing 2 sec",
+	"name": "Turn on timing 2",
 	"description": "Turn on timing of load output",
-	"unit": "s"
+	"dtype": "delay_smh"
 }
 ,
 {
 	"type": "holding",
-	"number": "E74",
-	"address": "9049h",
-	"name": "Turn on timing 2 min",
-	"description": "Turn on timing of load output",
-	"unit": "min"
-}
-,
-{
-	"type": "holding",
-	"number": "E75",
-	"address": "904Ah",
-	"name": "Turn on timing 2 hour",
-	"description": "Turn on timing of load output",
-	"unit": "h"
-}
-
-
-
-,
-{
-	"type": "holding",
-	"number": "E76",
+	"number": ["E76", "E77", "E78"],
 	"address": "904Bh",
-	"name": "Turn off timing 2 sec",
+	"name": "Turn off timing 2",
 	"description": "Turn off timing of load output",
-	"unit": "s"
-}
-,
-{
-	"type": "holding",
-	"number": "E77",
-	"address": "904Ch",
-	"name": "Turn off timing 2 min",
-	"description": "Turn off timing of load output",
-	"unit": "min"
-}
-,
-{
-	"type": "holding",
-	"number": "E78",
-	"address": "904Dh",
-	"name": "Turn off timing 2 hour",
-	"description": "Turn off timing of load output",
-	"unit": "h"
+	"dtype": "delay_smh"
 }
 
 ,
