@@ -559,7 +559,7 @@ def start_db():
     import sqlalchemy as db 
 
     url=config("db.url")
-    print('starting db thread:', url)
+    print('starting db thread:')
     en = db.create_engine(url)
     co = en.connect()
     me = db.MetaData()
