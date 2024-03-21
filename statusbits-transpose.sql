@@ -1,6 +1,7 @@
-SELECT time,bit,msg FROM
+SELECT time,id,descr,msg FROM
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c1.000Fh' AS bit
+TO_TIMESTAMP(t/1000) as time,'c1.000Fh' AS id
+,'input.volt' AS descr
 ,
 CASE
 WHEN var0=0 THEN 'normal'
@@ -16,7 +17,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c1.00F0h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c1.00F0h' AS id
+,'input.temp' AS descr
 ,
 CASE
 WHEN var1=0 THEN 'normal'
@@ -32,7 +34,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c1.0100h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c1.0100h' AS id
+,'input.intr' AS descr
 ,
 CASE
 WHEN var2=0 THEN 'normal'
@@ -46,7 +49,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c1.8000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c1.8000h' AS id
+,'input.id' AS descr
 ,
 CASE
 WHEN var3=0 THEN 'ok'
@@ -60,7 +64,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0001h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0001h' AS id
+,'c.unk' AS descr
 ,
 CASE
 WHEN var4=0 THEN 'standby'
@@ -74,7 +79,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0002h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0002h' AS id
+,'c.unk' AS descr
 ,
 CASE
 WHEN var5=0 THEN 'normal'
@@ -88,10 +94,11 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.000Ch' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.000Ch' AS id
+,'c.status' AS descr
 ,
 CASE
-WHEN var6=0 THEN 'no charging'
+WHEN var6=0 THEN 'not charging'
 WHEN var6=1 THEN 'float'
 WHEN var6=2 THEN 'boost'
 WHEN var6=3 THEN 'equalization'
@@ -104,7 +111,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0010h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0010h' AS id
+,'c.input' AS descr
 ,
 CASE
 WHEN var7=0 THEN 'ok'
@@ -118,7 +126,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0080h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0080h' AS id
+,'c.load.mosfet' AS descr
 ,
 CASE
 WHEN var8=0 THEN 'ok'
@@ -132,7 +141,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0100h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0100h' AS id
+,'c.load.short' AS descr
 ,
 CASE
 WHEN var9=0 THEN 'ok'
@@ -146,7 +156,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0200h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0200h' AS id
+,'c.load.oc' AS descr
 ,
 CASE
 WHEN var10=0 THEN 'ok'
@@ -160,7 +171,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0400h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0400h' AS id
+,'c.input.oc' AS descr
 ,
 CASE
 WHEN var11=0 THEN 'ok'
@@ -174,7 +186,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.0800h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.0800h' AS id
+,'c.antirev.mosfet' AS descr
 ,
 CASE
 WHEN var12=0 THEN 'ok'
@@ -188,7 +201,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.1000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.1000h' AS id
+,'c.antirev.mosfet2' AS descr
 ,
 CASE
 WHEN var13=0 THEN 'ok'
@@ -202,7 +216,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.2000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.2000h' AS id
+,'c.chg.mosfet' AS descr
 ,
 CASE
 WHEN var14=0 THEN 'ok'
@@ -216,10 +231,11 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c2.C000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c2.C000h' AS id
+,'c.input.status' AS descr
 ,
 CASE
-WHEN var15=0 THEN 'normal'
+WHEN var15=0 THEN 'ok'
 WHEN var15=1 THEN 'no power connected'
 WHEN var15=2 THEN 'higher volt input'
 WHEN var15=3 THEN 'input volt error'
@@ -232,7 +248,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0001h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0001h' AS id
+,'d.unk' AS descr
 ,
 CASE
 WHEN var16=0 THEN 'standby'
@@ -246,7 +263,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0002h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0002h' AS id
+,'d.unk2' AS descr
 ,
 CASE
 WHEN var17=0 THEN 'normal'
@@ -260,7 +278,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0010h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0010h' AS id
+,'d.out.ov' AS descr
 ,
 CASE
 WHEN var18=0 THEN 'ok'
@@ -274,7 +293,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0020h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0020h' AS id
+,'d.boost.ov' AS descr
 ,
 CASE
 WHEN var19=0 THEN 'ok'
@@ -288,7 +308,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0040h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0040h' AS id
+,'d.hvshort' AS descr
 ,
 CASE
 WHEN var20=0 THEN 'ok'
@@ -302,7 +323,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0080h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0080h' AS id
+,'d.input.ov' AS descr
 ,
 CASE
 WHEN var21=0 THEN 'ok'
@@ -316,7 +338,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0100h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0100h' AS id
+,'d.out.v' AS descr
 ,
 CASE
 WHEN var22=0 THEN 'ok'
@@ -330,7 +353,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0200h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0200h' AS id
+,'d.out.mosfetmaybe' AS descr
 ,
 CASE
 WHEN var23=0 THEN 'ok'
@@ -344,7 +368,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0400h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0400h' AS id
+,'d.out.mosfetmaybe2' AS descr
 ,
 CASE
 WHEN var24=0 THEN 'ok'
@@ -358,7 +383,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.0800h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.0800h' AS id
+,'d.short' AS descr
 ,
 CASE
 WHEN var25=0 THEN 'ok'
@@ -372,7 +398,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.7000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.7000h' AS id
+,'d.out.power' AS descr
 ,
 CASE
 WHEN var26=0 THEN 'light load'
@@ -388,7 +415,8 @@ LIMIT 1
 ))
 UNION
 (SELECT
-TO_TIMESTAMP(t/1000) as time,'c7.C000h' AS bit
+TO_TIMESTAMP(t/1000) as time,'c7.C000h' AS id
+,'d.input.v' AS descr
 ,
 CASE
 WHEN var27=0 THEN 'normal'
@@ -402,3 +430,4 @@ t FROM epever_stats
 ORDER BY t DESC
 LIMIT 1
 ))
+ORDER BY id

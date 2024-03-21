@@ -61,11 +61,14 @@ LIMIT 1
         sb = reg.get('status_bits')
         if sb:
             assert reg['dbtable'] == 'stats'
-            for mask, statusvalues in sb.items():
+            for mask_desc, statusvalues in sb.items():
+                mask,desc = mask_desc.split('|')
+                desc_esc = desc.replace("'", "\\'")
                 var = f'var{var_num}'
                 var_num += 1
                 q1, q2, q3 = q123()
-                q1 += f",'{id}.{mask}' AS bit\n"
+                q1 += f",'{id}.{mask}' AS id\n"
+                q1 += f",'{desc_esc}' AS descr\n"
                 q1 += ',\n'
                 q1 += 'CASE\n'
                 for state, msg in statusvalues.items():
@@ -76,7 +79,7 @@ LIMIT 1
                 shr = tzcnt(mask_nr)
                 q2 += f"(({id} & {hex(mask_nr)}) >> {shr}) AS {var},\n"
                 output += [q1+q2+q3]
-    return 'SELECT time,bit,msg FROM\n' + '\nUNION\n'.join(output)
+    return 'SELECT time,id,descr,msg FROM\n' + '\nUNION\n'.join(output) + '\nORDER BY id'
 
 with open('statusbits-transpose.sql', 'w') as f:
     f.write(decode_bits())
