@@ -54,7 +54,7 @@ def parse_response(resp):
         raise ValueError('crc check fail')
     return data
 
-def data_conv_from(data, dtype):
+def data_conv_from(data, dtype, func_r):
     if dtype == 'uint16':
         value = struct.unpack('>H', data)[0]
     elif dtype == 'int32le':
@@ -63,18 +63,24 @@ def data_conv_from(data, dtype):
         raise ValueError(f'unknown dtype: {dtype}')
     return value
 
+def parse_address(x):
+    if type(x) is str:
+        x=x.lower()
+        if x.endswith('h'):
+            return int(x.rstrip('h'), 16)
+        return int(x, 10)
+    return int(x)
+
 class Device:
     def __init__(self, path):
         with open(path) as f:
             self.config = json.load(f)
         self.regs = {}
-        funcs = {
-            'registers_RO': 0x04,
-            'realtime_datum_RO': 0x04,
-            'stats_RO': 0x04,
-            'registers_RW': 0x03,
-        }
-        for section, things in self.config.items():
+        funcs = {}
+        for categ, opts in self.config['category'].items():
+            if not opts.get('skip'):
+                funcs[categ] = opts['func_r']
+        for section, things in self.config['registers'].items():
             func = funcs.get(section)
             if not func:
                 print('unused section:', section, file=sys.stderr)
@@ -82,7 +88,7 @@ class Device:
             for thing in things:
                 name = thing['name']
                 thing['section'] = section
-                thing['address'] = int(thing['address'].rstrip('h'), 16)
+                thing['address'] = parse_address(thing['address'])
                 thing['func'] = func
                 self.regs[name] = thing
 
@@ -101,12 +107,14 @@ class Device:
         output=''
         cur_section=None
         for reg in self.regs.values():
+            if reg.get('skip'):
+                continue
             #if reg['address'] != 0x3104: continue ;
             print('reading:', reg['name'], reg['address'], reg['func'], file=sys.stderr)
             dtype = reg.get('dtype', 'uint16')
             count = count_by_type[dtype]
             data = self.read_regs(driver, reg['func'], reg['address'], count)
-            value = data_conv_from(data, dtype) * reg.get('scale', 1)
+            value = data_conv_from(data, dtype, reg['func']) * reg.get('scale', 1)
             unit = reg.get('unit', '')
             num = reg.get("number","-")
             num = ','.join(num) if type(num) is list else num
@@ -118,8 +126,8 @@ class Device:
         print(output)
 
 def main():
-    host='127.0.0.1'
-    port=4196
+    host=os.environ.get('IP','127.0.0.1')
+    port=int(os.environ.get('PORT',4196))
     dr=TcpDriver(slave_addr=1, host=host, port=port)
     try:
         dev=Device('mppt-device.json')

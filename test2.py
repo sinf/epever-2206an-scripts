@@ -1,10 +1,12 @@
 
 import socket
 import struct
+import os
 
-host='127.0.0.1'
-port=4196
+host=os.environ.get('IP','127.0.0.1')
+port=int(os.environ.get('PORT',4196))
 
+print(host, port)
 print('read real-time battery voltage')
 # device id=1, function code=4, register=0x3104, register count=1
 

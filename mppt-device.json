@@ -1,4 +1,15 @@
 {
+"category":
+{
+	"registers_RO":      {"func_r": 4},
+	"realtime_datum_RO": {"func_r": 4},
+	"stats_RO":          {"func_r": 4},
+	"registers_RW":      {"func_r": 3, "func_w": 16},
+	"coils_RW":          {"func_r": 1, "func_w": 5, "skip":true},
+	"discrete_inputs_RO": {"func_r": 2, "skip": true}
+},
+"registers":
+{
 "registers_RO":[
 {
 	"address": "3000h",
@@ -571,10 +582,150 @@
 	"name": "load controlling modes",
 	"description": "0=manual, 1=light on/off, 2=light on+timer, 3=time control"
 }
+,
+{
+	"number": "E63",
+	"address": "903Eh",
+	"name": "Working time length 1",
+	"description": "The length of load output timer1, D15-D8: hour , D7-D0: minute"
+}
+,
+{
+	"number": "E64",
+	"address": "903Fh",
+	"name": "Working time length 2",
+	"description": "The length of load output timer2, D15-D8: hour , D7-D0: minute"
+}
+,
+
+
+{
+	"number": "E67",
+	"address": "9042h",
+	"name": "Turn on timing 1 sec",
+	"description": "Turn on timing of load output",
+	"unit": "s"
+}
+,
+{
+	"number": "E68",
+	"address": "9043h",
+	"name": "Turn on timing 1 min",
+	"description": "Turn on timing of load output",
+	"unit": "min"
+}
+,
+{
+	"number": "E69",
+	"address": "9044h",
+	"name": "Turn on timing 1 hour",
+	"description": "Turn on timing of load output",
+	"unit": "h"
+}
+
+
+,
+{
+	"number": "E70",
+	"address": "9045h",
+	"name": "Turn off timing 1 sec",
+	"description": "Turn off timing of load output",
+	"unit": "s"
+}
+,
+{
+	"number": "E71",
+	"address": "9046h",
+	"name": "Turn off timing 1 min",
+	"description": "Turn off timing of load output",
+	"unit": "min"
+}
+,
+{
+	"number": "E72",
+	"address": "9047h",
+	"name": "Turn off timing 1 hour",
+	"description": "Turn off timing of load output",
+	"unit": "h"
+}
 
 
 
+,
+{
+	"number": "E73",
+	"address": "9048h",
+	"name": "Turn on timing 2 sec",
+	"description": "Turn on timing of load output",
+	"unit": "s"
+}
+,
+{
+	"number": "E74",
+	"address": "9049h",
+	"name": "Turn on timing 2 min",
+	"description": "Turn on timing of load output",
+	"unit": "min"
+}
+,
+{
+	"number": "E75",
+	"address": "904Ah",
+	"name": "Turn on timing 2 hour",
+	"description": "Turn on timing of load output",
+	"unit": "h"
+}
 
+
+
+,
+{
+	"number": "E76",
+	"address": "904Bh",
+	"name": "Turn off timing 2 sec",
+	"description": "Turn off timing of load output",
+	"unit": "s"
+}
+,
+{
+	"number": "E77",
+	"address": "904Ch",
+	"name": "Turn off timing 2 min",
+	"description": "Turn off timing of load output",
+	"unit": "min"
+}
+,
+{
+	"number": "E78",
+	"address": "904Dh",
+	"name": "Turn off timing 2 hour",
+	"description": "Turn off timing of load output",
+	"unit": "h"
+}
+
+,
+{
+	"number": "E100",
+	"address": "9063h",
+	"name": "backlight time",
+	"description": "Close after LCD backlight light setting the number of seconds",
+	"unit": "s"
+}
+,
+{
+	"number": "E102",
+	"address": "9065h",
+	"name": "Length of night",
+	"description": "Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute"
+}
+,
+{
+	"number": "E103",
+	"address": "9066h",
+	"name": "Device configure of main power supply",
+	"description": "1=battery is main, 2= AC-DC power mainly",
+	"skip": true
+}
 ,
 {
 	"number": "E104",
@@ -582,9 +733,29 @@
 	"name": "battery rated voltage code",
 	"description": "0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V"
 }
-
-
-
+,
+{
+	"number": "E107",
+	"address": "906Ah",
+	"name": "Default Load On/Off in manual mode",
+	"description": "0=off, 1=on"
+}
+,
+{
+	"number": "E108",
+	"address": "906Bh",
+	"name": "Equalize duration",
+	"description": "Usually 0-120 minutes",
+	"unit": "min"
+}
+,
+{
+	"number": "E109",
+	"address": "906Ch",
+	"name": "Boost duration",
+	"description": "Usually 10-120 minutes",
+	"unit": "min"
+}
 ,
 {
 	"number": "E110",
@@ -603,7 +774,86 @@
 	"unit": "%",
 	"scale": 0.01
 }
-
+,
+{
+	"number": "E113",
+	"address": "9070h",
+	"name": "Management modes of battery charging and discharging",
+	"description": "Management modes of battery charge and discharge, voltage compensation: 0 and SOC: 1"
+}
+],
+"coils_RW":[
+{
+	"number": "H1",
+	"address": 0,
+	"name": "charging device on/off",
+	"description": "1 charging device on, 0 charging device off"
+}
+,
+{
+	"number": "H2",
+	"address": 1,
+	"name": "output control mode manual/automatic",
+	"description": "1 output control mode manual, 0 output control mode automatic"
+}
+,
+{
+	"number": "H3",
+	"address": 2,
+	"name": "Manual control the load",
+	"description": "When the load is manual mode, 1=manual on, 0=manual off"
+}
+,
+{
+	"number": "H4",
+	"address": 3,
+	"name": "Default control the load",
+	"description": "When the load is default mode, 1=manual on, 0=manual off"
+}
+,
+{
+	"number": "H6",
+	"address": 5,
+	"name": "Enable load test mode",
+	"description": "1 enable, 0 disable (normal)"
+}
+,
+{
+	"number": "H7",
+	"address": 6,
+	"name": "force the load on/off",
+	"description": "1 turn on, 0 turn off (used for temporary test of the load)"
+}
+,
+{
+	"number": "H20",
+	"address": 13,
+	"name": "restore system defaults",
+	"description": "1 yes, 0 no"
+}
+,
+{
+	"number": "H21",
+	"address": 14,
+	"name": "clear generating electricity statistics",
+	"description": "1 clear. Root privileges to perform"
+}
+],
+"discrete_inputs_RO": [
+{
+	"number": "I1",
+	"address": "2000h",
+	"name": "Over temperature inside the device",
+	"description": "1 The temperature inside the controller is higher than the over-temperature protection point. 0 Normal"
+}
+,
+{
+	"number": "I12",
+	"address": "200Ch",
+	"name": "day/night",
+	"description": "1-Night, 0-Day"
+}
 ]
+}
 }
 
