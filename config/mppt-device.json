@@ -15,7 +15,7 @@
 "registers_RO":[
 {
 	"type": "input",
-	"number": "x0",
+	"id": "x0",
 	"address": "3000h",
 	"name": "pv_rated_voltage",
 	"description": "PV array rated voltage",
@@ -27,7 +27,7 @@
 ,
 {
 	"type": "input",
-	"number": "x1",
+	"id": "x1",
 	"address": "3001h",
 	"name": "pv_rated_current",
 	"description": "PV array rated current",
@@ -38,7 +38,7 @@
 ,
 {
 	"type": "input",
-	"number": "x2",
+	"id": "x2",
 	"address": "3002h",
 	"name": "pv_rated_power",
 	"description": "PV array rated power",
@@ -50,7 +50,7 @@
 ,
 {
 	"type": "input",
-	"number": "x3",
+	"id": "x3",
 	"address": "3004h",
 	"name": "batt_rated_voltage",
 	"description": "rated voltage to battery",
@@ -61,7 +61,7 @@
 ,
 {
 	"type": "input",
-	"number": "x4",
+	"id": "x4",
 	"address": "3005h",
 	"name": "batt_rated_current",
 	"description": "rated current to battery",
@@ -72,7 +72,7 @@
 ,
 {
 	"type": "input",
-	"number": "x5",
+	"id": "x5",
 	"address": "3006h",
 	"name": "batt_rated_power",
 	"description": "rated power to battery",
@@ -84,7 +84,7 @@
 ,
 {
 	"type": "input",
-	"number": "x6",
+	"id": "x6",
 	"address": "3008h",
 	"name": "charging_mode",
 	"description": "charging mode 0=connect/disconnect, 1=PWM, 2=MPPT",
@@ -93,7 +93,7 @@
 ,
 {
 	"type": "input",
-	"number": "x7",
+	"id": "x7",
 	"address": "300Eh",
 	"name": "load_rated_current",
 	"description": "rated current of load",
@@ -105,7 +105,7 @@
 "realtime_datum_RO":[
 {
 	"type": "input",
-	"number": "B1",
+	"id": "B1",
 	"address": "3100h",
 	"name": "pv_input_voltage",
 	"description": "PV array input voltage; Solar charge controller--PV array voltage",
@@ -116,7 +116,7 @@
 ,
 {
 	"type": "input",
-	"number": "B2",
+	"id": "B2",
 	"address": "3101h",
 	"name": "pv_input_current",
 	"description": "Solar charge controller--PV array current",
@@ -127,7 +127,7 @@
 ,
 {
 	"type": "input",
-	"number": ["B3", "B4"],
+	"id": "B3",
 	"address": "3102h",
 	"name": "pv_input_power",
 	"description": "Solar charge controller--PV array power",
@@ -140,7 +140,7 @@
 ,
 {
 	"type": "input",
-	"number": "B5",
+	"id": "B5",
 	"address": "3104h",
 	"name": "batt_rtvoltage",
 	"description": "real time battery voltage; undocumented in ControllerProtocolV2.3 table but mentioned in example",
@@ -152,7 +152,7 @@
 ,
 {
 	"type": "input",
-	"number": ["B7", "B8"],
+	"id": "B7",
 	"address": "3106h",
 	"name": "batt_power",
 	"description": "battery charging power",
@@ -165,7 +165,7 @@
 ,
 {
 	"type": "input",
-	"number": "B13",
+	"id": "B13",
 	"address": "310Ch",
 	"name": "load_voltage",
 	"description": "load voltage",
@@ -177,7 +177,7 @@
 ,
 {
 	"type": "input",
-	"number": "B14",
+	"id": "B14",
 	"address": "310Dh",
 	"name": "load_current",
 	"description": "load current",
@@ -189,7 +189,7 @@
 ,
 {
 	"type": "input",
-	"number": ["B15", "B16"],
+	"id": "B15",
 	"address": "310Eh",
 	"name": "load_power",
 	"description": "load power",
@@ -202,7 +202,7 @@
 ,
 {
 	"type": "input",
-	"number": "B17",
+	"id": "B17",
 	"address": "3110h",
 	"name": "batt_temp",
 	"description": "battery temperature",
@@ -214,7 +214,7 @@
 ,
 {
 	"type": "input",
-	"number": "B18",
+	"id": "B18",
 	"address": "3111h",
 	"name": "eq_temp",
 	"description": "temperature inside equipment; temperature inside case",
@@ -226,7 +226,7 @@
 ,
 {
 	"type": "input",
-	"number": "B27",
+	"id": "B27",
 	"address": "311Ah",
 	"name": "batt_soc",
 	"description": "battery SOC; The percentage of battery's remaining capacity",
@@ -238,7 +238,7 @@
 ,
 {
 	"type": "input",
-	"number": "B28",
+	"id": "B28",
 	"address": "311Bh",
 	"name": "batt_tempr",
 	"description": "The battery temperature measured by remote temperature sensor",
@@ -250,7 +250,7 @@
 ,
 {
 	"type": "input",
-	"number": "B30",
+	"id": "B30",
 	"address": "311Dh",
 	"name": "batt_rated_volt",
 	"description": "Current system rated voltage. 1200, 2400, 3600, 4800 represent 12V， 24V，36V，48V",
@@ -264,7 +264,7 @@
 "realtime_status_RO":[
 {
 	"type": "input",
-	"number": "C1",
+	"id": "C1",
 	"address": "3200h",
 	"name": "batt_status",
 	"description": "D3-D0: 01H Overvolt , 00H Normal ,\n02H Under Volt, 03H Low Volt\nDisconnect, 04H Fault\nD7-D4: 00H Normal, 01H Over\nTemp.(Higher than the warning\nsettings), 02H Low Temp.(Lower\nthan the warning settings),\nD8: Battery inner resistance\nabnormal 1,\nnormal 0\nD15: 1-Wrong identification for rated\nvoltage",
@@ -296,7 +296,7 @@
 ,
 {
 	"type": "input",
-	"number": "C2",
+	"id": "C2",
 	"address": "3201h",
 	"name": "qu_charging_status",
 	"description": "charging equipment status;\nD15-D14: Input volt status. 00\nnormal, 01 no\npower connected, 02H Higher volt\ninput, 03H\nInput volt error.\nD13: Charging MOSFET is short.\nD12: Charging or Anti-reverse\nMOSFET is short.\nD11: Anti-reverse MOSFET is short.\nD10: Input is over current.\nD9: The load is Over current.\nD8: The load is short.\nD7: Load MOSFET is short.\nD4: PV Input is short.\nD3-2: Charging status. 00 No\ncharging,01 Float,02\nBoost, 03 Equalization.\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.\n",
@@ -360,7 +360,7 @@
 ,
 {
 	"type": "input",
-	"number": "C7",
+	"id": "C7",
 	"address": "3202h",
 	"name": "eq_discharging_status",
 	"description": "equipment discharging status\nD15-D14: 00H normal, 01H low,\n02H High, 03H no access\nInput volt error.\nD13-D12: output power:00-light\nload,01-moderate,02-rated,03-overlo\nad\nD11: short circuit\nD10: unable to discharge\nD9: unable to stop discharging\nD8: output voltage abnormal\nD7: input overpressure\nD6: high voltage side short circuit\nD5: boost overpressure\nD4: output overpressure\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.",
@@ -425,7 +425,7 @@
 "stats_RO":[
 {
 	"type": "input",
-	"number": "D0",
+	"id": "D0",
 	"address": "3300h",
 	"name": "pv_max_volt_d",
 	"description": "maximum PV voltage today, 00:00 refresh every day",
@@ -437,7 +437,7 @@
 ,
 {
 	"type": "input",
-	"number": "D1",
+	"id": "D1",
 	"address": "3301h",
 	"name": "pv_min_volt_d",
 	"description": "minimum PV voltage today, 00:00 refresh every day",
@@ -449,7 +449,7 @@
 ,
 {
 	"type": "input",
-	"number": "D2",
+	"id": "D2",
 	"address": "3302h",
 	"name": "batt_max_volt_d",
 	"description": "maximum battery voltage today, 00:00 refresh every day",
@@ -461,7 +461,7 @@
 ,
 {
 	"type": "input",
-	"number": "D3",
+	"id": "D3",
 	"address": "3303h",
 	"name": "batt_min_volt_d",
 	"description": "minimum battery voltage today, 00:00 refresh every day",
@@ -473,7 +473,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D4", "D5"],
+	"id": "D4",
 	"address": "3304h",
 	"name": "e_consumed_d",
 	"description": "consumed energy today, 00:00 clear every day",
@@ -486,7 +486,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D6", "D7"],
+	"id": "D6",
 	"address": "3306h",
 	"name": "e_consumed_m",
 	"description": "consumed energy this month, 00:00 clear on the first day of month",
@@ -499,7 +499,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D8", "D9"],
+	"id": "D8",
 	"address": "3308h",
 	"name": "e_consumed_y",
 	"description": "consumed energy this year, 00:00 clear on 1, Jan",
@@ -512,7 +512,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D10", "D11"],
+	"id": "D10",
 	"address": "330Ah",
 	"name": "e_consumed",
 	"description": "total consumed energy",
@@ -525,7 +525,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D12", "D13"],
+	"id": "D12",
 	"address": "330Ch",
 	"name": "e_generated_d",
 	"description": "generated energy today, 00:00 clear every day",
@@ -538,7 +538,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D14", "D15"],
+	"id": "D14",
 	"address": "330Eh",
 	"name": "e_generated_m",
 	"description": "generated energy this month, 00:00 clear on first day of month",
@@ -551,7 +551,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D16", "D17"],
+	"id": "D16",
 	"address": "3310h",
 	"name": "e_generated_y",
 	"description": "generated energy this year, 00:00 clear on 1, Jan",
@@ -564,7 +564,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D18", "D19"],
+	"id": "D18",
 	"address": "3312h",
 	"name": "e_generated",
 	"description": "total generated energy",
@@ -577,7 +577,7 @@
 ,
 {
 	"type": "input",
-	"number": "D26",
+	"id": "D26",
 	"address": "331Ah",
 	"name": "batt_voltage",
 	"description": "battery voltage",
@@ -589,7 +589,7 @@
 ,
 {
 	"type": "input",
-	"number": ["D27", "D28"],
+	"id": "D27",
 	"address": "331Bh",
 	"name": "batt_current",
 	"description": "battery current",
@@ -603,7 +603,7 @@
 "registers_RW":[
 {
 	"type": "holding",
-	"number": "E1",
+	"id": "E1",
 	"address": "9000h",
 	"name": "batt_type",
 	"description": "battery type, 1=sealed, 2=GEL, 3=flooded, 0=user defined",
@@ -613,7 +613,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E2",
+	"id": "E2",
 	"address": "9001h",
 	"name": "batt_rated_capacity",
 	"description": "battery capacity, rated capacity of battery",
@@ -625,7 +625,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E3",
+	"id": "E3",
 	"address": "9002h",
 	"name": "temperature_compensation_coefficient",
 	"description": "temperature compensation coefficient, range 0-9",
@@ -637,7 +637,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E4",
+	"id": "E4",
 	"address": "9003h",
 	"name": "high_volt_disocnnect",
 	"description": "high volt disocnnect",
@@ -649,7 +649,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E5",
+	"id": "E5",
 	"address": "9004h",
 	"name": "charging_limit_voltage",
 	"description": "charging limit voltage",
@@ -661,7 +661,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E6",
+	"id": "E6",
 	"address": "9005h",
 	"name": "over_voltage_reconnect",
 	"description": "over voltage reconnect",
@@ -673,7 +673,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E7",
+	"id": "E7",
 	"address": "9006h",
 	"name": "equalization_voltage",
 	"description": "equalization voltage",
@@ -685,7 +685,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E8",
+	"id": "E8",
 	"address": "9007h",
 	"name": "boost_voltage",
 	"description": "boost voltage",
@@ -697,7 +697,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E9",
+	"id": "E9",
 	"address": "9008h",
 	"name": "float_voltage",
 	"description": "float voltage",
@@ -709,7 +709,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E10",
+	"id": "E10",
 	"address": "9009h",
 	"name": "boost_reconnect_voltage",
 	"description": "boost reconnect voltage",
@@ -721,7 +721,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E11",
+	"id": "E11",
 	"address": "900Ah",
 	"name": "low_voltage_reconnect",
 	"description": "low voltage reconnect",
@@ -733,7 +733,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E12",
+	"id": "E12",
 	"address": "900Bh",
 	"name": "under_voltage_recover",
 	"description": "under voltage recover",
@@ -745,7 +745,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E13",
+	"id": "E13",
 	"address": "900Ch",
 	"name": "under_voltage_warning",
 	"description": "under voltage warning",
@@ -757,7 +757,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E14",
+	"id": "E14",
 	"address": "900Dh",
 	"name": "low_voltage_disconnect",
 	"description": "low voltage disconnect",
@@ -769,7 +769,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E15",
+	"id": "E15",
 	"address": "900Eh",
 	"name": "discharging_limit_voltage",
 	"description": "discharging limit voltage",
@@ -781,7 +781,7 @@
 ,
 {
 	"type": "holding",
-	"number": ["E20", "E21", "E22"],
+	"id": "E20",
 	"address": "9013h",
 	"name": "real_time_clock",
 	"description": "real time clock sec,min,hour,day,month,year;\nD7-0 Sec, D15-8 Min.\n(Year, Month, Day, Hour, Min, Sec.\nshould be written simultaneously)",
@@ -792,7 +792,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E24",
+	"id": "E24",
 	"address": "9017h",
 	"name": "battery_temperature_warning_upper_limit",
 	"description": "battery temperature warning upper limit",
@@ -804,7 +804,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E25",
+	"id": "E25",
 	"address": "9018h",
 	"name": "battery_temperature_warning_lower_limit",
 	"description": "battery temperature warning lower limit",
@@ -816,7 +816,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E26",
+	"id": "E26",
 	"address": "9019h",
 	"name": "controller_inner_temperature_upper_limit",
 	"description": "controller inner temperature upper limit",
@@ -828,7 +828,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E27",
+	"id": "E27",
 	"address": "901Ah",
 	"name": "controller_inner_temperature_upper_limit_recover",
 	"description": "controller inner temperature upper limit recover. Over Temperature, system recover once it drop to lower than this value",
@@ -840,7 +840,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E31",
+	"id": "E31",
 	"address": "901Eh",
 	"name": "day_time_threshold_volt",
 	"description": "day time threshold volt (DTTV), PV lower than this value, controller would detect it as sundown",
@@ -852,7 +852,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E32",
+	"id": "E32",
 	"address": "901Fh",
 	"name": "light_signal_startup_night_delay_time",
 	"description": "light signal startup (night) delay time, PV voltage lower than NTTV, and duration exceeds the Light signal startup (night) delay time, controller would detect it as night time",
@@ -863,7 +863,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E33",
+	"id": "E33",
 	"address": "9020h",
 	"name": "light_time_threshold_volt",
 	"description": "light time threshold volt (NTTV), PV voltage higher than this value, controller would detect it as sunrise",
@@ -875,7 +875,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E34",
+	"id": "E34",
 	"address": "9021h",
 	"name": "light_signal_close_day_delay_time",
 	"description": "light signal close (day) delay time, PV voltage higher than DTTV, and duration exceeds the Light signal close (day) delay time, controller would detect it as day time",
@@ -886,7 +886,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E62",
+	"id": "E62",
 	"address": "903Dh",
 	"name": "load_controlling_modes",
 	"description": "load controlling modes, 0=manual, 1=light on/off, 2=light on+timer, 3=time control",
@@ -896,7 +896,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E63",
+	"id": "E63",
 	"address": "903Eh",
 	"name": "working_time_length_1",
 	"description": "Working time length 1. The length of load output timer1, D15-D8: hour , D7-D0: minute",
@@ -907,7 +907,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E64",
+	"id": "E64",
 	"address": "903Fh",
 	"name": "working_time_length_2",
 	"description": "Working time length 2. The length of load output timer2, D15-D8: hour , D7-D0: minute",
@@ -920,7 +920,7 @@
 
 {
 	"type": "holding",
-	"number": ["E67", "E68", "E69"],
+	"id": "E67",
 	"address": "9042h",
 	"name": "turn_on_timing_1",
 	"description": "Turn on timing 1. Turn on timing of load output",
@@ -931,7 +931,7 @@
 ,
 {
 	"type": "holding",
-	"number": ["E70", "E71", "E72"],
+	"id": "E70",
 	"address": "9045h",
 	"name": "turn_off_timing_1",
 	"description": "Turn off timing 1. Turn off timing of load output",
@@ -942,7 +942,7 @@
 ,
 {
 	"type": "holding",
-	"number": ["E73", "E74", "E75"],
+	"id": "E73",
 	"address": "9048h",
 	"name": "turn_on_timing_2",
 	"description": "Turn on timing 2. Turn on timing of load output",
@@ -953,7 +953,7 @@
 ,
 {
 	"type": "holding",
-	"number": ["E76", "E77", "E78"],
+	"id": "E76",
 	"address": "904Bh",
 	"name": "turn_off_timing_2",
 	"description": "Turn off timing 2, Turn off timing of load output",
@@ -965,7 +965,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E100",
+	"id": "E100",
 	"address": "9063h",
 	"name": "backlight_time",
 	"description": "Backlight time. Close after LCD backlight light setting the number of seconds",
@@ -976,7 +976,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E102",
+	"id": "E102",
 	"address": "9065h",
 	"name": "night_length",
 	"description": "Length of night. Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute",
@@ -986,7 +986,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E103",
+	"id": "E103",
 	"address": "9066h",
 	"name": "main_power_supply",
 	"description": "Device configure of main power supply. 1=battery is main, 2= AC-DC power mainly",
@@ -997,7 +997,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E104",
+	"id": "E104",
 	"address": "9067h",
 	"name": "batt_rated_voltage_code",
 	"description": "battery rated voltage code. 0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V",
@@ -1006,7 +1006,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E107",
+	"id": "E107",
 	"address": "906Ah",
 	"name": "manual_default_load_onoff",
 	"description": "Default Load On/Off in manual mode, 0=off, 1=on",
@@ -1016,7 +1016,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E108",
+	"id": "E108",
 	"address": "906Bh",
 	"name": "equalize_duration",
 	"description": "Equalize duration. Usually 0-120 minutes",
@@ -1027,7 +1027,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E109",
+	"id": "E109",
 	"address": "906Ch",
 	"name": "boost_duration",
 	"description": "Boost duration. Usually 10-120 minutes",
@@ -1038,7 +1038,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E110",
+	"id": "E110",
 	"address": "906Dh",
 	"name": "discharging_percentage",
 	"description": "Usually 20%-80%. The percentage of battery's remaining capacity when stop charging",
@@ -1050,7 +1050,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E111",
+	"id": "E111",
 	"address": "906Eh",
 	"name": "charging_percentage",
 	"description": "depth of charge, 100%",
@@ -1062,7 +1062,7 @@
 ,
 {
 	"type": "holding",
-	"number": "E113",
+	"id": "E113",
 	"address": "9070h",
 	"name": "charging_management_modes",
 	"description": "Management modes of battery charge and discharge, voltage compensation: 0 and SOC: 1",
@@ -1073,7 +1073,7 @@
 "coils_RW":[
 {
 	"type": "coil",
-	"number": "H1",
+	"id": "H1",
 	"address": 0,
 	"name": "charging_device_onoff",
 	"description": "1 charging device on, 0 charging device off",
@@ -1082,7 +1082,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H2",
+	"id": "H2",
 	"address": 1,
 	"name": "output_control_mode",
 	"description": "output control mode manual/automatic. 1 output control mode manual, 0 output control mode automatic",
@@ -1092,7 +1092,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H3",
+	"id": "H3",
 	"address": 2,
 	"name": "manual_control_onoff",
 	"description": "Manual control the load. When the load is manual mode, 1=manual on, 0=manual off",
@@ -1101,7 +1101,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H4",
+	"id": "H4",
 	"address": 3,
 	"name": "default_control_onoff",
 	"description": "Default control the load. When the load is default mode, 1=manual on, 0=manual off",
@@ -1110,7 +1110,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H6",
+	"id": "H6",
 	"address": 5,
 	"name": "enable_load_test_mode",
 	"description": "Enable load test mode. 1 enable, 0 disable (normal)",
@@ -1119,7 +1119,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H7",
+	"id": "H7",
 	"address": 6,
 	"name": "force_load_onoff",
 	"description": "force the load on/off. 1 turn on, 0 turn off (used for temporary test of the load)",
@@ -1128,7 +1128,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H20",
+	"id": "H20",
 	"address": "13h",
 	"name": "restore_system_defaults",
 	"description": "restore system defaults. 1 yes, 0 no",
@@ -1139,7 +1139,7 @@
 ,
 {
 	"type": "coil",
-	"number": "H21",
+	"id": "H21",
 	"address": "14h",
 	"name": "clear_generating_electricity_statistics",
 	"description": "clear generating electricity statistics. 1 clear. Root privileges to perform",
@@ -1151,7 +1151,7 @@
 "discrete_inputs_RO": [
 {
 	"type": "discrete",
-	"number": "I1",
+	"id": "I1",
 	"address": "2000h",
 	"name": "over_temperature_flag",
 	"description": "Over temperature inside the device. 1 The temperature inside the controller is higher than the over-temperature protection point. 0 Normal",
@@ -1160,7 +1160,7 @@
 ,
 {
 	"type": "discrete",
-	"number": "I12",
+	"id": "I12",
 	"address": "200Ch",
 	"name": "is_day",
 	"description": "day/night. 1-Night, 0-Day",

@@ -63,12 +63,9 @@ class Register:
     def __init__(self, j):
         self.config = j
         self.type = j['type']
-        self.number = j['number']
-        self.id = (self.number[0] if type(self.number) is list else self.number).lower()
+        self.id = j['id'].lower()
         self.name = j['name']
         self.address = parse_address(j['address'])
-        self.description = j.get('description')
-        self.hidden = j.get('hidden', False)
         self.unit = j.get('unit','')
         self.scale = j.get('scale', 1)
         self.dtype = j.get('dtype', 'short') # short, long, delay_hm, delay_smh, date_sm_hd_MY
