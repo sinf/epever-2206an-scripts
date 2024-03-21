@@ -3,6 +3,10 @@
 
 This repository will have scripts for interacting with Epever 2206AN and other similar charge controllers via TCP.  
 
+# Epever 2206AN
+
+No load, no PV, current 22-26 mA , 12.74 V -> 0.28 W idle
+
 # The RS485 gadget
 
 https://www.waveshare.com/product/rs485-to-eth-b.htm  
@@ -18,4 +22,7 @@ https://github.com/Chiumanfu/Solar-Pump-Controller/blob/master/ControllerProtoco
 https://github.com/rosswarren/epevermodbus.git  
 
 https://github.com/sourceperl/pyModbusTCP.git  
+
+https://github.com/martgras/esphome/tree/testing/esphome/components/modbus_controller/examples/epever  
+
 

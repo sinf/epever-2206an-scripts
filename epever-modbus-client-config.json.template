@@ -1,0 +1,18 @@
+{
+	"modbus_client": {
+		"ip": "x.y.z.w",
+		"port": 4196,
+		"polling": false
+	},
+	"http_api": {
+		"bind_ip": "127.0.0.1",
+		"port": 8000,
+		"can_write": true,
+		"enable": true
+	},
+	"db": {
+		"url": "sqlite:///testing.db",
+		"enable": true
+	}
+}
+

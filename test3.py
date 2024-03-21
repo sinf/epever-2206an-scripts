@@ -81,7 +81,7 @@ class Device:
             config = json.load(f)
             for category, regs in config['registers'].items():
                 for reg in regs:
-                    if reg.get('disable'):
+                    if reg.get('disable') or reg.get('hidden'):
                         continue
                     r = Register(reg)
                     self.regs[r.id] = r

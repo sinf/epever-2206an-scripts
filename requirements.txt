@@ -1,0 +1,5 @@
+pymodbus==3.6.5
+SQLAlchemy==2.0.28
+## The following requirements were added by pip freeze:
+greenlet==3.0.3
+typing_extensions==4.10.0

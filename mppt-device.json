@@ -234,7 +234,29 @@
 	"number": "C1",
 	"address": "3200h",
 	"name": "battery status",
-	"description": "D3-D0: 01H Overvolt , 00H Normal ,\n02H Under Volt, 03H Low Volt\nDisconnect, 04H Fault\nD7-D4: 00H Normal, 01H Over\nTemp.(Higher than the warning\nsettings), 02H Low Temp.(Lower\nthan the warning settings),\nD8: Battery inner resistance\nabnormal 1,\nnormal 0\nD15: 1-Wrong identification for rated\nvoltage"
+	"description": "D3-D0: 01H Overvolt , 00H Normal ,\n02H Under Volt, 03H Low Volt\nDisconnect, 04H Fault\nD7-D4: 00H Normal, 01H Over\nTemp.(Higher than the warning\nsettings), 02H Low Temp.(Lower\nthan the warning settings),\nD8: Battery inner resistance\nabnormal 1,\nnormal 0\nD15: 1-Wrong identification for rated\nvoltage",
+	"status_bits": {
+		"000Fh": {
+			"0": "normal",
+			"1": "overvolt",
+			"2": "undervolt",
+			"3": "low volt disconnect"
+		},
+		"00F0h": {
+			"0": "normal",
+			"1": "over temp (higher than the warning setting E24)",
+			"2": "low temp (lower than the warning setting E25)",
+			"3": "invalid state"
+		},
+		"0100h": {
+			"0": "normal",
+			"1": "battery inner resistance abnormal"
+		},
+		"8000h": {
+			"0": "ok",
+			"1": "wrong identification for rated voltage"
+		}
+	}
 }
 ,
 {
@@ -242,7 +264,61 @@
 	"number": "C2",
 	"address": "3201h",
 	"name": "charging equipment status",
-	"description": "D15-D14: Input volt status. 00\nnormal, 01 no\npower connected, 02H Higher volt\ninput, 03H\nInput volt error.\nD13: Charging MOSFET is short.\nD12: Charging or Anti-reverse\nMOSFET is short.\nD11: Anti-reverse MOSFET is short.\nD10: Input is over current.\nD9: The load is Over current.\nD8: The load is short.\nD7: Load MOSFET is short.\nD4: PV Input is short.\nD3-2: Charging status. 00 No\ncharging,01 Float,02\nBoost, 03 Equalization.\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.\n"
+	"description": "D15-D14: Input volt status. 00\nnormal, 01 no\npower connected, 02H Higher volt\ninput, 03H\nInput volt error.\nD13: Charging MOSFET is short.\nD12: Charging or Anti-reverse\nMOSFET is short.\nD11: Anti-reverse MOSFET is short.\nD10: Input is over current.\nD9: The load is Over current.\nD8: The load is short.\nD7: Load MOSFET is short.\nD4: PV Input is short.\nD3-2: Charging status. 00 No\ncharging,01 Float,02\nBoost, 03 Equalization.\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.\n",
+	"status_bits": {
+		"0001h": {
+			"0": "standby",
+			"1": "running"
+		},
+		"0002h": {
+			"0": "normal",
+			"1": "fault"
+		},
+		"000Ch": {
+			"0": "no charging",
+			"1": "float",
+			"2": "boost",
+			"3": "equalization"
+		},
+		"0010h": {
+			"0": "ok",
+			"1": "PV input is short"
+		},
+		"0080h": {
+			"0": "ok",
+			"1": "load MOSFET is short"
+		},
+		"0100h": {
+			"0": "ok",
+			"1": "the load is short"
+		},
+		"0200h": {
+			"0": "ok",
+			"1": "the load is Over current."
+		},
+		"0400h": {
+			"0": "ok",
+			"1": "input is over current."
+		},
+		"0800h": {
+			"0": "ok",
+			"1": "anti-reverse MOSFET is short."
+		},
+		"1000h": {
+			"0": "ok",
+			"1": "charging or anti-reverse MOSFET is short."
+		},
+		"2000h": {
+			"0": "ok",
+			"1": "charging MOSFET is short"
+		},
+		"C000h": {
+			"0": "normal",
+			"1": "no power connected",
+			"2": "higher volt input",
+			"3": "input volt error"
+		}
+	}
 }
 ,
 {
@@ -250,7 +326,61 @@
 	"number": "C7",
 	"address": "3202h",
 	"name": "discharging equipment status",
-	"description": "D15-D14: 00H normal, 01H low,\n02H High, 03H no access\nInput volt error.\nD13-D12: output power:00-light\nload,01-moderate,02-rated,03-overlo\nad\nD11: short circuit\nD10: unable to discharge\nD9: unable to stop discharging\nD8: output voltage abnormal\nD7: input overpressure\nD6: high voltage side short circuit\nD5: boost overpressure\nD4: output overpressure\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby."
+	"description": "D15-D14: 00H normal, 01H low,\n02H High, 03H no access\nInput volt error.\nD13-D12: output power:00-light\nload,01-moderate,02-rated,03-overlo\nad\nD11: short circuit\nD10: unable to discharge\nD9: unable to stop discharging\nD8: output voltage abnormal\nD7: input overpressure\nD6: high voltage side short circuit\nD5: boost overpressure\nD4: output overpressure\nD1: 0 Normal, 1 Fault.\nD0: 1 Running, 0 Standby.",
+	"status_bits": {
+		"0001h": {
+			"0": "standby",
+			"1": "running"
+		},
+		"0002h": {
+			"0": "normal",
+			"1": "fault"
+		},
+		"0010h": {
+			"0": "ok",
+			"1": "output overpressure"
+		},
+		"0020h": {
+			"0": "ok",
+			"1": "boost overpressure"
+		},
+		"0040h": {
+			"0": "ok",
+			"1": "high voltage side short circuit"
+		},
+		"0080h": {
+			"0": "ok",
+			"1": "input overpressure"
+		},
+		"0100h": {
+			"0": "ok",
+			"1": "output voltage abnormal"
+		},
+		"0200h": {
+			"0": "ok",
+			"1": "unable to stop discharging"
+		},
+		"0400h": {
+			"0": "ok",
+			"1": "unable to discharge"
+		},
+		"0800h": {
+			"0": "ok",
+			"1": "short circuit"
+		},
+		"7000h": {
+			"0": "light load",
+			"1": "moderate load",
+			"2": "rated load",
+			"3": "overload"
+		},
+		"C000h": {
+			"0": "normal",
+			"1": "low",
+			"2": "high",
+			"3": "no access input volt error"
+		}
+	}
 }
 ],
 "stats_RO":[
@@ -648,7 +778,8 @@
 	"number": "E63",
 	"address": "903Eh",
 	"name": "Working time length 1",
-	"description": "The length of load output timer1, D15-D8: hour , D7-D0: minute"
+	"description": "The length of load output timer1, D15-D8: hour , D7-D0: minute",
+	"dtype": "delay_hm"
 }
 ,
 {
@@ -656,7 +787,8 @@
 	"number": "E64",
 	"address": "903Fh",
 	"name": "Working time length 2",
-	"description": "The length of load output timer2, D15-D8: hour , D7-D0: minute"
+	"description": "The length of load output timer2, D15-D8: hour , D7-D0: minute",
+	"dtype": "delay_hm"
 }
 ,
 
@@ -721,7 +853,7 @@
 	"address": "9066h",
 	"name": "Device configure of main power supply",
 	"description": "1=battery is main, 2= AC-DC power mainly",
-	"disable": true
+	"hidden": true
 }
 ,
 {
@@ -801,7 +933,7 @@
 	"address": 1,
 	"name": "output control mode manual/automatic",
 	"description": "1 output control mode manual, 0 output control mode automatic",
-	"disable": true,
+	"hidden": true,
 	"write_only": true
 }
 ,
@@ -840,20 +972,20 @@
 {
 	"type": "coil",
 	"number": "H20",
-	"address": 13,
+	"address": "13h",
 	"name": "restore system defaults",
 	"description": "1 yes, 0 no",
-	"disable": true,
+	"hidden": true,
 	"write_only": true
 }
 ,
 {
 	"type": "coil",
 	"number": "H21",
-	"address": 14,
+	"address": "14h",
 	"name": "clear generating electricity statistics",
 	"description": "1 clear. Root privileges to perform",
-	"disable": true,
+	"hidden": true,
 	"write_only": true
 }
 ],
