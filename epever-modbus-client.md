@@ -10,6 +10,7 @@ Relevant files:
 
 Usage:  
 python epever-modbus-client.py  
+python epever-modbus-client.py -c path/to/config.json  
 
 Or:  
 podman build -t epever  
@@ -85,4 +86,8 @@ sets multiple registers and returns (no) error for each
 ### POST /<id>
 
 set one register to value of post body
+
+# Data usage
+
+postgresql 16 uses 8192 bytes per empty table, 85 tables total = 696320 bytes overhead  
 

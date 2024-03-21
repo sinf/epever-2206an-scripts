@@ -5,6 +5,7 @@ import json
 import time
 import sys
 import os
+from argparse import ArgumentParser
 from pymodbus.client import ModbusTcpClient
 from pymodbus.bit_read_message import ReadDiscreteInputsResponse, ReadCoilsResponse
 
@@ -20,8 +21,8 @@ reg_ids_subset = ["i1", "i12", "e20", "e110", "e111", "b1", "b2", "b3", "b5", "b
 def debug_print(*args, **kwargs):
     pass
 
-def read_config():
-    with open('config/epever-modbus-client-config.json', 'r') as f:
+def read_config(path):
+    with open(path, 'r') as f:
         global the_config
         the_config = json.load(f)
 
@@ -563,7 +564,11 @@ def main_loop():
 
 def main():
 
-    read_config()
+    ap = ArgumentParser()
+    ap.add_argument('-c', '--config-file', type=str, default='config/epever-modbus-client-config.json')
+    args = ap.parse_args()
+
+    read_config(args.config_file)
 
     global the_device
     the_device = create_device()
