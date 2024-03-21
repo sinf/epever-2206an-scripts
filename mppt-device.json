@@ -1,4 +1,6 @@
 {
+"WARNING_nonstandard_garbage_format_below":
+"at least this is readable from a script unlike the pdf",
 "category":
 {
 	"registers_RO":      {"func_r": 4},
@@ -12,6 +14,8 @@
 {
 "registers_RO":[
 {
+	"type": "input",
+	"number": "x0",
 	"address": "3000h",
 	"name": "array rated voltage",
 	"description": "PV array rated voltage",
@@ -20,6 +24,8 @@
 }
 ,
 {
+	"type": "input",
+	"number": "x1",
 	"address": "3001h",
 	"name": "array rated current",
 	"description": "PV array rated current",
@@ -28,15 +34,19 @@
 }
 ,
 {
+	"type": "input",
+	"number": "x2",
 	"address": "3002h",
 	"name": "array rated power",
 	"description": "PV array rated power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "int32le"
+	"dtype": "long"
 }
 ,
 {
+	"type": "input",
+	"number": "x3",
 	"address": "3004h",
 	"name": "battery rated voltage",
 	"description": "rated voltage to battery",
@@ -45,6 +55,8 @@
 }
 ,
 {
+	"type": "input",
+	"number": "x4",
 	"address": "3005h",
 	"name": "battery rated current",
 	"description": "rated current to battery",
@@ -53,21 +65,27 @@
 }
 ,
 {
+	"type": "input",
+	"number": "x5",
 	"address": "3006h",
 	"name": "battery rated power",
 	"description": "rated power to battery",
 	"unit": "V",
 	"scale": 0.01,
-	"dtype": "int32le"
+	"dtype": "long"
 }
 ,
 {
+	"type": "input",
+	"number": "x6",
 	"address": "3008h",
 	"name": "charging mode",
 	"description": "charging mode 0=connect/disconnect, 1=PWM, 2=MPPT"
 }
 ,
 {
+	"type": "input",
+	"number": "x7",
 	"address": "300Eh",
 	"name": "rated current of load",
 	"description": "rated current of load",
@@ -77,6 +95,7 @@
 ],
 "realtime_datum_RO":[
 {
+	"type": "input",
 	"number": "B1",
 	"address": "3100h",
 	"name": "PV array input voltage",
@@ -86,6 +105,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B2",
 	"address": "3101h",
 	"name": "PV array input current",
@@ -95,16 +115,18 @@
 }
 ,
 {
+	"type": "input",
 	"number": ["B3", "B4"],
 	"address": "3102h",
 	"name": "PV array input power",
 	"description": "Solar charge controller--PV array power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "int32le"
+	"dtype": "long"
 }
 ,
 {
+	"type": "input",
 	"number": "B5",
 	"address": "3104h",
 	"name": "real time battery voltage",
@@ -114,16 +136,18 @@
 }
 ,
 {
+	"type": "input",
 	"number": ["B7", "B8"],
 	"address": "3106h",
 	"name": "battery power",
 	"description": "battery charging power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "int32le"
+	"dtype": "long"
 }
 ,
 {
+	"type": "input",
 	"number": "B13",
 	"address": "310Ch",
 	"name": "load voltage",
@@ -133,6 +157,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B14",
 	"address": "310Dh",
 	"name": "load current",
@@ -142,16 +167,18 @@
 }
 ,
 {
+	"type": "input",
 	"number": ["B15", "B16"],
 	"address": "310Eh",
 	"name": "load power",
 	"description": "load power",
 	"unit": "W",
 	"scale": 0.01,
-	"dtype": "int32le"
+	"dtype": "long"
 }
 ,
 {
+	"type": "input",
 	"number": "B17",
 	"address": "3110h",
 	"name": "battery temperature",
@@ -161,6 +188,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B18",
 	"address": "3111h",
 	"name": "temperature inside equipment",
@@ -170,6 +198,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B27",
 	"address": "311Ah",
 	"name": "battery SOC",
@@ -179,6 +208,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B28",
 	"address": "311Bh",
 	"name": "remote battery temperature",
@@ -188,6 +218,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "B30",
 	"address": "311Dh",
 	"name": "battery's real rated power",
@@ -199,6 +230,7 @@
 ],
 "realtime_status_RO":[
 {
+	"type": "input",
 	"number": "C1",
 	"address": "3200h",
 	"name": "battery status",
@@ -206,6 +238,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "C2",
 	"address": "3201h",
 	"name": "charging equipment status",
@@ -213,6 +246,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "C7",
 	"address": "3202h",
 	"name": "discharging equipment status",
@@ -221,6 +255,7 @@
 ],
 "stats_RO":[
 {
+	"type": "input",
 	"number": "D0",
 	"address": "3300h",
 	"name": "maximum PV voltage today",
@@ -230,6 +265,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "D1",
 	"address": "3301h",
 	"name": "minimum PV voltage today",
@@ -239,6 +275,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "D2",
 	"address": "3302h",
 	"name": "maximum battery voltage today",
@@ -248,6 +285,7 @@
 }
 ,
 {
+	"type": "input",
 	"number": "D3",
 	"address": "3303h",
 	"name": "minimum battery voltage today",
@@ -257,86 +295,95 @@
 }
 ,
 {
+	"type": "input",
 	"number": ["D4", "D5"],
 	"address": "3304h",
 	"name": "consumed energy today",
 	"description": "00:00 clear every day",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D6", "D7"],
 	"address": "3306h",
 	"name": "consumed energy this month",
 	"description": "00:00 clear on the first day of month",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D8", "D9"],
 	"address": "3308h",
 	"name": "consumed energy this year",
 	"description": "00:00 clear on 1, Jan",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D10", "D11"],
 	"address": "330Ah",
 	"name": "total consumed energy",
 	"description": "",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D12", "D13"],
 	"address": "330Ch",
 	"name": "generated energy today",
 	"description": "00:00 clear every day",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D14", "D15"],
 	"address": "330Eh",
 	"name": "generated energy this month",
 	"description": "00:00 clear on first day of month",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D16", "D17"],
 	"address": "3310h",
 	"name": "generated energy this year",
 	"description": "00:00 clear on 1, Jan",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": ["D18", "D19"],
 	"address": "3312h",
 	"name": "total generated energy",
 	"description": "",
 	"unit": "kWh",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ,
 {
+	"type": "input",
 	"number": "D26",
 	"address": "331Ah",
 	"name": "battery voltage",
@@ -346,17 +393,19 @@
 }
 ,
 {
+	"type": "input",
 	"number": ["D27", "D28"],
 	"address": "331Bh",
 	"name": "battery current",
 	"description": "battery current",
 	"unit": "A",
-	"dtype": "int32le",
+	"dtype": "long",
 	"scale": 0.01
 }
 ],
 "registers_RW":[
 {
+	"type": "holding",
 	"number": "E1",
 	"address": "9000h",
 	"name": "battery type",
@@ -364,6 +413,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E2",
 	"address": "9001h",
 	"name": "battery capacity",
@@ -373,6 +423,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E3",
 	"address": "9002h",
 	"name": "temperature compensation coefficient",
@@ -382,6 +433,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E4",
 	"address": "9003h",
 	"name": "high volt disocnnect",
@@ -391,6 +443,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E5",
 	"address": "9004h",
 	"name": "charging limit voltage",
@@ -399,6 +452,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E6",
 	"address": "9005h",
 	"name": "over voltage reconnect",
@@ -408,6 +462,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E7",
 	"address": "9006h",
 	"name": "equalization voltage",
@@ -417,6 +472,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E8",
 	"address": "9007h",
 	"name": "boost voltage",
@@ -426,6 +482,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E9",
 	"address": "9008h",
 	"name": "float voltage",
@@ -435,6 +492,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E10",
 	"address": "9009h",
 	"name": "boost reconnect voltage",
@@ -444,6 +502,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E11",
 	"address": "900Ah",
 	"name": "low voltage reconnect",
@@ -453,6 +512,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E12",
 	"address": "900Bh",
 	"name": "under voltage recover",
@@ -462,6 +522,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E13",
 	"address": "900Ch",
 	"name": "under voltage warning",
@@ -471,6 +532,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E14",
 	"address": "900Dh",
 	"name": "low voltage disconnect",
@@ -480,6 +542,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E15",
 	"address": "900Eh",
 	"name": "discharging limit voltage",
@@ -489,6 +552,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E20",
 	"address": "9013h",
 	"name": "real time clock sec min",
@@ -496,6 +560,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E21",
 	"address": "9014h",
 	"name": "real time clock hour day",
@@ -503,6 +568,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E22",
 	"address": "9015h",
 	"name": "real time clock mon year",
@@ -510,6 +576,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E24",
 	"address": "9017h",
 	"name": "battery temperature warning upper limit",
@@ -518,6 +585,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E25",
 	"address": "9018h",
 	"name": "battery temperature warning lower limit",
@@ -526,6 +594,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E26",
 	"address": "9019h",
 	"name": "controller inner temperature upper limit",
@@ -534,6 +603,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E27",
 	"address": "901Ah",
 	"name": "controller inner temperature upper limit recover",
@@ -543,6 +613,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E31",
 	"address": "901Eh",
 	"name": "day time threshold volt (DTTV)",
@@ -552,6 +623,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E32",
 	"address": "901Fh",
 	"name": "light signal startup (night) delay time",
@@ -560,6 +632,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E33",
 	"address": "9020h",
 	"name": "light time threshold volt (NTTV)",
@@ -569,6 +642,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E34",
 	"address": "9021h",
 	"name": "light signal close (day) delay time",
@@ -577,6 +651,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E62",
 	"address": "903Dh",
 	"name": "load controlling modes",
@@ -584,6 +659,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E63",
 	"address": "903Eh",
 	"name": "Working time length 1",
@@ -591,6 +667,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E64",
 	"address": "903Fh",
 	"name": "Working time length 2",
@@ -600,6 +677,7 @@
 
 
 {
+	"type": "holding",
 	"number": "E67",
 	"address": "9042h",
 	"name": "Turn on timing 1 sec",
@@ -608,6 +686,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E68",
 	"address": "9043h",
 	"name": "Turn on timing 1 min",
@@ -616,6 +695,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E69",
 	"address": "9044h",
 	"name": "Turn on timing 1 hour",
@@ -626,6 +706,7 @@
 
 ,
 {
+	"type": "holding",
 	"number": "E70",
 	"address": "9045h",
 	"name": "Turn off timing 1 sec",
@@ -634,6 +715,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E71",
 	"address": "9046h",
 	"name": "Turn off timing 1 min",
@@ -642,6 +724,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E72",
 	"address": "9047h",
 	"name": "Turn off timing 1 hour",
@@ -653,6 +736,7 @@
 
 ,
 {
+	"type": "holding",
 	"number": "E73",
 	"address": "9048h",
 	"name": "Turn on timing 2 sec",
@@ -661,6 +745,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E74",
 	"address": "9049h",
 	"name": "Turn on timing 2 min",
@@ -669,6 +754,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E75",
 	"address": "904Ah",
 	"name": "Turn on timing 2 hour",
@@ -680,6 +766,7 @@
 
 ,
 {
+	"type": "holding",
 	"number": "E76",
 	"address": "904Bh",
 	"name": "Turn off timing 2 sec",
@@ -688,6 +775,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E77",
 	"address": "904Ch",
 	"name": "Turn off timing 2 min",
@@ -696,6 +784,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E78",
 	"address": "904Dh",
 	"name": "Turn off timing 2 hour",
@@ -705,6 +794,7 @@
 
 ,
 {
+	"type": "holding",
 	"number": "E100",
 	"address": "9063h",
 	"name": "backlight time",
@@ -713,6 +803,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E102",
 	"address": "9065h",
 	"name": "Length of night",
@@ -720,14 +811,16 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E103",
 	"address": "9066h",
 	"name": "Device configure of main power supply",
 	"description": "1=battery is main, 2= AC-DC power mainly",
-	"skip": true
+	"disable": true
 }
 ,
 {
+	"type": "holding",
 	"number": "E104",
 	"address": "9067h",
 	"name": "battery rated voltage code",
@@ -735,6 +828,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E107",
 	"address": "906Ah",
 	"name": "Default Load On/Off in manual mode",
@@ -742,6 +836,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E108",
 	"address": "906Bh",
 	"name": "Equalize duration",
@@ -750,6 +845,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E109",
 	"address": "906Ch",
 	"name": "Boost duration",
@@ -758,6 +854,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E110",
 	"address": "906Dh",
 	"name": "discharging percentage",
@@ -767,6 +864,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E111",
 	"address": "906Eh",
 	"name": "charging percentage",
@@ -776,6 +874,7 @@
 }
 ,
 {
+	"type": "holding",
 	"number": "E113",
 	"address": "9070h",
 	"name": "Management modes of battery charging and discharging",
@@ -784,6 +883,7 @@
 ],
 "coils_RW":[
 {
+	"type": "coil",
 	"number": "H1",
 	"address": 0,
 	"name": "charging device on/off",
@@ -791,13 +891,17 @@
 }
 ,
 {
+	"type": "coil",
 	"number": "H2",
 	"address": 1,
 	"name": "output control mode manual/automatic",
-	"description": "1 output control mode manual, 0 output control mode automatic"
+	"description": "1 output control mode manual, 0 output control mode automatic",
+	"disable": true,
+	"write_only": true
 }
 ,
 {
+	"type": "coil",
 	"number": "H3",
 	"address": 2,
 	"name": "Manual control the load",
@@ -805,6 +909,7 @@
 }
 ,
 {
+	"type": "coil",
 	"number": "H4",
 	"address": 3,
 	"name": "Default control the load",
@@ -812,6 +917,7 @@
 }
 ,
 {
+	"type": "coil",
 	"number": "H6",
 	"address": 5,
 	"name": "Enable load test mode",
@@ -819,6 +925,7 @@
 }
 ,
 {
+	"type": "coil",
 	"number": "H7",
 	"address": 6,
 	"name": "force the load on/off",
@@ -826,21 +933,28 @@
 }
 ,
 {
+	"type": "coil",
 	"number": "H20",
 	"address": 13,
 	"name": "restore system defaults",
-	"description": "1 yes, 0 no"
+	"description": "1 yes, 0 no",
+	"disable": true,
+	"write_only": true
 }
 ,
 {
+	"type": "coil",
 	"number": "H21",
 	"address": 14,
 	"name": "clear generating electricity statistics",
-	"description": "1 clear. Root privileges to perform"
+	"description": "1 clear. Root privileges to perform",
+	"disable": true,
+	"write_only": true
 }
 ],
 "discrete_inputs_RO": [
 {
+	"type": "discrete",
 	"number": "I1",
 	"address": "2000h",
 	"name": "Over temperature inside the device",
@@ -848,6 +962,7 @@
 }
 ,
 {
+	"type": "discrete",
 	"number": "I12",
 	"address": "200Ch",
 	"name": "day/night",

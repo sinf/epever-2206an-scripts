@@ -55,9 +55,9 @@ def parse_response(resp):
     return data
 
 def data_conv_from(data, dtype, func_r):
-    if dtype == 'uint16':
+    if dtype == 'short':
         value = struct.unpack('>H', data)[0]
-    elif dtype == 'int32le':
+    elif dtype == 'long':
         value = struct.unpack('>i', data[2:] + data[:2] )[0]
     else:
         raise ValueError(f'unknown dtype: {dtype}')
@@ -101,17 +101,17 @@ class Device:
 
     def read_all(self, driver):
         count_by_type = {
-            'uint16': 1,
-            'int32le': 2,
+            'short': 1,
+            'long': 2,
         }
         output=''
         cur_section=None
         for reg in self.regs.values():
-            if reg.get('skip'):
+            if reg.get('skip') or reg.get('disable'):
                 continue
             #if reg['address'] != 0x3104: continue ;
             print('reading:', reg['name'], reg['address'], reg['func'], file=sys.stderr)
-            dtype = reg.get('dtype', 'uint16')
+            dtype = reg.get('dtype', 'short')
             count = count_by_type[dtype]
             data = self.read_regs(driver, reg['func'], reg['address'], count)
             value = data_conv_from(data, dtype, reg['func']) * reg.get('scale', 1)
