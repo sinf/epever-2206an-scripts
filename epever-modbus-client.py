@@ -17,8 +17,10 @@ from typing import Tuple
 from http import HTTPStatus
 from urllib.parse import parse_qsl
 
-def debug_print(*args, **kwargs):
+def debug_print_nop(*args, **kwargs):
     pass
+def debug_print(*args, **kwargs):
+    print(time.strftime('[%y-%m-%d %H:%M:%S]'), *args, **kwargs, file=sys.stderr)
 
 def read_config(path):
     print('config file:', path)
@@ -540,6 +542,7 @@ def start_mqtt():
         client.loop_start()
         while True:
             delay = config("mqtt.poll_delay_s",30)
+            debug_print(f'mqtt: deciding whether to publish')
             now=time.time()
             the_device.read_regs(the_device.ids('stats'), update_older_than=now-delay)
             if regs := the_device.collect_for_push('mqtt', config('mqtt.max_publish_interval')):
@@ -547,7 +550,9 @@ def start_mqtt():
                     if reg.should_always_skip_logging() or reg.dtype == 'date_sm_hd_MY':
                         continue
                     j = json.dumps(reg.to_dict(), indent=1)
-                    client.publish(config("mqtt.topic")+'/'+reg.id, payload=j, qos=0)
+                    topic = config("mqtt.topic")+'/'+reg.id
+                    debug_print(f'mqtt: publish {len(j)} B to {topic}')
+                    client.publish(topic, payload=j, qos=0)
             time.sleep(delay)
     t=Thread(target=mqtt_main, daemon=True, name='mqtt-client')
     t.start()
@@ -590,6 +595,7 @@ def start_db():
         while True:
             delay = config("db.poll_delay_s",30)
             for table_name in tables:
+                debug_print(f'sql: check table {table_name}')
                 tv = int(config(f'db.{table_name}.interval', 24*60*60))
                 if table_name == 'daily':
                     today = time.strftime('%Y-%m-%d')
@@ -615,7 +621,7 @@ def start_db():
                         co.execute(db.insert(tables[table_name]).values(**values))
                         co.commit()
                     except db.exc.IntegrityError as e:
-                        debug_print(e) # same timestamp. ignore
+                        print(traceback.format_exc(), file=sys.stderr) # same timestamp?
 
             time.sleep(delay)
     t=Thread(target=db_main, daemon=True, name='db-client')
@@ -657,9 +663,9 @@ def main():
     ap.add_argument('-d', '--debug', action='store_true', default=False)
     ap.add_argument('-t', '--test-once', action='store_true', default=False)
     args = ap.parse_args()
-    if args.debug or args.test_once:
+    if not args.debug:
         global debug_print
-        debug_print = print
+        debug_print = debug_print_nop
 
     read_config(args.config_file)
 
