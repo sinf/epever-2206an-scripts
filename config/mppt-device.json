@@ -152,6 +152,18 @@
 ,
 {
 	"type": "input",
+	"id": "B6",
+	"address": "3105h",
+	"name": "batt_rtcurrent_test",
+	"description": "battery charging current maybe? undocumented in ControllerProtocolV2.3 table",
+	"unit": "A",
+	"scale": 0.01,
+	"dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+	"type": "input",
 	"id": "B7",
 	"address": "3106h",
 	"name": "batt_power",
@@ -161,6 +173,75 @@
 	"dtype": "long",
 	"dbtable": "stats"
 
+}
+,
+
+{
+	"type": "input",
+	"id": "B8",
+	"address": "3107h",
+	"name": "testing_b8",
+	"description": "zero ?",
+	"unit": "",
+	"scale": 0.01,
+	"dtype": "short",
+	"dbtable": "testing",
+	"skip_db": true
+
+}
+,
+{
+	"type": "input",
+	"id": "B9",
+	"address": "3108h",
+	"name": "testing_b9",
+	"description": "battery voltage ?",
+	"unit": "",
+	"scale": 0.01,
+	"dtype": "short",
+	"dbtable": "testing",
+	"skip_db": true
+
+}
+,
+{
+	"type": "input",
+	"id": "B10",
+	"address": "3109h",
+	"name": "testing_b10",
+	"description": "battery current ?",
+	"unit": "",
+	"scale": 0.01,
+	"dtype": "short",
+	"dbtable": "testing",
+	"skip_db": true
+
+}
+,
+{
+	"type": "input",
+	"id": "B11",
+	"address": "310Ah",
+	"name": "testing_b11",
+	"description": "looks similar to B15 load power, except this is slightly smaller ",
+	"unit": "",
+	"scale": 0.01,
+	"dtype": "short",
+	"dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+	"type": "input",
+	"id": "B12",
+	"address": "310Bh",
+	"name": "testing_b12",
+	"description": "zero ?",
+	"unit": "",
+	"scale": 0.01,
+	"dtype": "short",
+	"dbtable": "testing",
+	"skip_db": true
 }
 ,
 {
