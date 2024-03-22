@@ -557,7 +557,7 @@
 	"id": "D4",
 	"address": "3304h",
 	"name": "e_consumed_d",
-	"description": "consumed energy today, 00:00 clear every day",
+	"description": "consumed energy today, 00:00 clear every day. Value seems ~60% of true consumption?",
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
@@ -865,10 +865,9 @@
 	"id": "E20",
 	"address": "9013h",
 	"name": "real_time_clock",
-	"description": "real time clock sec,min,hour,day,month,year;\nD7-0 Sec, D15-8 Min.\n(Year, Month, Day, Hour, Min, Sec.\nshould be written simultaneously)",
+	"description": "real time clock: 8bit sec,min,hour,day,month,year;\nMay drift many seconds per day\n(Year, Month, Day, Hour, Min, Sec.\nshould be written simultaneously)",
 	"dtype": "date_sm_hd_MY",
 	"dbtable": "stats"
-
 }
 ,
 {
