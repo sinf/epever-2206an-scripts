@@ -574,7 +574,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "none"
 
 }
 ,
@@ -587,7 +587,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "none"
 
 }
 ,
@@ -626,7 +626,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "none"
 
 }
 ,
@@ -639,7 +639,7 @@
 	"unit": "kWh",
 	"dtype": "long",
 	"scale": 0.01,
-	"dbtable": "daily"
+	"dbtable": "none"
 
 }
 ,
@@ -867,7 +867,7 @@
 	"name": "real_time_clock",
 	"description": "real time clock sec,min,hour,day,month,year;\nD7-0 Sec, D15-8 Min.\n(Year, Month, Day, Hour, Min, Sec.\nshould be written simultaneously)",
 	"dtype": "date_sm_hd_MY",
-	"dbtable": "daily"
+	"dbtable": "stats"
 
 }
 ,

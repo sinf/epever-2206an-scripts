@@ -590,20 +590,12 @@ def start_db():
     co.commit()
 
     def db_main():
-        last_update_day = None
         debug_print('db main loop')
         while True:
             delay = config("db.poll_delay_s",30)
             for table_name in tables:
                 debug_print(f'sql: check table {table_name}')
                 tv = int(config(f'db.{table_name}.interval', 24*60*60))
-                if table_name == 'daily':
-                    today = time.strftime('%Y-%m-%d')
-                    if last_update_day == today:
-                        continue
-                    last_update_day = today
-                    tv=1
-
                 ids = the_device.ids(table_name)
                 the_device.read_regs(ids=ids, update_older_than=time.time()-delay)
                 things = the_device.collect_for_push(key='db_'+table_name, max_update_interval=tv, ids=ids)
