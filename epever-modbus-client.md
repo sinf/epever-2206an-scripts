@@ -66,13 +66,13 @@ curl $addr/e63 -d 02:30
 curl $addr/e67 -d 01:23:45
 
 
-### GET /status
+### GET /<tablename>
 
-outputs all memory
-
-### GET /status2
-
-outputs less things than /status
+outputs all registers that have dbtable=<tablename>  
+examples:
+curl $addr/stats  
+curl $addr/config  
+curl $addr/daily  
 
 ### GET /<id>
 

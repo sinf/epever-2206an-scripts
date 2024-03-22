@@ -17,8 +17,6 @@ from typing import Tuple
 from http import HTTPStatus
 from urllib.parse import parse_qsl
 
-reg_ids_subset = ["i1", "i12", "e20", "e110", "e111", "b1", "b2", "b3", "b5", "b7", "b13", "b14", "b15", "b17", "b18", "b27", "b28", "b30", "c1", "c2", "c7", "d0", "d1", "d2", "d3", "d4", "d6", "d8", "d10", "d12", "d14", "d16", "d18", "d26", "d27"]
-
 def debug_print(*args, **kwargs):
     pass
 
