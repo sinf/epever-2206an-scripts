@@ -1,0 +1,827 @@
+  sensor:
+
+    - name: 'pv_rated_voltage'
+      unique_id: 'sensor.epever2206an-1.pv_rated_voltage'
+      state_topic: 'iot/epever2206an-1/x0'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'pv_rated_current'
+      unique_id: 'sensor.epever2206an-1.pv_rated_current'
+      state_topic: 'iot/epever2206an-1/x1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'pv_rated_power'
+      unique_id: 'sensor.epever2206an-1.pv_rated_power'
+      state_topic: 'iot/epever2206an-1/x2'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'W'
+
+    - name: 'batt_rated_voltage'
+      unique_id: 'sensor.epever2206an-1.batt_rated_voltage'
+      state_topic: 'iot/epever2206an-1/x3'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_rated_current'
+      unique_id: 'sensor.epever2206an-1.batt_rated_current'
+      state_topic: 'iot/epever2206an-1/x4'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'batt_rated_power'
+      unique_id: 'sensor.epever2206an-1.batt_rated_power'
+      state_topic: 'iot/epever2206an-1/x5'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'charging_mode'
+      unique_id: 'sensor.epever2206an-1.charging_mode'
+      state_topic: 'iot/epever2206an-1/x6'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'load_rated_current'
+      unique_id: 'sensor.epever2206an-1.load_rated_current'
+      state_topic: 'iot/epever2206an-1/x7'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'pv_input_voltage'
+      unique_id: 'sensor.epever2206an-1.pv_input_voltage'
+      state_topic: 'iot/epever2206an-1/b1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'pv_input_current'
+      unique_id: 'sensor.epever2206an-1.pv_input_current'
+      state_topic: 'iot/epever2206an-1/b2'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'pv_input_power'
+      unique_id: 'sensor.epever2206an-1.pv_input_power'
+      state_topic: 'iot/epever2206an-1/b3'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'W'
+
+    - name: 'batt_rtvoltage'
+      unique_id: 'sensor.epever2206an-1.batt_rtvoltage'
+      state_topic: 'iot/epever2206an-1/b5'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_power'
+      unique_id: 'sensor.epever2206an-1.batt_power'
+      state_topic: 'iot/epever2206an-1/b7'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'W'
+
+    - name: 'load_voltage'
+      unique_id: 'sensor.epever2206an-1.load_voltage'
+      state_topic: 'iot/epever2206an-1/b13'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'load_current'
+      unique_id: 'sensor.epever2206an-1.load_current'
+      state_topic: 'iot/epever2206an-1/b14'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'load_power'
+      unique_id: 'sensor.epever2206an-1.load_power'
+      state_topic: 'iot/epever2206an-1/b15'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'W'
+
+    - name: 'batt_temp'
+      unique_id: 'sensor.epever2206an-1.batt_temp'
+      state_topic: 'iot/epever2206an-1/b17'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'eq_temp'
+      unique_id: 'sensor.epever2206an-1.eq_temp'
+      state_topic: 'iot/epever2206an-1/b18'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'batt_soc'
+      unique_id: 'sensor.epever2206an-1.batt_soc'
+      state_topic: 'iot/epever2206an-1/b27'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '%'
+
+    - name: 'batt_tempr'
+      unique_id: 'sensor.epever2206an-1.batt_tempr'
+      state_topic: 'iot/epever2206an-1/b28'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'batt_rated_volt'
+      unique_id: 'sensor.epever2206an-1.batt_rated_volt'
+      state_topic: 'iot/epever2206an-1/b30'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_status'
+      unique_id: 'sensor.epever2206an-1.batt_status'
+      state_topic: 'iot/epever2206an-1/c1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'qu_charging_status'
+      unique_id: 'sensor.epever2206an-1.qu_charging_status'
+      state_topic: 'iot/epever2206an-1/c2'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'eq_discharging_status'
+      unique_id: 'sensor.epever2206an-1.eq_discharging_status'
+      state_topic: 'iot/epever2206an-1/c7'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'pv_max_volt_d'
+      unique_id: 'sensor.epever2206an-1.pv_max_volt_d'
+      state_topic: 'iot/epever2206an-1/d0'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'pv_min_volt_d'
+      unique_id: 'sensor.epever2206an-1.pv_min_volt_d'
+      state_topic: 'iot/epever2206an-1/d1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_max_volt_d'
+      unique_id: 'sensor.epever2206an-1.batt_max_volt_d'
+      state_topic: 'iot/epever2206an-1/d2'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_min_volt_d'
+      unique_id: 'sensor.epever2206an-1.batt_min_volt_d'
+      state_topic: 'iot/epever2206an-1/d3'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'e_consumed_d'
+      unique_id: 'sensor.epever2206an-1.e_consumed_d'
+      state_topic: 'iot/epever2206an-1/d4'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_consumed_m'
+      unique_id: 'sensor.epever2206an-1.e_consumed_m'
+      state_topic: 'iot/epever2206an-1/d6'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_consumed_y'
+      unique_id: 'sensor.epever2206an-1.e_consumed_y'
+      state_topic: 'iot/epever2206an-1/d8'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_consumed'
+      unique_id: 'sensor.epever2206an-1.e_consumed'
+      state_topic: 'iot/epever2206an-1/d10'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_generated_d'
+      unique_id: 'sensor.epever2206an-1.e_generated_d'
+      state_topic: 'iot/epever2206an-1/d12'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_generated_m'
+      unique_id: 'sensor.epever2206an-1.e_generated_m'
+      state_topic: 'iot/epever2206an-1/d14'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_generated_y'
+      unique_id: 'sensor.epever2206an-1.e_generated_y'
+      state_topic: 'iot/epever2206an-1/d16'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'e_generated'
+      unique_id: 'sensor.epever2206an-1.e_generated'
+      state_topic: 'iot/epever2206an-1/d18'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'kWh'
+
+    - name: 'batt_voltage'
+      unique_id: 'sensor.epever2206an-1.batt_voltage'
+      state_topic: 'iot/epever2206an-1/d26'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'batt_current'
+      unique_id: 'sensor.epever2206an-1.batt_current'
+      state_topic: 'iot/epever2206an-1/d27'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'A'
+
+    - name: 'batt_type'
+      unique_id: 'sensor.epever2206an-1.batt_type'
+      state_topic: 'iot/epever2206an-1/e1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'batt_rated_capacity'
+      unique_id: 'sensor.epever2206an-1.batt_rated_capacity'
+      state_topic: 'iot/epever2206an-1/e2'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'Ah'
+
+    - name: 'temperature_compensation_coefficient'
+      unique_id: 'sensor.epever2206an-1.temperature_compensation_coefficient'
+      state_topic: 'iot/epever2206an-1/e3'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'mV/℃C/2V'
+
+    - name: 'high_volt_disocnnect'
+      unique_id: 'sensor.epever2206an-1.high_volt_disocnnect'
+      state_topic: 'iot/epever2206an-1/e4'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'charging_limit_voltage'
+      unique_id: 'sensor.epever2206an-1.charging_limit_voltage'
+      state_topic: 'iot/epever2206an-1/e5'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'over_voltage_reconnect'
+      unique_id: 'sensor.epever2206an-1.over_voltage_reconnect'
+      state_topic: 'iot/epever2206an-1/e6'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'equalization_voltage'
+      unique_id: 'sensor.epever2206an-1.equalization_voltage'
+      state_topic: 'iot/epever2206an-1/e7'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'boost_voltage'
+      unique_id: 'sensor.epever2206an-1.boost_voltage'
+      state_topic: 'iot/epever2206an-1/e8'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'float_voltage'
+      unique_id: 'sensor.epever2206an-1.float_voltage'
+      state_topic: 'iot/epever2206an-1/e9'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'boost_reconnect_voltage'
+      unique_id: 'sensor.epever2206an-1.boost_reconnect_voltage'
+      state_topic: 'iot/epever2206an-1/e10'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'low_voltage_reconnect'
+      unique_id: 'sensor.epever2206an-1.low_voltage_reconnect'
+      state_topic: 'iot/epever2206an-1/e11'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'under_voltage_recover'
+      unique_id: 'sensor.epever2206an-1.under_voltage_recover'
+      state_topic: 'iot/epever2206an-1/e12'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'under_voltage_warning'
+      unique_id: 'sensor.epever2206an-1.under_voltage_warning'
+      state_topic: 'iot/epever2206an-1/e13'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'low_voltage_disconnect'
+      unique_id: 'sensor.epever2206an-1.low_voltage_disconnect'
+      state_topic: 'iot/epever2206an-1/e14'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'discharging_limit_voltage'
+      unique_id: 'sensor.epever2206an-1.discharging_limit_voltage'
+      state_topic: 'iot/epever2206an-1/e15'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'real_time_clock'
+      unique_id: 'sensor.epever2206an-1.real_time_clock'
+      state_topic: 'iot/epever2206an-1/e20'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'battery_temperature_warning_upper_limit'
+      unique_id: 'sensor.epever2206an-1.battery_temperature_warning_upper_limit'
+      state_topic: 'iot/epever2206an-1/e24'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'battery_temperature_warning_lower_limit'
+      unique_id: 'sensor.epever2206an-1.battery_temperature_warning_lower_limit'
+      state_topic: 'iot/epever2206an-1/e25'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'controller_inner_temperature_upper_limit'
+      unique_id: 'sensor.epever2206an-1.controller_inner_temperature_upper_limit'
+      state_topic: 'iot/epever2206an-1/e26'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'controller_inner_temperature_upper_limit_recover'
+      unique_id: 'sensor.epever2206an-1.controller_inner_temperature_upper_limit_recover'
+      state_topic: 'iot/epever2206an-1/e27'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '℃C'
+
+    - name: 'day_time_threshold_volt'
+      unique_id: 'sensor.epever2206an-1.day_time_threshold_volt'
+      state_topic: 'iot/epever2206an-1/e31'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'light_signal_startup_night_delay_time'
+      unique_id: 'sensor.epever2206an-1.light_signal_startup_night_delay_time'
+      state_topic: 'iot/epever2206an-1/e32'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'min'
+
+    - name: 'light_time_threshold_volt'
+      unique_id: 'sensor.epever2206an-1.light_time_threshold_volt'
+      state_topic: 'iot/epever2206an-1/e33'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'V'
+
+    - name: 'light_signal_close_day_delay_time'
+      unique_id: 'sensor.epever2206an-1.light_signal_close_day_delay_time'
+      state_topic: 'iot/epever2206an-1/e34'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'min'
+
+    - name: 'load_controlling_modes'
+      unique_id: 'sensor.epever2206an-1.load_controlling_modes'
+      state_topic: 'iot/epever2206an-1/e62'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'working_time_length_1'
+      unique_id: 'sensor.epever2206an-1.working_time_length_1'
+      state_topic: 'iot/epever2206an-1/e63'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'working_time_length_2'
+      unique_id: 'sensor.epever2206an-1.working_time_length_2'
+      state_topic: 'iot/epever2206an-1/e64'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'turn_on_timing_1'
+      unique_id: 'sensor.epever2206an-1.turn_on_timing_1'
+      state_topic: 'iot/epever2206an-1/e67'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'turn_off_timing_1'
+      unique_id: 'sensor.epever2206an-1.turn_off_timing_1'
+      state_topic: 'iot/epever2206an-1/e70'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'turn_on_timing_2'
+      unique_id: 'sensor.epever2206an-1.turn_on_timing_2'
+      state_topic: 'iot/epever2206an-1/e73'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'turn_off_timing_2'
+      unique_id: 'sensor.epever2206an-1.turn_off_timing_2'
+      state_topic: 'iot/epever2206an-1/e76'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'backlight_time'
+      unique_id: 'sensor.epever2206an-1.backlight_time'
+      state_topic: 'iot/epever2206an-1/e100'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 's'
+
+    - name: 'night_length'
+      unique_id: 'sensor.epever2206an-1.night_length'
+      state_topic: 'iot/epever2206an-1/e102'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'batt_rated_voltage_code'
+      unique_id: 'sensor.epever2206an-1.batt_rated_voltage_code'
+      state_topic: 'iot/epever2206an-1/e104'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'manual_default_load_onoff'
+      unique_id: 'sensor.epever2206an-1.manual_default_load_onoff'
+      state_topic: 'iot/epever2206an-1/e107'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'equalize_duration'
+      unique_id: 'sensor.epever2206an-1.equalize_duration'
+      state_topic: 'iot/epever2206an-1/e108'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'min'
+
+    - name: 'boost_duration'
+      unique_id: 'sensor.epever2206an-1.boost_duration'
+      state_topic: 'iot/epever2206an-1/e109'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: 'min'
+
+    - name: 'discharging_percentage'
+      unique_id: 'sensor.epever2206an-1.discharging_percentage'
+      state_topic: 'iot/epever2206an-1/e110'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '%'
+
+    - name: 'charging_percentage'
+      unique_id: 'sensor.epever2206an-1.charging_percentage'
+      state_topic: 'iot/epever2206an-1/e111'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+      unit_of_measurement: '%'
+
+    - name: 'charging_management_modes'
+      unique_id: 'sensor.epever2206an-1.charging_management_modes'
+      state_topic: 'iot/epever2206an-1/e113'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'charging_device_onoff'
+      unique_id: 'sensor.epever2206an-1.charging_device_onoff'
+      state_topic: 'iot/epever2206an-1/h1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'manual_control_onoff'
+      unique_id: 'sensor.epever2206an-1.manual_control_onoff'
+      state_topic: 'iot/epever2206an-1/h3'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'default_control_onoff'
+      unique_id: 'sensor.epever2206an-1.default_control_onoff'
+      state_topic: 'iot/epever2206an-1/h4'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'enable_load_test_mode'
+      unique_id: 'sensor.epever2206an-1.enable_load_test_mode'
+      state_topic: 'iot/epever2206an-1/h6'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'force_load_onoff'
+      unique_id: 'sensor.epever2206an-1.force_load_onoff'
+      state_topic: 'iot/epever2206an-1/h7'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'over_temperature_flag'
+      unique_id: 'sensor.epever2206an-1.over_temperature_flag'
+      state_topic: 'iot/epever2206an-1/i1'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
+
+    - name: 'is_day'
+      unique_id: 'sensor.epever2206an-1.is_day'
+      state_topic: 'iot/epever2206an-1/i12'
+      value_template: '{{ value_json.value }}'
+      device:
+        name: 'Epever2206an'
+        identifiers:
+          - 'epever2206an-1'
