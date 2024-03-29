@@ -40,7 +40,7 @@ class Device:
         self.client = client # pymodbus.client.*Client
         self.slave = slave # modbus slave id
         self.lock = Lock()
-        self.lock2 = Lock()
+        self.lock2 = Lock() # only used by read_regs
         self.last_update_t = 0
         self.dbtable_regs = {} # key=(table name), value=(dict: Register by name)
 

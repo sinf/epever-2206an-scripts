@@ -38,9 +38,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             return 24*60*60
 
     def do_GET(self):
-        path=self.path
+        path=self.path.lower()
         path_parts = path.lstrip('/').split('/')
-        p0 = path_parts[0].strip().lower() if len(path_parts)>0 else None
+        p0 = path_parts[0].strip() if len(path_parts)>0 else None
         if (dbtable := p0) in the_device.dbtable_regs:
             min_t = time.time() - self.sane_update_interval(dbtable)
             keys = the_device.names(dbtable)
@@ -66,7 +66,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         if config('http_api.can_write') != True:
             return self.bad_request()
 
-        bodylen = int(self.headers.get('Content-Length'))
+        path=self.path.lower()
+        path_parts = path.lstrip('/').split('/')
+        bodylen = int(self.headers.get('Content-Length',0))
         body = self.rfile.read(bodylen)
 
         if self.path == '/write':
@@ -80,6 +82,17 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 return self.bad_request(HTTPStatus.BAD_REQUEST)
         else: # /<id>
             if (name := self.path[1:]) not in the_device.regs:
+                return self.bad_request(HTTPStatus.NOT_FOUND)
+            if (opt := path_parts[1:2]): # /<id>/something
+              if opt == 'on':
+                key_values = {name: 1}
+              elif opt == 'off':
+                key_values = {name: 0}
+              elif opt == 'toggle':
+                the_device.read_regs([name])
+                value = the_device.regs[name].value
+                key_values = {name: value == 0 ? 1 : 0}
+              else:
                 return self.bad_request(HTTPStatus.NOT_FOUND)
             key_values = {name: body.strip()}
         resp = {}
