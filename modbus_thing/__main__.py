@@ -9,16 +9,12 @@ from .device import create_device
 
 rtc_sync_interval = 2*60*60
 next_rtc_sync_t = 0
-def do_sync_rtc():
+def maybe_sync_rtc(device):
     global next_rtc_sync_t
     now = time.time()
     if now > next_rtc_sync_t:
         next_rtc_sync_t = now + rtc_sync_interval
-        date = time.strftime('%Y-%m-%dT%H:%M:%S')
-        debug_print('set rtc to', date)
-        is_error, msg = the_device.write('e20', date)
-        if is_error:
-            print('failed to write RTC register:', msg, file=sys.stderr)
+        device.sync_rtc(now)
 
 def main_loop():
     poll_delay = config('modbus_client.poll_delay_s', -1)
@@ -26,11 +22,11 @@ def main_loop():
     try:
         if poll_delay < 0:
             while True:
-                do_sync_rtc()
+                maybe_sync_rtc(the_device)
                 time.sleep(60)
         else:
             while True:
-                do_sync_rtc()
+                maybe_sync_rtc(the_device)
                 the_device.read_all()
                 time.sleep(poll_delay)
     except KeyboardInterrupt:

@@ -32,7 +32,7 @@ def start_db(the_device):
             else:
                 assert False, "unimplemented"
                 continue
-            cols += [db.Column(reg.id.lower(), x_type, nullable=False)]
+            cols += [db.Column(reg.name, x_type, nullable=False)]
         tables[table_name] = db.Table(config('db.table_prefix','')+table_name, me, *cols)
 
     me.create_all(en)
@@ -53,7 +53,7 @@ def start_db(the_device):
                     values = {}
                     t=0
                     for r in the_device.dbtable_regs[table_name].values():
-                        values[r.id] = r.value
+                        values[r.name] = r.value
                         t = max(t, r.last_write_t)
                     t = int(t*1000) # s -> ms
                     values['t'] = t

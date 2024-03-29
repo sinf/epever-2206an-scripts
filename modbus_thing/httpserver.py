@@ -43,18 +43,18 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         p0 = path_parts[0].strip().lower() if len(path_parts)>0 else None
         if (dbtable := p0) in the_device.dbtable_regs:
             min_t = time.time() - self.sane_update_interval(dbtable)
-            ids = the_device.ids(dbtable)
-            the_device.read_regs(ids=ids, update_older_than=min_t)
-            resp = the_device.to_json(ids=ids, indent=1)
+            keys = the_device.names(dbtable)
+            the_device.read_regs(keys, update_older_than=min_t)
+            resp = the_device.to_json(keys, indent=1)
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(resp.encode())
-        elif (id := p0) in the_device.regs: # /<id>
-            reg = the_device.regs[id]
+        elif (name := p0) in the_device.regs: # /<id>
+            reg = the_device.regs[name]
             min_t = time.time() - self.sane_update_interval(reg.dbtable)
-            the_device.read_regs(ids=[id], update_older_than=min_t)
-            resp = the_device.to_json(ids=[id], indent=1)
+            the_device.read_regs([name], update_older_than=min_t)
+            resp = the_device.to_json([name], indent=1)
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
@@ -72,22 +72,22 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/write':
             t=self.headers.get('Content-Type')
             if t == 'application/json':
-                ids_values = json.loads(body)
+                key_values = json.loads(body)
             elif t == 'application/x-www-form-urlencoded':
                 f = lambda x: x.decode('utf-8', errors='ignore')
-                ids_values = dict((f(k),f(v)) for k,v in parse_qsl(body))
+                key_values = dict((f(k),f(v)) for k,v in parse_qsl(body))
             else:
                 return self.bad_request(HTTPStatus.BAD_REQUEST)
         else: # /<id>
-            if (id := self.path[1:]) not in the_device.regs:
+            if (name := self.path[1:]) not in the_device.regs:
                 return self.bad_request(HTTPStatus.NOT_FOUND)
-            ids_values = {id: body.strip()}
+            key_values = {name: body.strip()}
         resp = {}
         ok=True
-        print(ids_values)
-        for id, value in ids_values.items():
-            is_error, msg = the_device.write(id, value)
-            resp[id] = msg if is_error else 'ok'
+        print(key_values)
+        for name, value in key_values.items():
+            is_error, msg = the_device.write(name, value)
+            resp[name] = msg if is_error else 'ok'
             ok = ok and not is_error
         resp_j = json.dumps(resp, indent=4).encode()
         self.send_response(HTTPStatus.OK if ok else HTTPStatus.INTERNAL_SERVER_ERROR)

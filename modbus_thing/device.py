@@ -35,18 +35,23 @@ class Device:
         client: pymodbus.client.*Client
         slave: modbus slave number
         """
-        self.mem = {}
-        self.regs = {}
-        self.client = client
-        self.slave = slave
+        self.mem = {} # key=address, value=MemoryCell 
+        self.regs = {} # key=(register name), value=Register
+        self.client = client # pymodbus.client.*Client
+        self.slave = slave # modbus slave id
         self.lock = Lock()
         self.lock2 = Lock()
         self.last_update_t = 0
-        self.dbtable_regs = {}
+        self.dbtable_regs = {} # key=(table name), value=(dict: Register by name)
+
+    def for_db_regs(self):
+        for tablename, regs_by_name in self.dbtable_regs.items():
+          for reg in regs_by_name.values():
+            yield reg
 
     def read_all(self):
         for tab in self.dbtable_regs.keys():
-            self.read_regs(ids=self.ids(tab))
+            self.read_regs(self.names(tab))
 
     def state_dict(self, ids=None):
         if ids is None:
@@ -60,10 +65,10 @@ class Device:
             'regs': regs_d,
         }
 
-    def to_json(self, ids=None, **kwargs):
+    def to_json(self, names=None, **kwargs):
         return json.dumps(self.state_dict(ids), **kwargs)
 
-    def collect_for_push(self, key, max_update_interval=None, ids=None):
+    def collect_for_push(self, key, max_update_interval=None, names=None):
         """ doesn't call .read_regs, may operate on stale data """
         now=None
         deadline=None
@@ -73,7 +78,7 @@ class Device:
         with self.lock:
             output=[]
             for r in self.regs.values():
-                if ids is None or r.id in ids:
+                if names is None or r.name in names:
                     r.collect_for_push(output, key, deadline, now)
         return output
 
@@ -85,13 +90,13 @@ class Device:
                     if reg.get('disable'):
                         continue
                     r = Register(reg)
-                    assert r.id not in self.regs
-                    self.regs[r.id] = r
+                    assert r.name not in self.regs
+                    self.regs[r.name] = r
                     for addr in r.addresses:
                         self.mem[addr] = MemoryCell()
                     if (r.dbtable and r.dbtable != 'none') and not r.should_always_skip_logging():
                         f = self.dbtable_regs.get(r.dbtable, {})
-                        f[r.id] = r
+                        f[r.name] = r
                         self.dbtable_regs[r.dbtable] = f
 
         singles = []
@@ -110,11 +115,14 @@ class Device:
         for r in self.regs.values():
             r.is_dirty =  True
 
-    def write(self, id, value:str):
-        # regs[id] is not updated here. it will update next time when the data is read back (if write succeeds)
-        if id not in self.regs:
-            return True, 'invalid id: '+str(id)
-        reg = self.regs[id]
+    def write(self, name, value:str):
+        """
+        This function only sends write command but doesn't update self.regs[name]
+        it will update next time when the data is read back (if write succeeds)
+        """
+        if name not in self.regs:
+            return True, 'invalid register name: '+str(name)
+        reg = self.regs[name]
         try:
             words = reg.parse_str(value)
         except ValueError as e:
@@ -123,7 +131,7 @@ class Device:
             reg.is_dirty = True
             self.set_all_dirty() # in case 1 register somehow affects others
             addr = reg.address
-            debug_print('write', id, words)
+            debug_print('write', name, words)
             if reg.type == 'holding':
                 if len(words) == 1:
                     resp=self.client.write_register(addr, words[0], self.slave)
@@ -187,7 +195,7 @@ class Device:
         for a in addresses:
             self.read_range_1(a, 1, func)
 
-    def ids(self, dbtable):
+    def names(self, dbtable):
         return list(self.dbtable_regs[dbtable].keys())
 
     def read_regs(self, ids, update_older_than=None):
@@ -227,9 +235,18 @@ class Device:
 
     def table(self):
         print()
-        for r in sorted(self.regs.values(), key=lambda r: (r.type,r.id)):
-            print(f'{r.id:10s} {r.name:45s} = {r.rawh:9s}  = {r.value} {r.unit}')
+        for r in sorted(self.regs.values(), key=lambda r: (r.type,r.name)):
+            print(f'{r.name:45s} = {r.rawh:9s}  = {r.value} {r.unit}')
         print()
+
+    def sync_rtc(self, timestamp):
+        date = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime(timestamp))
+        is_error, msg = self.write('e20', date)
+        debug_print('set rtc to', date)
+        if is_error:
+            print('failed to write RTC register:', msg, file=sys.stderr)
+            return False
+        return True
 
 
 def create_device():
@@ -244,10 +261,10 @@ def create_device():
       print('Connecting modbus client to:', host, port)
       # todo, start other modbus clients
       client = ModbusTcpClient(host=host, port=port, framer='rtu',
-          timeout=3, retries=3, retry_on_empty=True)
+          timeout=10, retries=3, retry_on_empty=True, auto_close=True, auto_open=True)
 
     dev = Device(client=client, slave=1)
     dev.parse_config('config/mppt-device.json')
-    dev.read_regs(ids=['b5']) # try to trigger an early error if something isn't right
+    dev.read_regs(['batt_rtvoltage']) # try to trigger an early error if something isn't right
     return dev
 

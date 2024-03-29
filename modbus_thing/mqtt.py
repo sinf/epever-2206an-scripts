@@ -25,7 +25,7 @@ def start_mqtt(the_device):
                     if reg.should_always_skip_logging() or reg.dtype == 'date_sm_hd_MY':
                         continue
                     j = json.dumps(reg.to_dict(), indent=1)
-                    topic = config("mqtt.topic")+'/'+reg.id
+                    topic = config("mqtt.topic")+'/'+reg.name
                     debug_print(f'mqtt: publish {len(j)} B to {topic}')
                     client.publish(topic, payload=j, qos=0)
             time.sleep(delay)

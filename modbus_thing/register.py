@@ -2,6 +2,7 @@ import json
 import struct
 import time
 import sys
+import re
 from threading import Lock
 from .util import *
 
@@ -32,8 +33,6 @@ def parse_address(x):
 class Register:
     def __init__(self, j):
         """ j: object parsed from json 
-        id: b3 or something, short unique string
-        name: usable as database column name, e.g. battery_voltage
         dtype can be:
           short (16bit), default
           long (32bit)
@@ -43,8 +42,10 @@ class Register:
         """
         self.config = j
         self.type = j['type']
-        self.id = j['id'].lower()
         self.name = j['name']
+        name_rex = r'^[a-z][a-z_0-9]+$'
+        if not re.match(name_rex, self.name):
+          raise ValueError(f'register name {self.name} does not conform with {name_rex}')
         self.address = parse_address(j['address'])
         self.unit = j.get('unit','')
         self.scale = j.get('scale', 1)
@@ -137,7 +138,6 @@ class Register:
     def to_dict(self):
         with self.lock:
             thing = {
-                'id': self.id,
                 'name': self.name,
                 'value': self.value,
                 'raw': self.rawh.strip(),
@@ -176,5 +176,5 @@ class Register:
     def __str__(self):
         return self.__repr__()
     def __repr__(self):
-        return f'({self.id}) {self.name}'
+        return f'{self.name}'
 
