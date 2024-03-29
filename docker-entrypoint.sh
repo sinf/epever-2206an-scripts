@@ -1,4 +1,4 @@
 #!/bin/sh
 . ./venv/bin/activate
-python3 epever-modbus-client.py $@
+python3 -m modbus_thing $@
 

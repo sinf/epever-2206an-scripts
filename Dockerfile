@@ -13,8 +13,8 @@ RUN python -m venv ./venv \
 
 COPY epever-modbus-client.md .
 COPY config/epever-modbus-client-config.json.template .
-COPY epever-modbus-client.py .
 COPY docker-entrypoint.sh .
+COPY ./modbus_thing ./modbus_thing
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 

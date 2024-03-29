@@ -1,8 +1,10 @@
 {
+  "description": "config for testing FakeClient with a local HTTP server",
 	"modbus_client": {
 		"ip": "127.0.0.1",
 		"port": 4196,
-		"poll_delay_s": -1
+		"poll_delay_s": -1,
+    "fake": true
 	},
 	"http_api": {
 		"bind_ip": "0.0.0.0",
@@ -22,7 +24,7 @@
 		"url": "sqlite:///testing.db",
 		"table_prefix": "epever_",
 		"poll_delay_s": 5,
-		"enable": false
+		"enable": true
 	}
 }
 
