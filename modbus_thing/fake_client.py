@@ -31,10 +31,10 @@ class FakeClient:
     self._write(address, words, slave, 'reg')
     return WriteMultipleRegistersResponse(address=address, count=len(words))
   def write_register(self, address, word, slave):
-    return write_registers(address, [word], slave)
+    return self.write_registers(address, [word], slave)
   def write_coils(self, address, values, slave):
     self._write(address, values, slave, 'coil')
-    return WriteMultipleRegistersResponse(address=address, count=len(words))
+    return WriteMultipleRegistersResponse(address=address, count=len(values))
   def write_coil(self, address, value, slave):
     return self.write_coils(address, [value], slave)
 
