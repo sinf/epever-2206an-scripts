@@ -2,13 +2,31 @@ import sys
 import time
 import traceback
 from threading import Thread
+import logging
+
+try:
+  import sqlalchemy as db 
+except ImportError:
+  print('failed to import sqlalchemy', file=sys.stderr)
 
 from .util import *
 from .register import *
 from .device import *
 
+def get_dtype(reg):
+  if reg.dtype in ('short', 'long'):
+      return db.Integer() if reg.is_integer_type() else db.Float()
+  elif reg.dtype in ('delay_hm', 'delay_smh'):
+      return db.String(length=8)
+  elif reg.dtype == 'date_sm_hd_MY':
+      return db.String(length=20)
+  else:
+      raise Exception("unimplemented")
+
 def start_db(the_device):
-    import sqlalchemy as db 
+    if get_debug_level():
+      logging.basicConfig()
+      logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
     url=config("db.url")
     print('starting db thread:')
@@ -16,24 +34,17 @@ def start_db(the_device):
     co = en.connect()
     me = db.MetaData()
     tables = {}
+    prefix = config('db.table_prefix','')
 
+    # real time stats: 1 line per status update
     for table_name, regs in the_device.dbtable_regs.items():
         cols = [
-            db.Column('t', db.BigInteger(), primary_key=True),
-            db.Column('device_id', db.Integer(), nullable=False),
+          db.Column('t', db.BigInteger(), primary_key=True),
+          db.Column('device_id', db.Integer(), nullable=False),
         ]
         for reg in regs.values():
-            if reg.dtype in ('short', 'long'):
-                x_type = db.Integer() if reg.is_integer_type() else db.Float()
-            elif reg.dtype in ('delay_hm', 'delay_smh'):
-                x_type = db.String(length=8)
-            elif reg.dtype == 'date_sm_hd_MY':
-                x_type = db.String(length=20)
-            else:
-                assert False, "unimplemented"
-                continue
-            cols += [db.Column(reg.name, x_type, nullable=False)]
-        tables[table_name] = db.Table(config('db.table_prefix','')+table_name, me, *cols)
+            cols += [db.Column(reg.name, get_dtype(reg), nullable=False)]
+        tables[table_name] = db.Table(prefix+table_name, me, *cols)
 
     me.create_all(en)
     co.commit()
@@ -45,9 +56,9 @@ def start_db(the_device):
             for table_name in tables:
                 debug_print(f'sql: check table {table_name}')
                 tv = int(config(f'db.{table_name}.interval', 24*60*60))
-                ids = the_device.ids(table_name)
-                the_device.read_regs(ids=ids, update_older_than=time.time()-delay)
-                things = the_device.collect_for_push(key='db_'+table_name, max_update_interval=tv, ids=ids)
+                ids = the_device.names(table_name)
+                the_device.read_regs(ids, update_older_than=time.time()-delay)
+                things = the_device.collect_for_push(key='db_'+table_name, max_update_interval=tv, names=ids)
                 if things:
                     debug_print('sql push update to', table_name)
                     values = {}
