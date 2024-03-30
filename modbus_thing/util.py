@@ -4,6 +4,9 @@ import time
 
 enable_debug_print=False
 
+def get_debug_level():
+  return enable_debug_print
+
 def set_debug_level(level):
   global enable_debug_print
   enable_debug_print=level
