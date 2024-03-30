@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.19.1 # Jan 27, 2024
 RUN apk add python3
 RUN apk add py-pip
 RUN rm -rf /var/cache/apk
