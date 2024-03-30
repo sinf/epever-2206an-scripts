@@ -88,10 +88,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 key_values = {name: 1}
               elif opt == 'off':
                 key_values = {name: 0}
-              elif opt == 'toggle':
-                the_device.read_regs([name])
-                value = the_device.regs[name].value
-                key_values = {name: value == 0 ? 1 : 0}
               else:
                 return self.bad_request(HTTPStatus.NOT_FOUND)
             key_values = {name: body.strip()}
