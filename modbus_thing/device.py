@@ -66,7 +66,7 @@ class Device:
         }
 
     def to_json(self, names=None, **kwargs):
-        return json.dumps(self.state_dict(ids), **kwargs)
+        return json.dumps(self.state_dict(names), **kwargs)
 
     def collect_for_push(self, key, max_update_interval=None, names=None):
         """ doesn't call .read_regs, may operate on stale data """
@@ -241,7 +241,7 @@ class Device:
 
     def sync_rtc(self, timestamp):
         date = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime(timestamp))
-        is_error, msg = self.write('e20', date)
+        is_error, msg = self.write('real_time_clock', date)
         debug_print('set rtc to', date)
         if is_error:
             print('failed to write RTC register:', msg, file=sys.stderr)
