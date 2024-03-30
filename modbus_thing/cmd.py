@@ -28,6 +28,7 @@ def main():
     if args.key:
       if args.key in ('*', 'all'):
         dev.read_all()
+        dev.read_regs(dev.names('testing'))
         print(dev.table())
       else:
         err, msg = dev.write(args.key, args.value)
