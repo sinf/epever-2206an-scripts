@@ -1,8 +1,7 @@
 
 # Modbus-MQTT-SQL integration
 
-The main beef is [epever-modbus-client.py](epever-modbus-client.md).  
-This repository will also have other scripts for interacting with Epever 2206AN and other similar charge controllers.  
+This repository is a bag of scripts and hacks to make Epever's solar charge controller operable with MQTT, PostgreSQL and HomeAssistant and whatnot.  
 
 # Epever 2206AN
 
