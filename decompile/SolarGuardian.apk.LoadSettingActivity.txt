@@ -1,0 +1,1003 @@
+package com.mdtit.PhoneControler.ui;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.mdtit.PhoneControler.R;
+import com.mdtit.PhoneControler.app.PhoneControlerApp;
+import com.mdtit.PhoneControler.entity.SolarControlerData;
+import com.mdtit.PhoneControler.entity.Time;
+import com.mdtit.PhoneControler.utils.MLog;
+import com.mdtit.PhoneControler.utils.ResolveReaderData;
+import com.mdtit.PhoneControler.utils.UtilsStr;
+import com.mdtit.PhoneControler.widget.ChoosePercentView;
+import com.mdtit.PhoneControler.widget.wheel.StrericWheelAdapter;
+import com.mdtit.PhoneControler.widget.wheel.WheelView;
+import com.umeng.message.proguard.C;
+import java.util.Calendar;
+import java.util.Date;
+import org.android.spdy.TnetStatusCode;
+
+@SuppressLint({"NewApi"})
+/* loaded from: classes.dex */
+public class LoadSettingActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+    protected static final int LIGHT_TIME_MODE_ONE = 1;
+    protected static final int LIGHT_TIME_MODE_TWO = 2;
+    protected static final int MSG_READ_DATA_SUCCEFUL = 10;
+    protected static final int MSG_SET_DATA_SUCCEFUL = 11;
+    private static final String TAG = "LoadSettingActivity";
+    private WheelView dayWheel;
+    private ChoosePercentView dialog_light_and_time_choose_percent_first;
+    private ChoosePercentView dialog_light_and_time_choose_percent_second;
+    private ChoosePercentView dialog_light_and_time_choose_percent_third;
+    private RelativeLayout dialog_light_and_time_third_layout;
+    private EditText dialog_light_setting_day_delay_time_901F;
+    private EditText dialog_light_setting_day_volt_901E;
+    private EditText dialog_light_setting_night_delay_time_21;
+    private EditText dialog_light_setting_night_volt_9020;
+    private TextView dialog_light_time_903e;
+    private TextView dialog_light_time_903f;
+    private TextView dialog_light_time_9040;
+    private CheckBox dialog_manual_switch_check_box;
+    private TextView dialog_manual_switch_check_text;
+    private WheelView hourWheel;
+    private LinearLayout led_rate_current_layout;
+    private LinearLayout lightAndTimeBtn;
+    private LinearLayout lightBtn;
+    private LinearLayout light_time_mode_first;
+    private LinearLayout light_time_mode_normal;
+    private LinearLayout light_time_mode_second;
+    protected Time loadLightTimeFirst_903e_or_907a;
+    protected Time loadLightTimeNightPeriod_9065;
+    protected Time loadLightTimeSecond_903f_or_907b;
+    protected Time loadLightTimeThird_9040_or_907c;
+    private EditText load_led_Rated_Current_text_9078;
+    private LinearLayout load_light_setting_show_layout;
+    private LinearLayout load_light_time_show_layout;
+    private LinearLayout load_manual_seting_show_layout;
+    private LinearLayout load_read_icon_layout;
+    private LinearLayout load_send_icon_layout;
+    private LinearLayout load_setting_light_and_time_percent_layout;
+    private LinearLayout load_setting_time_percent_layout;
+    private CheckBox load_setting_time_second_check_box;
+    private TextView load_setting_turn_off_time_first;
+    private TextView load_setting_turn_off_time_second;
+    private TextView load_setting_turn_on_time_first;
+    private TextView load_setting_turn_on_time_second;
+    private LinearLayout load_time_second_time_layout;
+    private ChoosePercentView load_time_setting_percent_first;
+    private ChoosePercentView load_time_setting_percent_second;
+    private LinearLayout load_time_show_layout;
+    private LinearLayout manualBtn;
+    private WheelView minuteWheel;
+    private WheelView monthWheel;
+    private RadioGroup radioGroup;
+    protected CheckBox return_to_nomal_state_check_box;
+    private LinearLayout return_to_nomal_state_layout_9072;
+    private WheelView secondWheel;
+    private LinearLayout timeBtn;
+    private LinearLayout titleBackLayout;
+    private TextView titleContentText;
+    protected Time turnOffTimeFirstData;
+    protected Time turnOffTimeSecondData;
+    protected Time turnOnTimeFirstData;
+    protected Time turnOnTimeSecondData;
+    private WheelView yearWheel;
+    public static String[] yearContent = null;
+    public static String[] monthContent = null;
+    public static String[] dayContent = null;
+    public static String[] hourContent = null;
+    public static String[] minuteContent = null;
+    public static String[] secondContent = null;
+    protected int currentLightAndTimeMode = 1;
+    protected int currentControlMode = 0;
+    Handler handler = new Handler(Looper.getMainLooper()) { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.1
+        @Override // android.os.Handler
+        public void handleMessage(Message msgRW) {
+            super.handleMessage(msgRW);
+            switch (msgRW.what) {
+                case 10:
+                    LoadSettingActivity.this.tempSolarData = (SolarControlerData) LoadSettingActivity.this.mSolarData.clone();
+                    LoadSettingActivity.this.setData();
+                    LoadSettingActivity.this.dismissProgressDialog();
+                    return;
+                case 11:
+                    if (LoadSettingActivity.this.isOperatedSucceessful) {
+                        LoadSettingActivity.this.setData();
+                        return;
+                    }
+                    return;
+                default:
+                    return;
+            }
+        }
+    };
+    private int minYear = 1970;
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // com.mdtit.PhoneControler.ui.BaseActivity, android.app.Activity
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_load_setting_layout);
+        this.titleBackLayout = (LinearLayout) findViewById(R.id.title_back_btn);
+        this.titleBackLayout.setOnClickListener(this);
+        this.titleContentText = (TextView) findViewById(R.id.title_activity_name);
+        this.titleContentText.setText(R.string.load_setting);
+        this.load_send_icon_layout = (LinearLayout) findViewById(R.id.load_send_icon_layout);
+        this.load_read_icon_layout = (LinearLayout) findViewById(R.id.load_read_icon_layout);
+        this.load_send_icon_layout.setOnClickListener(this);
+        this.load_read_icon_layout.setOnClickListener(this);
+        this.manualBtn = (LinearLayout) findViewById(R.id.load_setting_manul_layout);
+        this.lightBtn = (LinearLayout) findViewById(R.id.load_setting_light_layout);
+        this.lightAndTimeBtn = (LinearLayout) findViewById(R.id.load_setting_time_and_light_layout);
+        this.timeBtn = (LinearLayout) findViewById(R.id.load_setting_time_layout);
+        this.manualBtn.setOnClickListener(this);
+        this.lightBtn.setOnClickListener(this);
+        this.lightAndTimeBtn.setOnClickListener(this);
+        this.timeBtn.setOnClickListener(this);
+        this.return_to_nomal_state_layout_9072 = (LinearLayout) findViewById(R.id.return_to_nomal_state_layout_9072);
+        this.led_rate_current_layout = (LinearLayout) findViewById(R.id.led_rate_current_layout);
+        this.return_to_nomal_state_check_box = (CheckBox) findViewById(R.id.return_to_nomal_state_check_box);
+        this.return_to_nomal_state_check_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.2
+            @Override // android.widget.CompoundButton.OnCheckedChangeListener
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                double temp9072Value;
+                if (LoadSettingActivity.this.return_to_nomal_state_check_box.isChecked()) {
+                    temp9072Value = 0.0d;
+                } else {
+                    temp9072Value = 65535.0d;
+                }
+                LoadSettingActivity.this.tempSolarData.setReg_9072(temp9072Value);
+            }
+        });
+        this.load_led_Rated_Current_text_9078 = (EditText) findViewById(R.id.load_led_Rated_Current_text_300E);
+        this.return_to_nomal_state_layout_9072.setOnClickListener(this);
+        initCurrentLoadShowView();
+        setCheckedBackClolor(this.manualBtn);
+        this.currentControlMode = (int) this.mSolarData.getReg_903d_load_output_control_mode();
+        setData();
+        if (this.mSolarData.isLoadDefault()) {
+            setLoadSettingDefaultData();
+        }
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // com.mdtit.PhoneControler.ui.BaseActivity, android.app.Activity
+    public void onResume() {
+        super.onResume();
+    }
+
+    protected void initCurrentLoadShowView() {
+        initTimeShowView();
+        initManuaulShowView();
+        initLightShowView();
+        initLightAndTimeShowView();
+        this.radioGroup = (RadioGroup) findViewById(R.id.load_light_and_time_mode_radiogroup);
+        this.radioGroup.setOnCheckedChangeListener(this);
+        if (this.currentLightAndTimeMode == 1) {
+            ((RadioButton) this.radioGroup.findViewById(R.id.load_light_and_time_mode_one)).setChecked(true);
+            this.currentControlMode = 4;
+            this.light_time_mode_first.setVisibility(0);
+            this.light_time_mode_second.setVisibility(8);
+        } else if (this.currentLightAndTimeMode == 2) {
+            ((RadioButton) this.radioGroup.findViewById(R.id.load_light_and_time_mode_two)).setChecked(true);
+            this.currentControlMode = 2;
+            this.light_time_mode_second.setVisibility(0);
+            this.light_time_mode_first.setVisibility(8);
+        }
+    }
+
+    protected void initTimeShowView() {
+        this.load_time_show_layout = (LinearLayout) findViewById(R.id.load_time_show_layout);
+        this.load_setting_turn_on_time_first = (TextView) findViewById(R.id.load_setting_turn_on_time_first);
+        this.load_setting_turn_off_time_first = (TextView) findViewById(R.id.load_setting_turn_off_time_first);
+        this.load_time_second_time_layout = (LinearLayout) findViewById(R.id.load_time_second_time_layout);
+        this.load_setting_turn_on_time_second = (TextView) findViewById(R.id.load_setting_turn_on_time_second);
+        this.load_setting_turn_off_time_second = (TextView) findViewById(R.id.load_setting_turn_off_time_second);
+        this.load_setting_turn_on_time_first.setOnClickListener(this);
+        this.load_setting_turn_off_time_first.setOnClickListener(this);
+        this.load_setting_turn_on_time_second.setOnClickListener(this);
+        this.load_setting_turn_off_time_second.setOnClickListener(this);
+        this.load_setting_time_second_check_box = (CheckBox) findViewById(R.id.load_setting_time_second_check_box);
+        this.load_setting_time_second_check_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.3
+            @Override // android.widget.CompoundButton.OnCheckedChangeListener
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                LoadSettingActivity.this.tempSolarData.setLoadTime2Checked(isChecked);
+                LoadSettingActivity.this.mSolarData.setLoadTime2Checked(isChecked);
+                if (!isChecked) {
+                    LoadSettingActivity.this.load_setting_turn_on_time_second.setClickable(false);
+                    LoadSettingActivity.this.load_setting_turn_off_time_second.setClickable(false);
+                    LoadSettingActivity.this.load_time_setting_percent_second.setViewClickbale(false);
+                    LoadSettingActivity.this.load_time_second_time_layout.setBackgroundDrawable(LoadSettingActivity.this.getResources().getDrawable(R.drawable.load_time_mode_second_layotu_bg));
+                    LoadSettingActivity.this.load_time_setting_percent_second.setBackgroundDrawable(LoadSettingActivity.this.getResources().getDrawable(R.drawable.load_time_mode_second_layotu_bg));
+                    return;
+                }
+                LoadSettingActivity.this.load_time_setting_percent_second.setViewClickbale(true);
+                LoadSettingActivity.this.load_setting_turn_on_time_second.setClickable(true);
+                LoadSettingActivity.this.load_setting_turn_off_time_second.setClickable(true);
+                LoadSettingActivity.this.load_time_second_time_layout.setBackgroundDrawable(LoadSettingActivity.this.getResources().getDrawable(R.drawable.load_time_show_layotu_back_ground));
+                LoadSettingActivity.this.load_time_setting_percent_second.setBackgroundDrawable(LoadSettingActivity.this.getResources().getDrawable(R.drawable.percent_view_bg));
+            }
+        });
+        this.load_setting_time_percent_layout = (LinearLayout) findViewById(R.id.load_setting_time_percent_layout);
+        this.load_time_setting_percent_first = (ChoosePercentView) findViewById(R.id.show_time_choose_percent_first);
+        this.load_time_setting_percent_second = (ChoosePercentView) findViewById(R.id.show_time_choose_percent_second);
+        this.load_time_setting_percent_first.setViewClickbale(true);
+        this.load_time_setting_percent_second.setViewClickbale(true);
+        Date mDate = new Date(System.currentTimeMillis());
+        int hour = mDate.getHours();
+        int minute = mDate.getMinutes();
+        this.turnOnTimeFirstData = new Time(hour, minute);
+        this.turnOffTimeFirstData = new Time(hour, minute);
+        this.turnOnTimeSecondData = new Time(hour, minute);
+        this.turnOffTimeSecondData = new Time(hour, minute);
+        this.loadLightTimeFirst_903e_or_907a = new Time(hour, minute);
+        this.loadLightTimeSecond_903f_or_907b = new Time(hour, minute);
+        this.loadLightTimeNightPeriod_9065 = new Time(hour, minute);
+        this.loadLightTimeThird_9040_or_907c = new Time(hour, minute);
+        setTimeShowData();
+    }
+
+    protected void setTimeShowData() {
+        int minute = (int) this.mSolarData.getReg_9043_time_one_open_minute();
+        int hour = (int) this.mSolarData.getReg_9044_time_one_open_hour();
+        this.turnOnTimeFirstData.setTime(hour, minute);
+        int minute2 = (int) this.mSolarData.getReg_9046_time_one_close_minute();
+        int hour2 = (int) this.mSolarData.getReg_9047_time_one_close_hour();
+        this.turnOffTimeFirstData.setTime(hour2, minute2);
+        int minute3 = (int) this.mSolarData.getReg_9049_time_two_open_minute();
+        int hour3 = (int) this.mSolarData.getReg_904a_time_two_open_hour();
+        this.turnOnTimeSecondData.setTime(hour3, minute3);
+        int minute4 = (int) this.mSolarData.getReg_904c_time_two_close_minute();
+        int hour4 = (int) this.mSolarData.getReg_904d_time_two_close_hour();
+        this.turnOffTimeSecondData.setTime(hour4, minute4);
+        if (this.mSolarData.getReg_9069_timed_control_qutum() > 0.0d) {
+            this.tempSolarData.setLoadTime2Checked(true);
+            this.mSolarData.setLoadTime2Checked(true);
+        } else {
+            this.tempSolarData.setLoadTime2Checked(false);
+            this.mSolarData.setLoadTime2Checked(false);
+        }
+        this.load_setting_turn_on_time_first.setText(this.turnOnTimeFirstData.toString());
+        this.load_setting_turn_off_time_first.setText(this.turnOffTimeFirstData.toString());
+        this.load_setting_turn_on_time_second.setText(this.turnOnTimeSecondData.toString());
+        this.load_setting_turn_off_time_second.setText(this.turnOffTimeSecondData.toString());
+        this.load_time_setting_percent_first.setCurrentPosition((int) this.mSolarData.getReg_9080led_current_1_percent_100());
+        this.load_time_setting_percent_second.setCurrentPosition((int) this.mSolarData.getReg_9081_led_current_2_percent_100());
+        if (this.tempSolarData.isLoadTime2Checked()) {
+            this.load_setting_time_second_check_box.setChecked(this.tempSolarData.isLoadTime2Checked());
+            this.load_time_setting_percent_second.setViewClickbale(true);
+            this.load_setting_turn_on_time_second.setClickable(true);
+            this.load_setting_turn_off_time_second.setClickable(true);
+            this.load_time_second_time_layout.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_time_show_layotu_back_ground));
+            this.load_time_setting_percent_second.setBackgroundDrawable(getResources().getDrawable(R.drawable.percent_view_bg));
+            return;
+        }
+        this.load_setting_time_second_check_box.setChecked(this.tempSolarData.isLoadTime2Checked());
+        this.load_setting_turn_on_time_second.setClickable(false);
+        this.load_setting_turn_off_time_second.setClickable(false);
+        this.load_time_setting_percent_second.setViewClickbale(false);
+        this.load_time_second_time_layout.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_time_mode_second_layotu_bg));
+        this.load_time_setting_percent_second.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_time_mode_second_layotu_bg));
+    }
+
+    protected void initManuaulShowView() {
+        this.load_manual_seting_show_layout = (LinearLayout) findViewById(R.id.load_manual_seting_show_layout);
+        this.dialog_manual_switch_check_text = (TextView) findViewById(R.id.dialog_manual_switch_check_text);
+        this.dialog_manual_switch_check_box = (CheckBox) findViewById(R.id.dialog_manual_switch_check_box);
+        this.dialog_manual_switch_check_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.4
+            @Override // android.widget.CompoundButton.OnCheckedChangeListener
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                double controlerMode;
+                if (isChecked) {
+                    controlerMode = 1.0d;
+                    LoadSettingActivity.this.dialog_manual_switch_check_text.setText(R.string.Load_Manually_On_By_Default);
+                } else {
+                    controlerMode = 0.0d;
+                    LoadSettingActivity.this.dialog_manual_switch_check_text.setText(R.string.Load_Manually_Off_By_Default);
+                }
+                LoadSettingActivity.this.tempSolarData.setReg_906a_manual_operation_control_switch(controlerMode);
+            }
+        });
+        setManualShowData();
+    }
+
+    protected void setManualShowData() {
+        double reg_906a_manual_operation_control_switch = this.mSolarData.getReg_906a_manual_operation_control_switch();
+        this.dialog_manual_switch_check_box.setChecked(reg_906a_manual_operation_control_switch == 1.0d);
+    }
+
+    protected void initLightShowView() {
+        this.load_light_setting_show_layout = (LinearLayout) findViewById(R.id.load_light_setting_show_layout);
+        this.dialog_light_setting_day_volt_901E = (EditText) findViewById(R.id.dialog_light_setting_day_volt_901E);
+        this.dialog_light_setting_day_delay_time_901F = (EditText) findViewById(R.id.dialog_light_setting_day_delay_time_901F);
+        this.dialog_light_setting_night_volt_9020 = (EditText) findViewById(R.id.dialog_light_setting_night_volt_9020);
+        this.dialog_light_setting_night_delay_time_21 = (EditText) findViewById(R.id.dialog_light_setting_night_delay_time_21);
+        setLightShowData();
+    }
+
+    protected void setLightShowData() {
+        double reg_901eValue = this.mSolarData.getReg_901e_optical_night_threshold_voltage_100();
+        int reg_901fValue = (int) this.mSolarData.getReg_901f_optical_open_ensure_time();
+        double reg_9020Value = this.mSolarData.getReg_9020_optical_day_threshold_voltage_100();
+        int reg_9021Value = (int) this.mSolarData.getReg_9021_optical_signal_day_time_mode_100();
+        this.dialog_light_setting_day_volt_901E.setText(new StringBuilder(String.valueOf(reg_901eValue)).toString());
+        this.dialog_light_setting_day_delay_time_901F.setText(new StringBuilder(String.valueOf(reg_901fValue)).toString());
+        this.dialog_light_setting_night_volt_9020.setText(new StringBuilder(String.valueOf(reg_9020Value)).toString());
+        this.dialog_light_setting_night_delay_time_21.setText(new StringBuilder(String.valueOf(reg_9021Value)).toString());
+    }
+
+    protected void initLightAndTimeShowView() {
+        this.load_light_time_show_layout = (LinearLayout) findViewById(R.id.load_light_time_show_layout);
+        this.light_time_mode_normal = (LinearLayout) findViewById(R.id.light_time_mode_normal);
+        this.light_time_mode_first = (LinearLayout) findViewById(R.id.light_time_mode_first);
+        this.light_time_mode_second = (LinearLayout) findViewById(R.id.light_time_mode_second);
+        this.dialog_light_time_903e = (TextView) findViewById(R.id.dialog_light_time_first_903e);
+        this.dialog_light_time_903f = (TextView) findViewById(R.id.dialog_light_and_time_time_second_903f);
+        this.dialog_light_time_9040 = (TextView) findViewById(R.id.dialog_light_and_time_third_9040);
+        this.dialog_light_time_903e.setOnClickListener(this);
+        this.dialog_light_time_903f.setOnClickListener(this);
+        this.dialog_light_time_9040.setOnClickListener(this);
+        this.dialog_light_and_time_third_layout = (RelativeLayout) findViewById(R.id.dialog_light_and_time_third_layout);
+        this.load_setting_light_and_time_percent_layout = (LinearLayout) findViewById(R.id.load_setting_light_and_time_percent_layout);
+        this.dialog_light_and_time_choose_percent_first = (ChoosePercentView) findViewById(R.id.dialog_light_and_time_choose_percent_first);
+        this.dialog_light_and_time_choose_percent_second = (ChoosePercentView) findViewById(R.id.dialog_light_and_time_choose_percent_second);
+        this.dialog_light_and_time_choose_percent_third = (ChoosePercentView) findViewById(R.id.dialog_light_and_time_choose_percent_third);
+        setLightAndTimeShowData();
+    }
+
+    protected void setLightAndTimeShowData() {
+        if (this.currentLightAndTimeMode == 2) {
+            int[] valueArray = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_903e_work_duration_one());
+            int minute = valueArray[0];
+            int hour = valueArray[1];
+            this.loadLightTimeFirst_903e_or_907a.setTime(hour, minute);
+            int[] valueArray2 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_903f_work_duration_two());
+            int minute2 = valueArray2[0];
+            int hour2 = valueArray2[1];
+            this.loadLightTimeSecond_903f_or_907b.setTime(hour2, minute2);
+            int[] valueArray3 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_9040_work_duration_three());
+            int minute3 = valueArray3[0];
+            int hour3 = valueArray3[1];
+            this.loadLightTimeThird_9040_or_907c.setTime(hour3, minute3);
+            int[] valueArray4 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_9065_night_time_long());
+            int minute4 = valueArray4[0];
+            int hour4 = valueArray4[1];
+            this.loadLightTimeNightPeriod_9065.setTime(hour4, minute4);
+            this.dialog_light_and_time_choose_percent_first.setCurrentPosition((int) this.mSolarData.getReg_905a_output_power_1_percent_100());
+            this.dialog_light_and_time_choose_percent_second.setCurrentPosition((int) this.mSolarData.getReg_905b_output_power_2_percent_100());
+            this.dialog_light_and_time_choose_percent_third.setCurrentPosition((int) this.mSolarData.getReg_905c_output_power_3_percent_100());
+        } else {
+            this.tempSolarData.setReg_9047_time_one_close_hour(this.turnOffTimeFirstData.getHour());
+            int[] valueArray5 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_907a());
+            int minute5 = valueArray5[0];
+            int hour5 = valueArray5[1];
+            this.loadLightTimeFirst_903e_or_907a.setTime(hour5, minute5);
+            int[] valueArray6 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_907b());
+            int minute6 = valueArray6[0];
+            int hour6 = valueArray6[1];
+            this.loadLightTimeSecond_903f_or_907b.setTime(hour6, minute6);
+            int[] valueArray7 = ResolveReaderData.parseIntergerToIntArray((int) this.mSolarData.getReg_907c());
+            int minute7 = valueArray7[0];
+            int hour7 = valueArray7[1];
+            this.loadLightTimeThird_9040_or_907c.setTime(hour7, minute7);
+            this.dialog_light_and_time_choose_percent_first.setCurrentPosition((int) this.mSolarData.getReg_907d_100());
+            this.dialog_light_and_time_choose_percent_second.setCurrentPosition((int) this.mSolarData.getReg_907e_100());
+            this.dialog_light_and_time_choose_percent_third.setCurrentPosition((int) this.mSolarData.getReg_907f_100());
+        }
+        this.dialog_light_time_903e.setText(this.loadLightTimeFirst_903e_or_907a.toString());
+        this.dialog_light_time_903f.setText(this.loadLightTimeSecond_903f_or_907b.toString());
+        this.dialog_light_time_9040.setText(this.loadLightTimeThird_9040_or_907c.toString());
+    }
+
+    @Override // android.view.View.OnClickListener
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.load_setting_manul_layout /* 2131361813 */:
+                setCheckedBackClolor(v);
+                this.currentControlMode = 0;
+                return;
+            case R.id.load_setting_light_layout /* 2131361814 */:
+                setCheckedBackClolor(v);
+                this.currentControlMode = 1;
+                return;
+            case R.id.load_setting_time_and_light_layout /* 2131361815 */:
+                setCheckedBackClolor(v);
+                if (this.isLedLoad && this.currentLightAndTimeMode == 1) {
+                    this.currentControlMode = 4;
+                    this.currentLightAndTimeMode = 1;
+                    return;
+                }
+                this.currentControlMode = 2;
+                this.currentLightAndTimeMode = 2;
+                return;
+            case R.id.load_setting_time_layout /* 2131361816 */:
+                setCheckedBackClolor(v);
+                this.currentControlMode = 3;
+                return;
+            case R.id.return_to_nomal_state_layout_9072 /* 2131361818 */:
+                boolean isChecked = this.return_to_nomal_state_check_box.isChecked();
+                this.return_to_nomal_state_check_box.setChecked(isChecked ? false : true);
+                return;
+            case R.id.load_read_icon_layout /* 2131361821 */:
+                if (this.isExcutingCommand) {
+                    showCommandExcutingToast();
+                    return;
+                } else {
+                    readData();
+                    return;
+                }
+            case R.id.load_send_icon_layout /* 2131361823 */:
+                if (this.isExcutingCommand) {
+                    showCommandExcutingToast();
+                    return;
+                } else {
+                    writeData();
+                    return;
+                }
+            case R.id.dialog_light_time_first_903e /* 2131361956 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.LED_time1), this.loadLightTimeFirst_903e_or_907a);
+                return;
+            case R.id.dialog_light_and_time_time_second_903f /* 2131361957 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.LED_time2), this.loadLightTimeSecond_903f_or_907b);
+                return;
+            case R.id.dialog_light_and_time_third_9040 /* 2131361959 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.LED_time3), this.loadLightTimeThird_9040_or_907c);
+                return;
+            case R.id.load_setting_turn_on_time_first /* 2131361990 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.Load_Turn_On_Time1), this.turnOnTimeFirstData);
+                return;
+            case R.id.load_setting_turn_off_time_first /* 2131361991 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.Load_Turn_Off_Time1), this.turnOffTimeFirstData);
+                return;
+            case R.id.load_setting_turn_on_time_second /* 2131361994 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.Load_Turn_On_Time2), this.turnOnTimeSecondData);
+                return;
+            case R.id.load_setting_turn_off_time_second /* 2131361995 */:
+                showTimePickerDialog((TextView) v, String.valueOf(getString(R.string.set)) + getString(R.string.Load_Turn_Off_Time2), this.turnOffTimeSecondData);
+                return;
+            case R.id.title_back_btn /* 2131362015 */:
+                onBackPressed();
+                return;
+            default:
+                return;
+        }
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    public void setCheckedBackClolor(View v) {
+        this.manualBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_setting_control_mode_layout_unchecked_bg));
+        this.lightBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_setting_control_mode_layout_unchecked_bg));
+        this.lightAndTimeBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_setting_control_mode_layout_unchecked_bg));
+        this.timeBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.load_setting_control_mode_layout_unchecked_bg));
+        this.load_manual_seting_show_layout.setVisibility(8);
+        this.load_time_show_layout.setVisibility(8);
+        this.load_light_setting_show_layout.setVisibility(8);
+        this.load_light_time_show_layout.setVisibility(8);
+        ((LinearLayout) v).setBackgroundDrawable(getResources().getDrawable(R.drawable.battery_detail_uncheced_color));
+        switch (v.getId()) {
+            case R.id.load_setting_manul_layout /* 2131361813 */:
+                this.load_manual_seting_show_layout.setVisibility(0);
+                return;
+            case R.id.load_setting_light_layout /* 2131361814 */:
+                this.load_light_setting_show_layout.setVisibility(0);
+                return;
+            case R.id.load_setting_time_and_light_layout /* 2131361815 */:
+                this.load_light_time_show_layout.setVisibility(0);
+                return;
+            case R.id.load_setting_time_layout /* 2131361816 */:
+                this.load_time_show_layout.setVisibility(0);
+                return;
+            default:
+                return;
+        }
+    }
+
+    protected View getCurrentModeShowView() {
+        return null;
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // com.mdtit.PhoneControler.ui.BaseActivity, android.app.Activity
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    protected void setData() {
+        this.currentControlMode = (int) this.mSolarData.getReg_903d_load_output_control_mode();
+        if (this.currentControlMode == 0) {
+            setCheckedBackClolor(this.manualBtn);
+        } else if (this.currentControlMode == 1) {
+            setCheckedBackClolor(this.lightBtn);
+        } else if (this.currentControlMode == 2) {
+            setCheckedBackClolor(this.lightAndTimeBtn);
+            this.currentLightAndTimeMode = 2;
+            ((RadioButton) this.radioGroup.findViewById(R.id.load_light_and_time_mode_two)).setChecked(true);
+        } else if (this.currentControlMode == 3) {
+            setCheckedBackClolor(this.timeBtn);
+        } else if (this.currentControlMode == 4) {
+            setCheckedBackClolor(this.lightAndTimeBtn);
+            this.currentLightAndTimeMode = 1;
+            ((RadioButton) this.radioGroup.findViewById(R.id.load_light_and_time_mode_one)).setChecked(true);
+        }
+        this.isLedLoad = this.mSolarData.isLedDevice();
+        if (this.isLedLoad) {
+            this.led_rate_current_layout.setVisibility(0);
+            this.radioGroup.setVisibility(0);
+            this.load_led_Rated_Current_text_9078.setText(new StringBuilder(String.valueOf(this.mSolarData.getReg_9078())).toString());
+            this.return_to_nomal_state_check_box.setChecked(this.mSolarData.getReg_9072() != 0.0d);
+            this.dialog_light_and_time_third_layout.setVisibility(0);
+            this.load_setting_light_and_time_percent_layout.setVisibility(0);
+            this.load_setting_time_percent_layout.setVisibility(0);
+            this.load_setting_time_second_check_box.setChecked(this.mSolarData.isLoadTime2Checked());
+            if (this.currentLightAndTimeMode == 2) {
+                this.light_time_mode_second.setVisibility(0);
+                this.light_time_mode_first.setVisibility(8);
+                this.light_time_mode_normal.setVisibility(8);
+            } else {
+                this.light_time_mode_first.setVisibility(0);
+                this.light_time_mode_second.setVisibility(8);
+                this.light_time_mode_normal.setVisibility(8);
+            }
+        } else {
+            this.currentLightAndTimeMode = 2;
+            this.light_time_mode_normal.setVisibility(0);
+            this.light_time_mode_first.setVisibility(8);
+            this.light_time_mode_second.setVisibility(8);
+            this.led_rate_current_layout.setVisibility(8);
+            this.radioGroup.setVisibility(8);
+            this.dialog_light_and_time_third_layout.setVisibility(8);
+            this.load_setting_light_and_time_percent_layout.setVisibility(8);
+            this.load_setting_time_percent_layout.setVisibility(8);
+        }
+        if (this.dialog_manual_switch_check_box.isChecked()) {
+            this.dialog_manual_switch_check_text.setText(R.string.Load_Manually_On_By_Default);
+        } else {
+            this.dialog_manual_switch_check_text.setText(R.string.Load_Manually_Off_By_Default);
+        }
+        setCurrentControlModeData();
+    }
+
+    protected void readData() {
+        if (this.isExcutingCommand) {
+            showCommandExcutingToast();
+        } else if (isUsbBeginSuccessful()) {
+            showProgressDialog();
+            if (!isUsbBeginSuccessful()) {
+                MLog.e(TAG, "return");
+                return;
+            }
+            Runnable r = new Runnable() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.5
+                @Override // java.lang.Runnable
+                public void run() {
+                    if (!LoadSettingActivity.this.isReadIdSuccessed()) {
+                        LoadSettingActivity.this.isOperatedSucceessful = false;
+                        LoadSettingActivity.this.isExcutingCommand = false;
+                        return;
+                    }
+                    LoadSettingActivity.this.isExcutingCommand = true;
+                    LoadSettingActivity.this.readDeviceInformation();
+                    LoadSettingActivity.this.readLoadActCommand();
+                    Message msgRead = LoadSettingActivity.this.mbaseHandler.obtainMessage(3);
+                    LoadSettingActivity.this.mbaseHandler.sendMessage(msgRead);
+                    PhoneControlerApp.setmSolarControlerData(LoadSettingActivity.this.mSolarData);
+                    LoadSettingActivity.this.handler.sendEmptyMessage(10);
+                    LoadSettingActivity.this.isExcutingCommand = false;
+                }
+            };
+            new Thread(r).start();
+        }
+    }
+
+    protected void writeData() {
+        if (ischeckedDataSuccessful()) {
+            MLog.e(TAG, "tempSolarData ======================" + this.tempSolarData.toString());
+            if (this.isExcutingCommand) {
+                showCommandExcutingToast();
+            } else if (isUsbBeginSuccessful()) {
+                showProgressDialog();
+                if (!isUsbBeginSuccessful()) {
+                    MLog.e(TAG, "return");
+                    return;
+                }
+                Runnable r = new Runnable() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.6
+                    @Override // java.lang.Runnable
+                    public void run() {
+                        LoadSettingActivity.this.mSolarData.setOperationSuccessful(true);
+                        if (!LoadSettingActivity.this.isReadIdSuccessed()) {
+                            LoadSettingActivity.this.isOperatedSucceessful = false;
+                            LoadSettingActivity.this.isExcutingCommand = false;
+                            return;
+                        }
+                        LoadSettingActivity.this.isExcutingCommand = true;
+                        MLog.e(LoadSettingActivity.TAG, "tempSolarData = " + LoadSettingActivity.this.tempSolarData.toString());
+                        LoadSettingActivity.this.writeLoadActCommand(LoadSettingActivity.this.currentControlMode);
+                        Message msgRead = LoadSettingActivity.this.mbaseHandler.obtainMessage(3);
+                        LoadSettingActivity.this.mbaseHandler.sendMessage(msgRead);
+                        LoadSettingActivity.this.handler.sendEmptyMessage(11);
+                        LoadSettingActivity.this.isExcutingCommand = false;
+                        if (LoadSettingActivity.this.isOperatedSucceessful) {
+                            LoadSettingActivity.this.mSolarData = (SolarControlerData) LoadSettingActivity.this.tempSolarData.clone();
+                            PhoneControlerApp.setmSolarControlerData(LoadSettingActivity.this.mSolarData);
+                        }
+                        LoadSettingActivity.this.mSolarData.setLoadDefault(!LoadSettingActivity.this.isOperatedSucceessful);
+                    }
+                };
+                new Thread(r).start();
+            }
+        }
+    }
+
+    private void prepareTimeSecondModeData() {
+        int dataValue = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeFirst_903e_or_907a.getMinute(), this.loadLightTimeFirst_903e_or_907a.getHour());
+        this.tempSolarData.setReg_903e_work_duration_one(dataValue);
+        int dataValue2 = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeSecond_903f_or_907b.getMinute(), this.loadLightTimeSecond_903f_or_907b.getHour());
+        this.tempSolarData.setReg_903f_work_duration_two(dataValue2);
+        int dataValue3 = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeThird_9040_or_907c.getMinute(), this.loadLightTimeThird_9040_or_907c.getHour());
+        this.tempSolarData.setReg_9040_work_duration_three(dataValue3);
+        int dataValue4 = this.mResolveReaderData.parseTwoDoubleToDouble(0, 10);
+        this.tempSolarData.setReg_9065_night_time_long(dataValue4);
+        int currentReg_905aValue = this.dialog_light_and_time_choose_percent_first.getCurrentValue();
+        this.tempSolarData.setReg_905a_output_power_1_percent_100(currentReg_905aValue);
+        int currentReg_905bValue = this.dialog_light_and_time_choose_percent_second.getCurrentValue();
+        this.tempSolarData.setReg_905b_output_power_2_percent_100(currentReg_905bValue);
+        int currentReg_905cValue = this.dialog_light_and_time_choose_percent_third.getCurrentValue();
+        this.tempSolarData.setReg_905c_output_power_3_percent_100(currentReg_905cValue);
+        this.tempSolarData.setReg_903e_work_duration_one(this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeFirst_903e_or_907a.getMinute(), this.loadLightTimeFirst_903e_or_907a.getHour()));
+        this.tempSolarData.setReg_903f_work_duration_two(this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeSecond_903f_or_907b.getMinute(), this.loadLightTimeSecond_903f_or_907b.getHour()));
+        this.tempSolarData.setReg_9040_work_duration_three(this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeThird_9040_or_907c.getMinute(), this.loadLightTimeThird_9040_or_907c.getHour()));
+        this.tempSolarData.setReg_9065_night_time_long(this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeNightPeriod_9065.getMinute(), this.loadLightTimeNightPeriod_9065.getHour()));
+    }
+
+    private void prepareWriteTimeData() {
+        this.tempSolarData.setReg_9044_time_one_open_hour(this.turnOnTimeFirstData.getHour());
+        this.tempSolarData.setReg_9043_time_one_open_minute(this.turnOnTimeFirstData.getMinute());
+        this.tempSolarData.setReg_9046_time_one_close_minute(this.turnOffTimeFirstData.getMinute());
+        this.tempSolarData.setReg_9047_time_one_close_hour(this.turnOffTimeFirstData.getHour());
+        if (this.tempSolarData.isLoadTime2Checked()) {
+            this.tempSolarData.setReg_9069_timed_control_qutum(1.0d);
+        } else {
+            this.tempSolarData.setReg_9069_timed_control_qutum(0.0d);
+        }
+        if (this.tempSolarData.isLoadTime2Checked() || this.mSolarData.isLoadDefault()) {
+            this.tempSolarData.setReg_904a_time_two_open_hour(this.turnOnTimeSecondData.getHour());
+            this.tempSolarData.setReg_9049_time_two_open_minute(this.turnOnTimeSecondData.getMinute());
+            this.tempSolarData.setReg_904c_time_two_close_minute(this.turnOffTimeSecondData.getMinute());
+            this.tempSolarData.setReg_904d_time_two_close_hour(this.turnOffTimeSecondData.getHour());
+        }
+    }
+
+    private void prepareSetTimeFirstData() {
+        int dataValue = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeFirst_903e_or_907a.getMinute(), this.loadLightTimeFirst_903e_or_907a.getHour());
+        this.tempSolarData.setReg_907a(dataValue);
+        int dataValue2 = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeSecond_903f_or_907b.getMinute(), this.loadLightTimeSecond_903f_or_907b.getHour());
+        this.tempSolarData.setReg_907b(dataValue2);
+        int dataValue3 = this.mResolveReaderData.parseTwoDoubleToDouble(this.loadLightTimeThird_9040_or_907c.getMinute(), this.loadLightTimeThird_9040_or_907c.getHour());
+        this.tempSolarData.setReg_907c(dataValue3);
+        int currentReg_907dValue = this.dialog_light_and_time_choose_percent_first.getCurrentValue();
+        this.tempSolarData.setReg_907d_100(currentReg_907dValue);
+        int currentReg_907eValue = this.dialog_light_and_time_choose_percent_second.getCurrentValue();
+        this.tempSolarData.setReg_907e_100(currentReg_907eValue);
+        int currentReg_907fValue = this.dialog_light_and_time_choose_percent_third.getCurrentValue();
+        this.tempSolarData.setReg_907f_100(currentReg_907fValue);
+        int dataValue4 = this.mResolveReaderData.parseTwoDoubleToDouble(0, 10);
+        this.tempSolarData.setReg_9065_night_time_long(dataValue4);
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    public boolean ischeckedDataSuccessful() {
+        this.tempSolarData.setReg_903d_load_output_control_mode(this.currentControlMode);
+        double temp901EValue = getEditTextValue(this.dialog_light_setting_day_volt_901E);
+        double temp901FValue = getEditTextValue(this.dialog_light_setting_day_delay_time_901F);
+        double temp9020Value = getEditTextValue(this.dialog_light_setting_night_volt_9020);
+        double temp9021Value = getEditTextValue(this.dialog_light_setting_night_delay_time_21);
+        if (temp901EValue == -10000.0d || temp901FValue == -10000.0d || temp9020Value == -10000.0d || temp9021Value == -10000.0d) {
+            return false;
+        }
+        this.tempSolarData.setReg_901e_optical_night_threshold_voltage_100(temp901EValue);
+        this.tempSolarData.setReg_901f_optical_open_ensure_time(temp901FValue);
+        this.tempSolarData.setReg_9020_optical_day_threshold_voltage_100(temp9020Value);
+        this.tempSolarData.setReg_9021_optical_signal_day_time_mode_100(temp9021Value);
+        prepareWriteTimeData();
+        if (this.currentLightAndTimeMode == 1) {
+            prepareSetTimeFirstData();
+        } else {
+            prepareTimeSecondModeData();
+        }
+        if (this.isLedLoad) {
+            if (this.return_to_nomal_state_check_box.isChecked()) {
+                this.tempSolarData.setReg_9072(65535.0d);
+            } else {
+                this.tempSolarData.setReg_9072(0.0d);
+            }
+            double temp9078Value = getEditTextValue(this.load_led_Rated_Current_text_9078);
+            if (temp9078Value == -10000.0d) {
+                return false;
+            }
+            this.tempSolarData.setReg_9078(temp9078Value);
+            int currentReg_9080Value = this.load_time_setting_percent_first.getCurrentValue();
+            this.tempSolarData.setReg_9080led_current_1_percent_100(currentReg_9080Value);
+            int currentReg_9081Value = this.load_time_setting_percent_second.getCurrentValue();
+            this.tempSolarData.setReg_9081_led_current_2_percent_100(currentReg_9081Value);
+        }
+        this.tempSolarData.setReg_9079_manual_operation_percent(100.0d);
+        this.tempSolarData.setReg_9073_100(50.0d);
+        int dataValue = this.mResolveReaderData.parseTwoDoubleToDouble(0, 10);
+        this.tempSolarData.setReg_9065_night_time_long(dataValue);
+        return true;
+    }
+
+    private void setCurrentControlModeData() {
+        setManualShowData();
+        setLightShowData();
+        setTimeShowData();
+        setLightAndTimeShowData();
+    }
+
+    public void initContent() {
+        yearContent = new String[50];
+        for (int i = 0; i < 50; i++) {
+            yearContent[i] = String.valueOf(this.minYear + i);
+        }
+        monthContent = new String[12];
+        for (int i2 = 0; i2 < 12; i2++) {
+            monthContent[i2] = String.valueOf(i2 + 1);
+            if (monthContent[i2].length() < 2) {
+                monthContent[i2] = "0" + monthContent[i2];
+            }
+        }
+        dayContent = new String[31];
+        for (int i3 = 0; i3 < 31; i3++) {
+            dayContent[i3] = String.valueOf(i3 + 1);
+            if (dayContent[i3].length() < 2) {
+                dayContent[i3] = "0" + dayContent[i3];
+            }
+        }
+        hourContent = new String[24];
+        for (int i4 = 0; i4 < 24; i4++) {
+            hourContent[i4] = String.valueOf(i4);
+            if (hourContent[i4].length() < 2) {
+                hourContent[i4] = "0" + hourContent[i4];
+            }
+        }
+        minuteContent = new String[60];
+        for (int i5 = 0; i5 < 60; i5++) {
+            minuteContent[i5] = String.valueOf(i5);
+            if (minuteContent[i5].length() < 2) {
+                minuteContent[i5] = "0" + minuteContent[i5];
+            }
+        }
+        secondContent = new String[60];
+        for (int i6 = 0; i6 < 60; i6++) {
+            secondContent[i6] = String.valueOf(i6);
+            if (secondContent[i6].length() < 2) {
+                secondContent[i6] = "0" + secondContent[i6];
+            }
+        }
+    }
+
+    public void showTimePickerDialog(View v, String titleStr, Time currentTime) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(titleStr);
+        setPickerTimeContent(v, builder, currentTime);
+    }
+
+    public void showTimePickerDialog(View v, int titleId, Time currentTime) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(titleId);
+        setPickerTimeContent(v, builder, currentTime);
+    }
+
+    private void setPickerTimeContent(final View v, AlertDialog.Builder builder, Time currentTime) {
+        initContent();
+        View view = ((LayoutInflater) getSystemService("layout_inflater")).inflate(R.layout.time_picker, (ViewGroup) null);
+        Calendar calendar = Calendar.getInstance();
+        int curYear = calendar.get(1);
+        int curMonth = calendar.get(2) + 1;
+        int curDay = calendar.get(5);
+        int curHour = calendar.get(11);
+        int curMinute = calendar.get(12);
+        int curSecond = calendar.get(13);
+        this.yearWheel = (WheelView) view.findViewById(R.id.yearwheel);
+        this.monthWheel = (WheelView) view.findViewById(R.id.monthwheel);
+        this.dayWheel = (WheelView) view.findViewById(R.id.daywheel);
+        this.hourWheel = (WheelView) view.findViewById(R.id.hourwheel);
+        this.minuteWheel = (WheelView) view.findViewById(R.id.minutewheel);
+        this.secondWheel = (WheelView) view.findViewById(R.id.secondwheel);
+        builder.setView(view);
+        this.yearWheel.setAdapter(new StrericWheelAdapter(yearContent));
+        this.yearWheel.setCurrentItem(curYear + TnetStatusCode.EASY_SPDY_UNSUPPORTED_VERSION);
+        this.yearWheel.setCyclic(true);
+        this.yearWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.monthWheel.setAdapter(new StrericWheelAdapter(monthContent));
+        this.monthWheel.setCurrentItem(curMonth - 1);
+        this.monthWheel.setCyclic(true);
+        this.monthWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.dayWheel.setAdapter(new StrericWheelAdapter(dayContent));
+        this.dayWheel.setCurrentItem(curDay - 1);
+        this.dayWheel.setCyclic(true);
+        this.dayWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.hourWheel.setAdapter(new StrericWheelAdapter(hourContent));
+        this.hourWheel.setCurrentItem(curHour);
+        this.hourWheel.setCyclic(true);
+        this.hourWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.minuteWheel.setAdapter(new StrericWheelAdapter(minuteContent));
+        this.minuteWheel.setCurrentItem(curMinute);
+        this.minuteWheel.setCyclic(true);
+        this.minuteWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.secondWheel.setAdapter(new StrericWheelAdapter(secondContent));
+        this.secondWheel.setCurrentItem(curSecond);
+        this.secondWheel.setCyclic(true);
+        this.secondWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.hourWheel.setAdapter(new StrericWheelAdapter(hourContent));
+        this.hourWheel.setCurrentItem(currentTime.getHour());
+        this.hourWheel.setCyclic(true);
+        this.hourWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        this.minuteWheel.setAdapter(new StrericWheelAdapter(minuteContent));
+        this.minuteWheel.setCurrentItem(currentTime.getMinute());
+        this.minuteWheel.setCyclic(true);
+        this.minuteWheel.setInterpolator(new AnticipateOvershootInterpolator());
+        builder.setPositiveButton(getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.7
+            @Override // android.content.DialogInterface.OnClickListener
+            public void onClick(DialogInterface dialog, int which) {
+                StringBuffer sb = new StringBuffer();
+                String currentHour = LoadSettingActivity.this.hourWheel.getCurrentItemValue();
+                String currentMinute = LoadSettingActivity.this.minuteWheel.getCurrentItemValue();
+                String currentSeconds = LoadSettingActivity.this.secondWheel.getCurrentItemValue();
+                sb.append(currentHour).append(":").append(currentMinute).append(":").append(currentSeconds);
+                switch (v.getId()) {
+                    case R.id.dialog_light_time_first_903e /* 2131361956 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.loadLightTimeFirst_903e_or_907a);
+                        ((TextView) v).setText(LoadSettingActivity.this.loadLightTimeFirst_903e_or_907a.toString());
+                        break;
+                    case R.id.dialog_light_and_time_time_second_903f /* 2131361957 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.loadLightTimeSecond_903f_or_907b);
+                        ((TextView) v).setText(LoadSettingActivity.this.loadLightTimeSecond_903f_or_907b.toString());
+                        break;
+                    case R.id.dialog_light_and_time_third_9040 /* 2131361959 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.loadLightTimeThird_9040_or_907c);
+                        ((TextView) v).setText(LoadSettingActivity.this.loadLightTimeThird_9040_or_907c.toString());
+                        break;
+                    case R.id.load_setting_turn_on_time_first /* 2131361990 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.turnOnTimeFirstData);
+                        ((TextView) v).setText(LoadSettingActivity.this.turnOnTimeFirstData.toString());
+                        break;
+                    case R.id.load_setting_turn_off_time_first /* 2131361991 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.turnOffTimeFirstData);
+                        ((TextView) v).setText(LoadSettingActivity.this.turnOffTimeFirstData.toString());
+                        break;
+                    case R.id.load_setting_turn_on_time_second /* 2131361994 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.turnOnTimeSecondData);
+                        ((TextView) v).setText(LoadSettingActivity.this.turnOnTimeSecondData.toString());
+                        break;
+                    case R.id.load_setting_turn_off_time_second /* 2131361995 */:
+                        setChooseTime(currentHour, currentMinute, currentSeconds, LoadSettingActivity.this.turnOffTimeSecondData);
+                        ((TextView) v).setText(LoadSettingActivity.this.turnOffTimeSecondData.toString());
+                        break;
+                }
+                dialog.cancel();
+            }
+
+            protected void setChooseTime(String currentHour, String currentMinute, String currentSeconds, Time chooseTime) {
+                chooseTime.setHour(getTimeInt(currentHour, LoadSettingActivity.hourContent));
+                chooseTime.setMinute(getTimeInt(currentMinute, LoadSettingActivity.minuteContent));
+                chooseTime.setSecond(getTimeInt(currentSeconds, LoadSettingActivity.secondContent));
+            }
+
+            private int getTimeInt(String currentTime2, String[] stringContent) {
+                for (int i = 0; i < stringContent.length; i++) {
+                    if (currentTime2.equals(stringContent[i])) {
+                        return i;
+                    }
+                }
+                return 0;
+            }
+        });
+        builder.setNegativeButton(getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() { // from class: com.mdtit.PhoneControler.ui.LoadSettingActivity.8
+            @Override // android.content.DialogInterface.OnClickListener
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    @Override // android.widget.RadioGroup.OnCheckedChangeListener
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.load_light_and_time_mode_one /* 2131361953 */:
+                this.currentLightAndTimeMode = 1;
+                this.currentControlMode = 4;
+                this.light_time_mode_first.setVisibility(0);
+                this.light_time_mode_second.setVisibility(8);
+                break;
+            case R.id.load_light_and_time_mode_two /* 2131361954 */:
+                this.currentLightAndTimeMode = 2;
+                this.currentControlMode = 2;
+                this.light_time_mode_second.setVisibility(0);
+                this.light_time_mode_first.setVisibility(8);
+                break;
+        }
+        setLightAndTimeShowData();
+    }
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    public void setLoadSettingDefaultData() {
+        this.currentControlMode = 0;
+        if (!this.mSolarData.isLedDevice()) {
+            this.currentLightAndTimeMode = 2;
+        } else {
+            this.currentLightAndTimeMode = 1;
+        }
+        setCheckedBackClolor(this.manualBtn);
+        this.dialog_manual_switch_check_box.setChecked(false);
+        this.dialog_light_setting_day_volt_901E.setText(UtilsStr.REG_5_ENTER_TEST_STATUS);
+        this.dialog_light_setting_day_delay_time_901F.setText(C.g);
+        this.dialog_light_setting_night_volt_9020.setText(UtilsStr.REG_6_DEVICE_SWITCH_TEST);
+        this.dialog_light_setting_night_delay_time_21.setText(C.g);
+        this.turnOnTimeFirstData = new Time(10, 0);
+        this.turnOffTimeFirstData = new Time(19, 0);
+        this.turnOnTimeSecondData = new Time(8, 0);
+        this.turnOffTimeSecondData = new Time(18, 0);
+        this.load_setting_turn_on_time_first.setText(this.turnOnTimeFirstData.toString());
+        this.load_setting_turn_off_time_first.setText(this.turnOffTimeFirstData.toString());
+        this.load_setting_turn_on_time_second.setText(this.turnOnTimeSecondData.toString());
+        this.load_setting_turn_off_time_second.setText(this.turnOffTimeSecondData.toString());
+        this.load_time_setting_percent_first.setCurrentPosition(100.0d);
+        this.load_time_setting_percent_second.setCurrentPosition(100.0d);
+        Time light_timeTime = new Time(2, 0);
+        this.dialog_light_time_903e.setText(light_timeTime.toString());
+        this.dialog_light_time_903f.setText(light_timeTime.toString());
+        this.dialog_light_time_9040.setText(light_timeTime.toString());
+        this.loadLightTimeFirst_903e_or_907a.setTime(light_timeTime.getHour(), light_timeTime.getMinute());
+        this.loadLightTimeSecond_903f_or_907b.setTime(light_timeTime.getHour(), light_timeTime.getMinute());
+        this.loadLightTimeThird_9040_or_907c.setTime(light_timeTime.getHour(), light_timeTime.getMinute());
+        this.dialog_light_and_time_choose_percent_first.setCurrentPosition(100.0d);
+        this.dialog_light_and_time_choose_percent_second.setCurrentPosition(100.0d);
+        this.dialog_light_and_time_choose_percent_third.setCurrentPosition(100.0d);
+        this.return_to_nomal_state_check_box.setChecked(false);
+        this.load_led_Rated_Current_text_9078.setText("0.35");
+        Time light_timeTime_def = new Time(2, 0);
+        int dataValue2 = this.mResolveReaderData.parseTwoDoubleToDouble(light_timeTime_def.getMinute(), light_timeTime.getHour());
+        this.mSolarData.setReg_903e_work_duration_one(dataValue2);
+        this.mSolarData.setReg_903f_work_duration_two(dataValue2);
+        this.mSolarData.setReg_9040_work_duration_three(dataValue2);
+        this.mSolarData.setReg_905a_output_power_1_percent_100(100.0d);
+        this.mSolarData.setReg_905b_output_power_2_percent_100(100.0d);
+        this.mSolarData.setReg_905c_output_power_3_percent_100(100.0d);
+        this.mSolarData.setReg_907a(dataValue2);
+        this.mSolarData.setReg_907b(dataValue2);
+        this.mSolarData.setReg_907c(dataValue2);
+        this.mSolarData.setReg_907d_100(100.0d);
+        this.mSolarData.setReg_907e_100(100.0d);
+        this.mSolarData.setReg_907f_100(100.0d);
+        this.tempSolarData.setReg_903e_work_duration_one(dataValue2);
+        this.tempSolarData.setReg_903f_work_duration_two(dataValue2);
+        this.tempSolarData.setReg_9040_work_duration_three(dataValue2);
+        this.tempSolarData.setReg_905a_output_power_1_percent_100(100.0d);
+        this.tempSolarData.setReg_905b_output_power_2_percent_100(100.0d);
+        this.tempSolarData.setReg_905c_output_power_3_percent_100(100.0d);
+        this.tempSolarData.setReg_907a(dataValue2);
+        this.tempSolarData.setReg_907b(dataValue2);
+        this.tempSolarData.setReg_907c(dataValue2);
+        this.tempSolarData.setReg_907d_100(100.0d);
+        this.tempSolarData.setReg_907e_100(100.0d);
+        this.tempSolarData.setReg_907f_100(100.0d);
+    }
+}

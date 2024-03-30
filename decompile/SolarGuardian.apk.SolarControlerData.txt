@@ -1,0 +1,1304 @@
+package com.mdtit.PhoneControler.entity;
+
+import java.io.Serializable;
+
+/* loaded from: classes.dex */
+public class SolarControlerData implements Cloneable, Serializable {
+    private static final long serialVersionUID = 1;
+    private double SppParameterNum;
+    private String fileSaveName;
+    private boolean isOperationSuccessful;
+    private double reg_2000_device_tempertature_status;
+    private double reg_200c_day_night;
+    private double reg_2_output_manual_operation_switch;
+    private double reg_3000_charge_device_input_voltage_100;
+    private double reg_3001_charge_device_input_voltage_100;
+    private double reg_3002_charge_device_input_voltage_100_l;
+    private double reg_3003_charge_device_input_voltage_100_h;
+    private double reg_3004_charge_device_input_voltage_100;
+    private double reg_3005_charge_device_input_voltage_100;
+    private double reg_3006_charge_device_input_voltage_100_l;
+    private double reg_3007_charge_device_input_voltage_100_h;
+    private double reg_3008_charge_device_input_voltage;
+    private double reg_300e_discharge_device_input_voltage_100;
+    private double reg_3100_array_voltage_100;
+    private double reg_3101_array_current_100;
+    private double reg_3102_array_power_100_low;
+    private double reg_3103_array_power_100_high;
+    private double reg_3104_battery_voltage_100;
+    private double reg_3105_battery_current_100;
+    private double reg_3106_battery_power_100_low;
+    private double reg_3107_battery_power_100_high;
+    private double reg_310c_discharge_device_input_voltage_100;
+    private double reg_310d_discharge_device_input_current_100;
+    private double reg_310e_discharge_device_load_power_100_low;
+    private double reg_310f_discharge_device_load_power_100_high;
+    private double reg_3110_battery_temperature_100;
+    private double reg_3111_device_enclouse_temperature_100;
+    private double reg_311a_battery_remain_percent;
+    private double reg_311b_battery_long_distance_temperature_100;
+    private double reg_311d_battery_voltage_rank_100;
+    private double reg_3200_battery_status;
+    private double reg_3201_charging_device_status;
+    private double reg_3202_recharging_device_status;
+    private double reg_3300_day_input_max_voltage_100;
+    private double reg_3301_day_input_min_voltage_100;
+    private double reg_3302_day_battery_max_voltage_100;
+    private double reg_3303_day_battery_min_voltage_100;
+    private double reg_3304_day_consumption_electric_quantity_100_l;
+    private double reg_3305_day_consumption_electric_quantity_100_h;
+    private double reg_3306_month_consumption_electric_quantity_100_l;
+    private double reg_3307_month_consumption_electric_quantity_100_h;
+    private double reg_3308_year_consumption_electric_quantity_100_l;
+    private double reg_3309_year_consumption_electric_quantity_100_h;
+    private double reg_330a_total_consumption_electric_quantity_100_l;
+    private double reg_330b_total_consumption_electric_quantity_100_h;
+    private double reg_330c_day_charged_electric_quantity_100_l;
+    private double reg_330d_day_charged_electric_quantity_100_h;
+    private double reg_330e_month_charged_electric_quantity_100_l;
+    private double reg_330f_month_charged_electric_quantity_100_h;
+    private double reg_3310_year_charged_electric_quantity_100_l;
+    private double reg_3311_year_charged_electric_quantity_100_h;
+    private double reg_3312_total_charged_electric_quantity_100_l;
+    private double reg_3313_total_charged_electric_quantity_100_h;
+    private double reg_3_default_output_switch_status;
+    private double reg_5_enter_test_status;
+    private double reg_6_device_switch_test;
+    private double reg_9000_battery_type;
+    private double reg_9001_battery_capacity;
+    private double reg_9002_temperature_compensation_algorithm_100;
+    private double reg_9003_over_voltage_off_voltage_100;
+    private double reg_9004_charge_limit_voltage_100;
+    private double reg_9005_over_voltage_off_recover_voltage_100;
+    private double reg_9006_balance_voltage_100;
+    private double reg_9007_promote_voltage_100;
+    private double reg_9008_floating_charge_voltage_100;
+    private double reg_9009_promote_rover_voltage_100;
+    private double reg_900a_low_voltage_off_recover_voltage_100;
+    private double reg_900b_under_voltage_alarm_voltage_recover_100;
+    private double reg_900c_under_voltage_alarm_voltage_100;
+    private double reg_900d_low_voltage_off_voltage_100;
+    private double reg_900e_recharge_limit_voltage_100;
+    private double reg_9013_real_time_clock_second_minute;
+    private double reg_9014_real_time_clock_hour_day;
+    private double reg_9015_real_time_clock_month_year;
+    private double reg_9016_balance_charge_period;
+    private double reg_9017_battery_temperature_alarm_upper_limit_value_100;
+    private double reg_9018_battery_temperature_alarm_low_limit_value_100;
+    private double reg_9019_device_inner_temperature_uper_limit_100;
+    private double reg_901a_device_inner_temperature_uper_limit_recover_100;
+    private double reg_901b_power_device_temperature_uper_limit_100;
+    private double reg_901c_power_device_temperature_uper_limit_recover_100;
+    private double reg_901d_line_circuit_impedance_100;
+    private double reg_901e_optical_night_threshold_voltage_100;
+    private double reg_901f_optical_open_ensure_time;
+    private double reg_9020_optical_day_threshold_voltage_100;
+    private double reg_9021_optical_signal_day_time_mode_100;
+    private double reg_903d_load_output_control_mode;
+    private double reg_903e_work_duration_one;
+    private double reg_903f_work_duration_two;
+    private double reg_9040_work_duration_three;
+    private double reg_9042_time_one_open_second;
+    private double reg_9043_time_one_open_minute;
+    private double reg_9044_time_one_open_hour;
+    private double reg_9045_time_one_close_second;
+    private double reg_9046_time_one_close_minute;
+    private double reg_9047_time_one_close_hour;
+    private double reg_9048_time_two_open_second;
+    private double reg_9049_time_two_open_minute;
+    private double reg_904a_time_two_open_hour;
+    private double reg_904b_time_two_close_second;
+    private double reg_904c_time_two_close_minute;
+    private double reg_904d_time_two_close_hour;
+    private double reg_905a_output_power_1_percent_100;
+    private double reg_905b_output_power_2_percent_100;
+    private double reg_905c_output_power_3_percent_100;
+    private double reg_9063_liquid_display_time_long_100;
+    private double reg_9065_night_time_long;
+    private double reg_9066_power_supply_device;
+    private double reg_9067_system_nominal_voltage_control_code;
+    private double reg_9068_run_time_write_data_interval_time;
+    private double reg_9069_timed_control_qutum;
+    private double reg_906a_manual_operation_control_switch;
+    private double reg_906b_balance_hold_time;
+    private double reg_906c_promot_hold_time;
+    private double reg_906d_recharge_deep_percent;
+    private double reg_906e_charge_deep_percent;
+    private double reg_9070_battery_charge_recharge_manage_mode;
+    private double reg_9072;
+    private double reg_9073_100;
+    private double reg_9078;
+    private double reg_9079_manual_operation_percent;
+    private double reg_907a;
+    private double reg_907b;
+    private double reg_907c;
+    private double reg_907d_100;
+    private double reg_907e_100;
+    private double reg_907f_100;
+    private double reg_9080led_current_1_percent_100;
+    private double reg_9081_led_current_2_percent_100;
+    private long saveTime;
+    private boolean isLedDevice = true;
+    private boolean isLoadTime2Checked = false;
+    private String companyName = "";
+    private String deviceSerialNumber = "0";
+    private String deviceType = "";
+    private String deviceVersion = "";
+    private String sppProductType = "";
+    private boolean isControlerBatteryDefault = true;
+    private boolean isLoadDefault = true;
+
+    public double getReg_3202_recharging_device_status() {
+        return this.reg_3202_recharging_device_status;
+    }
+
+    public void setReg_3202_recharging_device_status(double reg_3202_recharging_device_status) {
+        this.reg_3202_recharging_device_status = reg_3202_recharging_device_status;
+    }
+
+    public boolean isLoadTime2Checked() {
+        return this.isLoadTime2Checked;
+    }
+
+    public void setLoadTime2Checked(boolean isLoadTime2Checked) {
+        this.isLoadTime2Checked = isLoadTime2Checked;
+    }
+
+    public boolean isLedDevice() {
+        return this.isLedDevice;
+    }
+
+    public void setLedDevice(boolean isLedDevice) {
+        this.isLedDevice = isLedDevice;
+    }
+
+    public long getSaveTime() {
+        return this.saveTime;
+    }
+
+    public void setSaveTime(long saveTime) {
+        this.saveTime = saveTime;
+    }
+
+    public String getFileSaveName() {
+        return this.fileSaveName;
+    }
+
+    public void setFileSaveName(String fileSaveName) {
+        this.fileSaveName = fileSaveName;
+    }
+
+    public boolean isOperationSuccessful() {
+        return this.isOperationSuccessful;
+    }
+
+    public void setOperationSuccessful(boolean isOperationSuccessful) {
+        this.isOperationSuccessful = isOperationSuccessful;
+    }
+
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getDeviceSerialNumber() {
+        return this.deviceSerialNumber;
+    }
+
+    public void setDeviceSerialNumber(String deviceSerialNumber) {
+        this.deviceSerialNumber = deviceSerialNumber;
+    }
+
+    public String getDeviceType() {
+        return this.deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        if (deviceType != null && deviceType.length() > 3) {
+            String checkStrisContainL = deviceType.substring(3, deviceType.length());
+            this.isLedDevice = checkStrisContainL.contains("l") || checkStrisContainL.contains("L") || checkStrisContainL.contains("dpr") || checkStrisContainL.contains("DPR");
+        }
+        this.deviceType = deviceType;
+    }
+
+    public String getDeviceVersion() {
+        return this.deviceVersion;
+    }
+
+    public void setDeviceVersion(String deviceVersion) {
+        this.deviceVersion = deviceVersion;
+    }
+
+    public double getReg_3000_charge_device_input_voltage_100() {
+        return this.reg_3000_charge_device_input_voltage_100;
+    }
+
+    public void setReg_3000_charge_device_input_voltage_100(double reg_3000_charge_device_input_voltage_100) {
+        this.reg_3000_charge_device_input_voltage_100 = reg_3000_charge_device_input_voltage_100;
+    }
+
+    public double getReg_3001_charge_device_input_voltage_100() {
+        return this.reg_3001_charge_device_input_voltage_100;
+    }
+
+    public void setReg_3001_charge_device_input_voltage_100(double reg_3001_charge_device_input_voltage_100) {
+        this.reg_3001_charge_device_input_voltage_100 = reg_3001_charge_device_input_voltage_100;
+    }
+
+    public double getReg_3002_charge_device_input_voltage_100_l() {
+        return this.reg_3002_charge_device_input_voltage_100_l;
+    }
+
+    public void setReg_3002_charge_device_input_voltage_100_l(double reg_3002_charge_device_input_voltage_100_l) {
+        this.reg_3002_charge_device_input_voltage_100_l = reg_3002_charge_device_input_voltage_100_l;
+    }
+
+    public double getReg_3003_charge_device_input_voltage_100_h() {
+        return this.reg_3003_charge_device_input_voltage_100_h;
+    }
+
+    public void setReg_3003_charge_device_input_voltage_100_h(double reg_3003_charge_device_input_voltage_100_h) {
+        this.reg_3003_charge_device_input_voltage_100_h = reg_3003_charge_device_input_voltage_100_h;
+    }
+
+    public double getReg_3004_charge_device_input_voltage_100() {
+        return this.reg_3004_charge_device_input_voltage_100;
+    }
+
+    public void setReg_3004_charge_device_input_voltage_100(double reg_3004_charge_device_input_voltage_100) {
+        this.reg_3004_charge_device_input_voltage_100 = reg_3004_charge_device_input_voltage_100;
+    }
+
+    public double getReg_3005_charge_device_input_voltage_100() {
+        return this.reg_3005_charge_device_input_voltage_100;
+    }
+
+    public void setReg_3005_charge_device_input_voltage_100(double reg_3005_charge_device_input_voltage_100) {
+        this.reg_3005_charge_device_input_voltage_100 = reg_3005_charge_device_input_voltage_100;
+    }
+
+    public double getReg_3006_charge_device_input_voltage_100_l() {
+        return this.reg_3006_charge_device_input_voltage_100_l;
+    }
+
+    public void setReg_3006_charge_device_input_voltage_100_l(double reg_3006_charge_device_input_voltage_100_l) {
+        this.reg_3006_charge_device_input_voltage_100_l = reg_3006_charge_device_input_voltage_100_l;
+    }
+
+    public double getReg_3007_charge_device_input_voltage_100_h() {
+        return this.reg_3007_charge_device_input_voltage_100_h;
+    }
+
+    public void setReg_3007_charge_device_input_voltage_100_h(double reg_3007_charge_device_input_voltage_100_h) {
+        this.reg_3007_charge_device_input_voltage_100_h = reg_3007_charge_device_input_voltage_100_h;
+    }
+
+    public double getReg_3008_charge_device_input_voltage() {
+        return this.reg_3008_charge_device_input_voltage;
+    }
+
+    public void setReg_3008_charge_device_input_voltage(double reg_3008_charge_device_input_voltage) {
+        this.reg_3008_charge_device_input_voltage = reg_3008_charge_device_input_voltage;
+    }
+
+    public double getReg_300e_discharge_device_input_voltage_100() {
+        return this.reg_300e_discharge_device_input_voltage_100;
+    }
+
+    public void setReg_300e_discharge_device_input_voltage_100(double reg_300e_discharge_device_input_voltage_100) {
+        this.reg_300e_discharge_device_input_voltage_100 = reg_300e_discharge_device_input_voltage_100;
+    }
+
+    public double getReg_3100_array_voltage_100() {
+        return this.reg_3100_array_voltage_100;
+    }
+
+    public void setReg_3100_array_voltage_100(double reg_3100_array_voltage_100) {
+        this.reg_3100_array_voltage_100 = reg_3100_array_voltage_100;
+    }
+
+    public double getReg_3101_array_current_100() {
+        return this.reg_3101_array_current_100;
+    }
+
+    public void setReg_3101_array_current_100(double reg_3101_array_current_100) {
+        this.reg_3101_array_current_100 = reg_3101_array_current_100;
+    }
+
+    public double getReg_3102_array_power_100_low() {
+        return this.reg_3102_array_power_100_low;
+    }
+
+    public void setReg_3102_array_power_100_low(double reg_3102_array_power_100_low) {
+        this.reg_3102_array_power_100_low = reg_3102_array_power_100_low;
+    }
+
+    public double getReg_3103_array_power_100_high() {
+        return this.reg_3103_array_power_100_high;
+    }
+
+    public void setReg_3103_array_power_100_high(double reg_3103_array_power_100_high) {
+        this.reg_3103_array_power_100_high = reg_3103_array_power_100_high;
+    }
+
+    public double getReg_3104_battery_voltage_100() {
+        return this.reg_3104_battery_voltage_100;
+    }
+
+    public void setReg_3104_battery_voltage_100(double reg_3104_battery_voltage_100) {
+        this.reg_3104_battery_voltage_100 = reg_3104_battery_voltage_100;
+    }
+
+    public double getReg_3105_battery_current_100() {
+        return this.reg_3105_battery_current_100;
+    }
+
+    public void setReg_3105_battery_current_100(double reg_3105_battery_current_100) {
+        this.reg_3105_battery_current_100 = reg_3105_battery_current_100;
+    }
+
+    public double getReg_3106_battery_power_100_low() {
+        return this.reg_3106_battery_power_100_low;
+    }
+
+    public void setReg_3106_battery_power_100_low(double reg_3106_battery_power_100_low) {
+        this.reg_3106_battery_power_100_low = reg_3106_battery_power_100_low;
+    }
+
+    public double getReg_3107_battery_power_100_high() {
+        return this.reg_3107_battery_power_100_high;
+    }
+
+    public void setReg_3107_battery_power_100_high(double reg_3107_battery_power_100_high) {
+        this.reg_3107_battery_power_100_high = reg_3107_battery_power_100_high;
+    }
+
+    public double getReg_310c_discharge_device_input_voltage_100() {
+        return this.reg_310c_discharge_device_input_voltage_100;
+    }
+
+    public void setReg_310c_discharge_device_input_voltage_100(double reg_310c_discharge_device_input_voltage_100) {
+        this.reg_310c_discharge_device_input_voltage_100 = reg_310c_discharge_device_input_voltage_100;
+    }
+
+    public double getReg_310d_discharge_device_input_current_100() {
+        return this.reg_310d_discharge_device_input_current_100;
+    }
+
+    public void setReg_310d_discharge_device_input_current_100(double reg_310d_discharge_device_input_current_100) {
+        this.reg_310d_discharge_device_input_current_100 = reg_310d_discharge_device_input_current_100;
+    }
+
+    public double getReg_310e_discharge_device_load_power_100_low() {
+        return this.reg_310e_discharge_device_load_power_100_low;
+    }
+
+    public void setReg_310e_discharge_device_load_power_100_low(double reg_310e_discharge_device_load_power_100_low) {
+        this.reg_310e_discharge_device_load_power_100_low = reg_310e_discharge_device_load_power_100_low;
+    }
+
+    public double getReg_310f_discharge_device_load_power_100_high() {
+        return this.reg_310f_discharge_device_load_power_100_high;
+    }
+
+    public void setReg_310f_discharge_device_load_power_100_high(double reg_310f_discharge_device_load_power_100_high) {
+        this.reg_310f_discharge_device_load_power_100_high = reg_310f_discharge_device_load_power_100_high;
+    }
+
+    public double getReg_3110_battery_temperature_100() {
+        return this.reg_3110_battery_temperature_100;
+    }
+
+    public void setReg_3110_battery_temperature_100(double reg_3110_battery_temperature_100) {
+        this.reg_3110_battery_temperature_100 = reg_3110_battery_temperature_100;
+    }
+
+    public double getReg_3111_device_enclouse_temperature_100() {
+        return this.reg_3111_device_enclouse_temperature_100;
+    }
+
+    public void setReg_3111_device_enclouse_temperature_100(double reg_3111_device_enclouse_temperature_100) {
+        this.reg_3111_device_enclouse_temperature_100 = reg_3111_device_enclouse_temperature_100;
+    }
+
+    public double getReg_311a_battery_remain_percent() {
+        return this.reg_311a_battery_remain_percent;
+    }
+
+    public void setReg_311a_battery_remain_percent(double reg_311a_battery_remain_percent) {
+        this.reg_311a_battery_remain_percent = reg_311a_battery_remain_percent;
+    }
+
+    public double getReg_311b_battery_long_distance_temperature_100() {
+        return this.reg_311b_battery_long_distance_temperature_100;
+    }
+
+    public void setReg_311b_battery_long_distance_temperature_100(double reg_311b_battery_long_distance_temperature_100) {
+        this.reg_311b_battery_long_distance_temperature_100 = reg_311b_battery_long_distance_temperature_100;
+    }
+
+    public double getReg_311d_battery_voltage_rank_100() {
+        return this.reg_311d_battery_voltage_rank_100;
+    }
+
+    public void setReg_311d_battery_voltage_rank_100(double reg_311d_battery_voltage_rank_100) {
+        this.reg_311d_battery_voltage_rank_100 = reg_311d_battery_voltage_rank_100;
+    }
+
+    public double getReg_3200_battery_status() {
+        return this.reg_3200_battery_status;
+    }
+
+    public void setReg_3200_battery_status(double reg_3200_battery_status) {
+        this.reg_3200_battery_status = reg_3200_battery_status;
+    }
+
+    public double getReg_3201_charging_device_status() {
+        return this.reg_3201_charging_device_status;
+    }
+
+    public void setReg_3201_charging_device_status(double reg_3201_charging_device_status) {
+        this.reg_3201_charging_device_status = reg_3201_charging_device_status;
+    }
+
+    public double getReg_3300_day_input_max_voltage_100() {
+        return this.reg_3300_day_input_max_voltage_100;
+    }
+
+    public void setReg_3300_day_input_max_voltage_100(double reg_3300_day_input_max_voltage_100) {
+        this.reg_3300_day_input_max_voltage_100 = reg_3300_day_input_max_voltage_100;
+    }
+
+    public double getReg_3301_day_input_min_voltage_100() {
+        return this.reg_3301_day_input_min_voltage_100;
+    }
+
+    public void setReg_3301_day_input_min_voltage_100(double reg_3301_day_input_min_voltage_100) {
+        this.reg_3301_day_input_min_voltage_100 = reg_3301_day_input_min_voltage_100;
+    }
+
+    public double getReg_3302_day_battery_max_voltage_100() {
+        return this.reg_3302_day_battery_max_voltage_100;
+    }
+
+    public void setReg_3302_day_battery_max_voltage_100(double reg_3302_day_battery_max_voltage_100) {
+        this.reg_3302_day_battery_max_voltage_100 = reg_3302_day_battery_max_voltage_100;
+    }
+
+    public double getReg_3303_day_battery_min_voltage_100() {
+        return this.reg_3303_day_battery_min_voltage_100;
+    }
+
+    public void setReg_3303_day_battery_min_voltage_100(double reg_3303_day_battery_min_voltage_100) {
+        this.reg_3303_day_battery_min_voltage_100 = reg_3303_day_battery_min_voltage_100;
+    }
+
+    public double getReg_3304_day_consumption_electric_quantity_100_l() {
+        return this.reg_3304_day_consumption_electric_quantity_100_l;
+    }
+
+    public void setReg_3304_day_consumption_electric_quantity_100_l(double reg_3304_day_consumption_electric_quantity_100_l) {
+        this.reg_3304_day_consumption_electric_quantity_100_l = reg_3304_day_consumption_electric_quantity_100_l;
+    }
+
+    public double getReg_3305_day_consumption_electric_quantity_100_h() {
+        return this.reg_3305_day_consumption_electric_quantity_100_h;
+    }
+
+    public void setReg_3305_day_consumption_electric_quantity_100_h(double reg_3305_day_consumption_electric_quantity_100_h) {
+        this.reg_3305_day_consumption_electric_quantity_100_h = reg_3305_day_consumption_electric_quantity_100_h;
+    }
+
+    public double getReg_3306_month_consumption_electric_quantity_100_l() {
+        return this.reg_3306_month_consumption_electric_quantity_100_l;
+    }
+
+    public void setReg_3306_month_consumption_electric_quantity_100_l(double reg_3306_month_consumption_electric_quantity_100_l) {
+        this.reg_3306_month_consumption_electric_quantity_100_l = reg_3306_month_consumption_electric_quantity_100_l;
+    }
+
+    public double getReg_3307_month_consumption_electric_quantity_100_h() {
+        return this.reg_3307_month_consumption_electric_quantity_100_h;
+    }
+
+    public void setReg_3307_month_consumption_electric_quantity_100_h(double reg_3307_month_consumption_electric_quantity_100_h) {
+        this.reg_3307_month_consumption_electric_quantity_100_h = reg_3307_month_consumption_electric_quantity_100_h;
+    }
+
+    public double getReg_3308_year_consumption_electric_quantity_100_l() {
+        return this.reg_3308_year_consumption_electric_quantity_100_l;
+    }
+
+    public void setReg_3308_year_consumption_electric_quantity_100_l(double reg_3308_year_consumption_electric_quantity_100_l) {
+        this.reg_3308_year_consumption_electric_quantity_100_l = reg_3308_year_consumption_electric_quantity_100_l;
+    }
+
+    public double getReg_3309_year_consumption_electric_quantity_100_h() {
+        return this.reg_3309_year_consumption_electric_quantity_100_h;
+    }
+
+    public void setReg_3309_year_consumption_electric_quantity_100_h(double reg_3309_year_consumption_electric_quantity_100_h) {
+        this.reg_3309_year_consumption_electric_quantity_100_h = reg_3309_year_consumption_electric_quantity_100_h;
+    }
+
+    public double getReg_330a_total_consumption_electric_quantity_100_l() {
+        return this.reg_330a_total_consumption_electric_quantity_100_l;
+    }
+
+    public void setReg_330a_total_consumption_electric_quantity_100_l(double reg_330a_total_consumption_electric_quantity_100_l) {
+        this.reg_330a_total_consumption_electric_quantity_100_l = reg_330a_total_consumption_electric_quantity_100_l;
+    }
+
+    public double getReg_330b_total_consumption_electric_quantity_100_h() {
+        return this.reg_330b_total_consumption_electric_quantity_100_h;
+    }
+
+    public void setReg_330b_total_consumption_electric_quantity_100_h(double reg_330b_total_consumption_electric_quantity_100_h) {
+        this.reg_330b_total_consumption_electric_quantity_100_h = reg_330b_total_consumption_electric_quantity_100_h;
+    }
+
+    public double getReg_330c_day_charged_electric_quantity_100_l() {
+        return this.reg_330c_day_charged_electric_quantity_100_l;
+    }
+
+    public void setReg_330c_day_charged_electric_quantity_100_l(double reg_330c_day_charged_electric_quantity_100_l) {
+        this.reg_330c_day_charged_electric_quantity_100_l = reg_330c_day_charged_electric_quantity_100_l;
+    }
+
+    public double getReg_330d_day_charged_electric_quantity_100_h() {
+        return this.reg_330d_day_charged_electric_quantity_100_h;
+    }
+
+    public void setReg_330d_day_charged_electric_quantity_100_h(double reg_330d_day_charged_electric_quantity_100_h) {
+        this.reg_330d_day_charged_electric_quantity_100_h = reg_330d_day_charged_electric_quantity_100_h;
+    }
+
+    public double getReg_330e_month_charged_electric_quantity_100_l() {
+        return this.reg_330e_month_charged_electric_quantity_100_l;
+    }
+
+    public void setReg_330e_month_charged_electric_quantity_100_l(double reg_330e_month_charged_electric_quantity_100_l) {
+        this.reg_330e_month_charged_electric_quantity_100_l = reg_330e_month_charged_electric_quantity_100_l;
+    }
+
+    public double getReg_330f_month_charged_electric_quantity_100_h() {
+        return this.reg_330f_month_charged_electric_quantity_100_h;
+    }
+
+    public void setReg_330f_month_charged_electric_quantity_100_h(double reg_330f_month_charged_electric_quantity_100_h) {
+        this.reg_330f_month_charged_electric_quantity_100_h = reg_330f_month_charged_electric_quantity_100_h;
+    }
+
+    public double getReg_3310_year_charged_electric_quantity_100_l() {
+        return this.reg_3310_year_charged_electric_quantity_100_l;
+    }
+
+    public void setReg_3310_year_charged_electric_quantity_100_l(double reg_3310_year_charged_electric_quantity_100_l) {
+        this.reg_3310_year_charged_electric_quantity_100_l = reg_3310_year_charged_electric_quantity_100_l;
+    }
+
+    public double getReg_3311_year_charged_electric_quantity_100_h() {
+        return this.reg_3311_year_charged_electric_quantity_100_h;
+    }
+
+    public void setReg_3311_year_charged_electric_quantity_100_h(double reg_3311_year_charged_electric_quantity_100_h) {
+        this.reg_3311_year_charged_electric_quantity_100_h = reg_3311_year_charged_electric_quantity_100_h;
+    }
+
+    public double getReg_3312_total_charged_electric_quantity_100_l() {
+        return this.reg_3312_total_charged_electric_quantity_100_l;
+    }
+
+    public void setReg_3312_total_charged_electric_quantity_100_l(double reg_3312_total_charged_electric_quantity_100_l) {
+        this.reg_3312_total_charged_electric_quantity_100_l = reg_3312_total_charged_electric_quantity_100_l;
+    }
+
+    public double getReg_3313_total_charged_electric_quantity_100_h() {
+        return this.reg_3313_total_charged_electric_quantity_100_h;
+    }
+
+    public void setReg_3313_total_charged_electric_quantity_100_h(double reg_3313_total_charged_electric_quantity_100_h) {
+        this.reg_3313_total_charged_electric_quantity_100_h = reg_3313_total_charged_electric_quantity_100_h;
+    }
+
+    public double getReg_9000_battery_type() {
+        return this.reg_9000_battery_type;
+    }
+
+    public void setReg_9000_battery_type(double reg_9000_battery_type) {
+        this.reg_9000_battery_type = reg_9000_battery_type;
+    }
+
+    public double getReg_9001_battery_capacity() {
+        return this.reg_9001_battery_capacity;
+    }
+
+    public void setReg_9001_battery_capacity(double reg_9001_battery_capacity) {
+        this.reg_9001_battery_capacity = reg_9001_battery_capacity;
+    }
+
+    public double getReg_9002_temperature_compensation_algorithm_100() {
+        return this.reg_9002_temperature_compensation_algorithm_100;
+    }
+
+    public void setReg_9002_temperature_compensation_algorithm_100(double reg_9002_temperature_compensation_algorithm_100) {
+        this.reg_9002_temperature_compensation_algorithm_100 = reg_9002_temperature_compensation_algorithm_100;
+    }
+
+    public double getReg_9003_over_voltage_off_voltage_100() {
+        return this.reg_9003_over_voltage_off_voltage_100;
+    }
+
+    public void setReg_9003_over_voltage_off_voltage_100(double reg_9003_over_voltage_off_voltage_100) {
+        this.reg_9003_over_voltage_off_voltage_100 = reg_9003_over_voltage_off_voltage_100;
+    }
+
+    public double getReg_9004_charge_limit_voltage_100() {
+        return this.reg_9004_charge_limit_voltage_100;
+    }
+
+    public void setReg_9004_charge_limit_voltage_100(double reg_9004_charge_limit_voltage_100) {
+        this.reg_9004_charge_limit_voltage_100 = reg_9004_charge_limit_voltage_100;
+    }
+
+    public double getReg_9005_over_voltage_off_recover_voltage_100() {
+        return this.reg_9005_over_voltage_off_recover_voltage_100;
+    }
+
+    public void setReg_9005_over_voltage_off_recover_voltage_100(double reg_9005_over_voltage_off_recover_voltage_100) {
+        this.reg_9005_over_voltage_off_recover_voltage_100 = reg_9005_over_voltage_off_recover_voltage_100;
+    }
+
+    public double getReg_9006_balance_voltage_100() {
+        return this.reg_9006_balance_voltage_100;
+    }
+
+    public void setReg_9006_balance_voltage_100(double reg_9006_balance_voltage_100) {
+        this.reg_9006_balance_voltage_100 = reg_9006_balance_voltage_100;
+    }
+
+    public double getReg_9007_promote_voltage_100() {
+        return this.reg_9007_promote_voltage_100;
+    }
+
+    public void setReg_9007_promote_voltage_100(double reg_9007_promote_voltage_100) {
+        this.reg_9007_promote_voltage_100 = reg_9007_promote_voltage_100;
+    }
+
+    public double getReg_9008_floating_charge_voltage_100() {
+        return this.reg_9008_floating_charge_voltage_100;
+    }
+
+    public void setReg_9008_floating_charge_voltage_100(double reg_9008_floating_charge_voltage_100) {
+        this.reg_9008_floating_charge_voltage_100 = reg_9008_floating_charge_voltage_100;
+    }
+
+    public double getReg_9009_promote_rover_voltage_100() {
+        return this.reg_9009_promote_rover_voltage_100;
+    }
+
+    public void setReg_9009_promote_rover_voltage_100(double reg_9009_promote_rover_voltage_100) {
+        this.reg_9009_promote_rover_voltage_100 = reg_9009_promote_rover_voltage_100;
+    }
+
+    public double getReg_900a_low_voltage_off_recover_voltage_100() {
+        return this.reg_900a_low_voltage_off_recover_voltage_100;
+    }
+
+    public void setReg_900a_low_voltage_off_recover_voltage_100(double reg_900a_low_voltage_off_recover_voltage_100) {
+        this.reg_900a_low_voltage_off_recover_voltage_100 = reg_900a_low_voltage_off_recover_voltage_100;
+    }
+
+    public double getReg_900b_under_voltage_alarm_voltage_recover_100() {
+        return this.reg_900b_under_voltage_alarm_voltage_recover_100;
+    }
+
+    public void setReg_900b_under_voltage_alarm_voltage_recover_100(double reg_900b_under_voltage_alarm_voltage_recover_100) {
+        this.reg_900b_under_voltage_alarm_voltage_recover_100 = reg_900b_under_voltage_alarm_voltage_recover_100;
+    }
+
+    public double getReg_900c_under_voltage_alarm_voltage_100() {
+        return this.reg_900c_under_voltage_alarm_voltage_100;
+    }
+
+    public void setReg_900c_under_voltage_alarm_voltage_100(double reg_900c_under_voltage_alarm_voltage_100) {
+        this.reg_900c_under_voltage_alarm_voltage_100 = reg_900c_under_voltage_alarm_voltage_100;
+    }
+
+    public double getReg_900d_low_voltage_off_voltage_100() {
+        return this.reg_900d_low_voltage_off_voltage_100;
+    }
+
+    public void setReg_900d_low_voltage_off_voltage_100(double reg_900d_low_voltage_off_voltage_100) {
+        this.reg_900d_low_voltage_off_voltage_100 = reg_900d_low_voltage_off_voltage_100;
+    }
+
+    public double getReg_900e_recharge_limit_voltage_100() {
+        return this.reg_900e_recharge_limit_voltage_100;
+    }
+
+    public void setReg_900e_recharge_limit_voltage_100(double reg_900e_recharge_limit_voltage_100) {
+        this.reg_900e_recharge_limit_voltage_100 = reg_900e_recharge_limit_voltage_100;
+    }
+
+    public double getReg_9013_real_time_clock_second_minute() {
+        return this.reg_9013_real_time_clock_second_minute;
+    }
+
+    public void setReg_9013_real_time_clock_second_minute(double reg_9013_real_time_clock_second_minute) {
+        this.reg_9013_real_time_clock_second_minute = reg_9013_real_time_clock_second_minute;
+    }
+
+    public double getReg_9014_real_time_clock_hour_day() {
+        return this.reg_9014_real_time_clock_hour_day;
+    }
+
+    public void setReg_9014_real_time_clock_hour_day(double reg_9014_real_time_clock_hour_day) {
+        this.reg_9014_real_time_clock_hour_day = reg_9014_real_time_clock_hour_day;
+    }
+
+    public double getReg_9015_real_time_clock_month_year() {
+        return this.reg_9015_real_time_clock_month_year;
+    }
+
+    public void setReg_9015_real_time_clock_month_year(double reg_9015_real_time_clock_month_year) {
+        this.reg_9015_real_time_clock_month_year = reg_9015_real_time_clock_month_year;
+    }
+
+    public double getReg_9016_balance_charge_period() {
+        return this.reg_9016_balance_charge_period;
+    }
+
+    public void setReg_9016_balance_charge_period(double reg_9016_balance_charge_period) {
+        this.reg_9016_balance_charge_period = reg_9016_balance_charge_period;
+    }
+
+    public double getReg_9017_battery_temperature_alarm_upper_limit_value_100() {
+        return this.reg_9017_battery_temperature_alarm_upper_limit_value_100;
+    }
+
+    public void setReg_9017_battery_temperature_alarm_upper_limit_value_100(double reg_9017_battery_temperature_alarm_upper_limit_value_100) {
+        this.reg_9017_battery_temperature_alarm_upper_limit_value_100 = reg_9017_battery_temperature_alarm_upper_limit_value_100;
+    }
+
+    public double getReg_9018_battery_temperature_alarm_low_limit_value_100() {
+        return this.reg_9018_battery_temperature_alarm_low_limit_value_100;
+    }
+
+    public void setReg_9018_battery_temperature_alarm_low_limit_value_100(double reg_9018_battery_temperature_alarm_low_limit_value_100) {
+        this.reg_9018_battery_temperature_alarm_low_limit_value_100 = reg_9018_battery_temperature_alarm_low_limit_value_100;
+    }
+
+    public double getReg_9019_device_inner_temperature_uper_limit_100() {
+        return this.reg_9019_device_inner_temperature_uper_limit_100;
+    }
+
+    public void setReg_9019_device_inner_temperature_uper_limit_100(double reg_9019_device_inner_temperature_uper_limit_100) {
+        this.reg_9019_device_inner_temperature_uper_limit_100 = reg_9019_device_inner_temperature_uper_limit_100;
+    }
+
+    public double getReg_901a_device_inner_temperature_uper_limit_recover_100() {
+        return this.reg_901a_device_inner_temperature_uper_limit_recover_100;
+    }
+
+    public void setReg_901a_device_inner_temperature_uper_limit_recover_100(double reg_901a_device_inner_temperature_uper_limit_recover_100) {
+        this.reg_901a_device_inner_temperature_uper_limit_recover_100 = reg_901a_device_inner_temperature_uper_limit_recover_100;
+    }
+
+    public double getReg_901b_power_device_temperature_uper_limit_100() {
+        return this.reg_901b_power_device_temperature_uper_limit_100;
+    }
+
+    public void setReg_901b_power_device_temperature_uper_limit_100(double reg_901b_power_device_temperature_uper_limit_100) {
+        this.reg_901b_power_device_temperature_uper_limit_100 = reg_901b_power_device_temperature_uper_limit_100;
+    }
+
+    public double getReg_901c_power_device_temperature_uper_limit_recover_100() {
+        return this.reg_901c_power_device_temperature_uper_limit_recover_100;
+    }
+
+    public void setReg_901c_power_device_temperature_uper_limit_recover_100(double reg_901c_power_device_temperature_uper_limit_recover_100) {
+        this.reg_901c_power_device_temperature_uper_limit_recover_100 = reg_901c_power_device_temperature_uper_limit_recover_100;
+    }
+
+    public double getReg_901d_line_circuit_impedance_100() {
+        return this.reg_901d_line_circuit_impedance_100;
+    }
+
+    public void setReg_901d_line_circuit_impedance_100(double reg_901d_line_circuit_impedance_100) {
+        this.reg_901d_line_circuit_impedance_100 = reg_901d_line_circuit_impedance_100;
+    }
+
+    public double getReg_901e_optical_night_threshold_voltage_100() {
+        return this.reg_901e_optical_night_threshold_voltage_100;
+    }
+
+    public void setReg_901e_optical_night_threshold_voltage_100(double reg_901e_optical_night_threshold_voltage_100) {
+        this.reg_901e_optical_night_threshold_voltage_100 = reg_901e_optical_night_threshold_voltage_100;
+    }
+
+    public double getReg_901f_optical_open_ensure_time() {
+        return this.reg_901f_optical_open_ensure_time;
+    }
+
+    public void setReg_901f_optical_open_ensure_time(double reg_901f_optical_open_ensure_time) {
+        this.reg_901f_optical_open_ensure_time = reg_901f_optical_open_ensure_time;
+    }
+
+    public double getReg_9020_optical_day_threshold_voltage_100() {
+        return this.reg_9020_optical_day_threshold_voltage_100;
+    }
+
+    public void setReg_9020_optical_day_threshold_voltage_100(double reg_9020_optical_day_threshold_voltage_100) {
+        this.reg_9020_optical_day_threshold_voltage_100 = reg_9020_optical_day_threshold_voltage_100;
+    }
+
+    public double getReg_9021_optical_signal_day_time_mode_100() {
+        return this.reg_9021_optical_signal_day_time_mode_100;
+    }
+
+    public void setReg_9021_optical_signal_day_time_mode_100(double reg_9021_optical_signal_day_time_mode_100) {
+        this.reg_9021_optical_signal_day_time_mode_100 = reg_9021_optical_signal_day_time_mode_100;
+    }
+
+    public double getReg_903d_load_output_control_mode() {
+        return this.reg_903d_load_output_control_mode;
+    }
+
+    public void setReg_903d_load_output_control_mode(double reg_903d_load_output_control_mode) {
+        this.reg_903d_load_output_control_mode = reg_903d_load_output_control_mode;
+    }
+
+    public double getReg_903e_work_duration_one() {
+        return this.reg_903e_work_duration_one;
+    }
+
+    public void setReg_903e_work_duration_one(double reg_903e_work_duration_one) {
+        this.reg_903e_work_duration_one = reg_903e_work_duration_one;
+    }
+
+    public double getReg_903f_work_duration_two() {
+        return this.reg_903f_work_duration_two;
+    }
+
+    public void setReg_903f_work_duration_two(double reg_903f_work_duration_two) {
+        this.reg_903f_work_duration_two = reg_903f_work_duration_two;
+    }
+
+    public double getReg_9040_work_duration_three() {
+        return this.reg_9040_work_duration_three;
+    }
+
+    public void setReg_9040_work_duration_three(double reg_9040_work_duration_three) {
+        this.reg_9040_work_duration_three = reg_9040_work_duration_three;
+    }
+
+    public double getReg_9042_time_one_open_second() {
+        return this.reg_9042_time_one_open_second;
+    }
+
+    public void setReg_9042_time_one_open_second(double reg_9042_time_one_open_second) {
+        this.reg_9042_time_one_open_second = reg_9042_time_one_open_second;
+    }
+
+    public double getReg_9043_time_one_open_minute() {
+        return this.reg_9043_time_one_open_minute;
+    }
+
+    public void setReg_9043_time_one_open_minute(double reg_9043_time_one_open_minute) {
+        this.reg_9043_time_one_open_minute = reg_9043_time_one_open_minute;
+    }
+
+    public double getReg_9044_time_one_open_hour() {
+        return this.reg_9044_time_one_open_hour;
+    }
+
+    public void setReg_9044_time_one_open_hour(double reg_9044_time_one_open_hour) {
+        this.reg_9044_time_one_open_hour = reg_9044_time_one_open_hour;
+    }
+
+    public double getReg_9045_time_one_close_second() {
+        return this.reg_9045_time_one_close_second;
+    }
+
+    public void setReg_9045_time_one_close_second(double reg_9045_time_one_close_second) {
+        this.reg_9045_time_one_close_second = reg_9045_time_one_close_second;
+    }
+
+    public double getReg_9046_time_one_close_minute() {
+        return this.reg_9046_time_one_close_minute;
+    }
+
+    public void setReg_9046_time_one_close_minute(double reg_9046_time_one_close_minute) {
+        this.reg_9046_time_one_close_minute = reg_9046_time_one_close_minute;
+    }
+
+    public double getReg_9047_time_one_close_hour() {
+        return this.reg_9047_time_one_close_hour;
+    }
+
+    public void setReg_9047_time_one_close_hour(double reg_9047_time_one_close_hour) {
+        this.reg_9047_time_one_close_hour = reg_9047_time_one_close_hour;
+    }
+
+    public double getReg_9048_time_two_open_second() {
+        return this.reg_9048_time_two_open_second;
+    }
+
+    public void setReg_9048_time_two_open_second(double reg_9048_time_two_open_second) {
+        this.reg_9048_time_two_open_second = reg_9048_time_two_open_second;
+    }
+
+    public double getReg_9049_time_two_open_minute() {
+        return this.reg_9049_time_two_open_minute;
+    }
+
+    public void setReg_9049_time_two_open_minute(double reg_9049_time_two_open_minute) {
+        this.reg_9049_time_two_open_minute = reg_9049_time_two_open_minute;
+    }
+
+    public double getReg_904a_time_two_open_hour() {
+        return this.reg_904a_time_two_open_hour;
+    }
+
+    public void setReg_904a_time_two_open_hour(double reg_904a_time_two_open_hour) {
+        this.reg_904a_time_two_open_hour = reg_904a_time_two_open_hour;
+    }
+
+    public double getReg_904b_time_two_close_second() {
+        return this.reg_904b_time_two_close_second;
+    }
+
+    public void setReg_904b_time_two_close_second(double reg_904b_time_two_close_second) {
+        this.reg_904b_time_two_close_second = reg_904b_time_two_close_second;
+    }
+
+    public double getReg_904c_time_two_close_minute() {
+        return this.reg_904c_time_two_close_minute;
+    }
+
+    public void setReg_904c_time_two_close_minute(double reg_904c_time_two_close_minute) {
+        this.reg_904c_time_two_close_minute = reg_904c_time_two_close_minute;
+    }
+
+    public double getReg_904d_time_two_close_hour() {
+        return this.reg_904d_time_two_close_hour;
+    }
+
+    public void setReg_904d_time_two_close_hour(double reg_904d_time_two_close_hour) {
+        this.reg_904d_time_two_close_hour = reg_904d_time_two_close_hour;
+    }
+
+    public double getReg_905a_output_power_1_percent_100() {
+        return this.reg_905a_output_power_1_percent_100;
+    }
+
+    public void setReg_905a_output_power_1_percent_100(double reg_905a_output_power_1_percent) {
+        this.reg_905a_output_power_1_percent_100 = reg_905a_output_power_1_percent;
+    }
+
+    public double getReg_905b_output_power_2_percent_100() {
+        return this.reg_905b_output_power_2_percent_100;
+    }
+
+    public void setReg_905b_output_power_2_percent_100(double reg_905b_output_power_2_percent) {
+        this.reg_905b_output_power_2_percent_100 = reg_905b_output_power_2_percent;
+    }
+
+    public double getReg_905c_output_power_3_percent_100() {
+        return this.reg_905c_output_power_3_percent_100;
+    }
+
+    public void setReg_905c_output_power_3_percent_100(double reg_905c_output_power_3_percent) {
+        this.reg_905c_output_power_3_percent_100 = reg_905c_output_power_3_percent;
+    }
+
+    public double getReg_9063_liquid_display_time_long_100() {
+        return this.reg_9063_liquid_display_time_long_100;
+    }
+
+    public void setReg_9063_liquid_display_time_long_100(double reg_9063_liquid_display_time_long) {
+        this.reg_9063_liquid_display_time_long_100 = reg_9063_liquid_display_time_long;
+    }
+
+    public double getReg_9065_night_time_long() {
+        return this.reg_9065_night_time_long;
+    }
+
+    public void setReg_9065_night_time_long(double reg_9065_night_time_long) {
+        this.reg_9065_night_time_long = reg_9065_night_time_long;
+    }
+
+    public double getReg_9066_power_supply_device() {
+        return this.reg_9066_power_supply_device;
+    }
+
+    public void setReg_9066_power_supply_device(double reg_9066_power_supply_device) {
+        this.reg_9066_power_supply_device = reg_9066_power_supply_device;
+    }
+
+    public double getReg_9067_system_nominal_voltage_control_code() {
+        return this.reg_9067_system_nominal_voltage_control_code;
+    }
+
+    public void setReg_9067_system_nominal_voltage_control_code(double reg_9067_system_nominal_voltage_control_code) {
+        this.reg_9067_system_nominal_voltage_control_code = reg_9067_system_nominal_voltage_control_code;
+    }
+
+    public double getReg_9068_run_time_write_data_interval_time() {
+        return this.reg_9068_run_time_write_data_interval_time;
+    }
+
+    public void setReg_9068_run_time_write_data_interval_time(double reg_9068_run_time_write_data_interval_time) {
+        this.reg_9068_run_time_write_data_interval_time = reg_9068_run_time_write_data_interval_time;
+    }
+
+    public double getReg_9069_timed_control_qutum() {
+        return this.reg_9069_timed_control_qutum;
+    }
+
+    public void setReg_9069_timed_control_qutum(double reg_9069_timed_control_qutum) {
+        this.reg_9069_timed_control_qutum = reg_9069_timed_control_qutum;
+    }
+
+    public double getReg_906a_manual_operation_control_switch() {
+        return this.reg_906a_manual_operation_control_switch;
+    }
+
+    public void setReg_906a_manual_operation_control_switch(double reg_906a_manual_operation_control_switch) {
+        this.reg_906a_manual_operation_control_switch = reg_906a_manual_operation_control_switch;
+    }
+
+    public double getReg_906b_balance_hold_time() {
+        return this.reg_906b_balance_hold_time;
+    }
+
+    public void setReg_906b_balance_hold_time(double reg_906b_balance_hold_time) {
+        this.reg_906b_balance_hold_time = reg_906b_balance_hold_time;
+    }
+
+    public double getReg_906c_promot_hold_time() {
+        return this.reg_906c_promot_hold_time;
+    }
+
+    public void setReg_906c_promot_hold_time(double reg_906c_promot_hold_time) {
+        this.reg_906c_promot_hold_time = reg_906c_promot_hold_time;
+    }
+
+    public double getReg_906d_recharge_deep_percent() {
+        return this.reg_906d_recharge_deep_percent;
+    }
+
+    public void setReg_906d_recharge_deep_percent(double reg_906d_recharge_deep_percent) {
+        this.reg_906d_recharge_deep_percent = reg_906d_recharge_deep_percent;
+    }
+
+    public double getReg_906e_charge_deep_percent() {
+        return this.reg_906e_charge_deep_percent;
+    }
+
+    public void setReg_906e_charge_deep_percent(double reg_906e_charge_deep_percent) {
+        this.reg_906e_charge_deep_percent = reg_906e_charge_deep_percent;
+    }
+
+    public double getReg_9070_battery_charge_recharge_manage_mode() {
+        return this.reg_9070_battery_charge_recharge_manage_mode;
+    }
+
+    public void setReg_9070_battery_charge_recharge_manage_mode(double reg_9070_battery_charge_recharge_manage_mode) {
+        this.reg_9070_battery_charge_recharge_manage_mode = reg_9070_battery_charge_recharge_manage_mode;
+    }
+
+    public double getReg_9072() {
+        return this.reg_9072;
+    }
+
+    public void setReg_9072(double reg_9072) {
+        this.reg_9072 = reg_9072;
+    }
+
+    public double getReg_9073_100() {
+        return this.reg_9073_100;
+    }
+
+    public void setReg_9073_100(double reg_9073) {
+        this.reg_9073_100 = reg_9073;
+    }
+
+    public double getReg_9078() {
+        return this.reg_9078;
+    }
+
+    public void setReg_9078(double reg_9078) {
+        this.reg_9078 = reg_9078;
+    }
+
+    public double getReg_9079_manual_operation_percent() {
+        return this.reg_9079_manual_operation_percent;
+    }
+
+    public void setReg_9079_manual_operation_percent(double reg_9079_manual_operation_percent) {
+        this.reg_9079_manual_operation_percent = reg_9079_manual_operation_percent;
+    }
+
+    public double getReg_907a() {
+        return this.reg_907a;
+    }
+
+    public void setReg_907a(double reg_907a) {
+        this.reg_907a = reg_907a;
+    }
+
+    public double getReg_907b() {
+        return this.reg_907b;
+    }
+
+    public void setReg_907b(double reg_907b) {
+        this.reg_907b = reg_907b;
+    }
+
+    public double getReg_907c() {
+        return this.reg_907c;
+    }
+
+    public void setReg_907c(double reg_907c) {
+        this.reg_907c = reg_907c;
+    }
+
+    public double getReg_907d_100() {
+        return this.reg_907d_100;
+    }
+
+    public void setReg_907d_100(double reg_907d) {
+        this.reg_907d_100 = reg_907d;
+    }
+
+    public double getReg_907e_100() {
+        return this.reg_907e_100;
+    }
+
+    public void setReg_907e_100(double reg_907e) {
+        this.reg_907e_100 = reg_907e;
+    }
+
+    public double getReg_907f_100() {
+        return this.reg_907f_100;
+    }
+
+    public void setReg_907f_100(double reg_907f) {
+        this.reg_907f_100 = reg_907f;
+    }
+
+    public double getReg_9080led_current_1_percent_100() {
+        return this.reg_9080led_current_1_percent_100;
+    }
+
+    public void setReg_9080led_current_1_percent_100(double reg_9080led_current_1_percent_100) {
+        this.reg_9080led_current_1_percent_100 = reg_9080led_current_1_percent_100;
+    }
+
+    public double getReg_9081_led_current_2_percent_100() {
+        return this.reg_9081_led_current_2_percent_100;
+    }
+
+    public void setReg_9081_led_current_2_percent_100(double reg_9081_led_current_2_percent) {
+        this.reg_9081_led_current_2_percent_100 = reg_9081_led_current_2_percent;
+    }
+
+    public double getReg_2_output_manual_operation_switch() {
+        return this.reg_2_output_manual_operation_switch;
+    }
+
+    public void setReg_2_output_manual_operation_switch(double reg_2_output_manual_operation_switch) {
+        this.reg_2_output_manual_operation_switch = reg_2_output_manual_operation_switch;
+    }
+
+    public double getReg_3_default_output_switch_status() {
+        return this.reg_3_default_output_switch_status;
+    }
+
+    public void setReg_3_default_output_switch_status(double reg_3_default_output_switch_status) {
+        this.reg_3_default_output_switch_status = reg_3_default_output_switch_status;
+    }
+
+    public double getReg_5_enter_test_status() {
+        return this.reg_5_enter_test_status;
+    }
+
+    public void setReg_5_enter_test_status(double reg_5_enter_test_status) {
+        this.reg_5_enter_test_status = reg_5_enter_test_status;
+    }
+
+    public double getReg_6_device_switch_test() {
+        return this.reg_6_device_switch_test;
+    }
+
+    public void setReg_6_device_switch_test(double reg_6_device_switch_test) {
+        this.reg_6_device_switch_test = reg_6_device_switch_test;
+    }
+
+    public double getReg_2000_device_tempertature_status() {
+        return this.reg_2000_device_tempertature_status;
+    }
+
+    public void setReg_2000_device_tempertature_status(double reg_2000_device_tempertature_status) {
+        this.reg_2000_device_tempertature_status = reg_2000_device_tempertature_status;
+    }
+
+    public double getReg_200c_day_night() {
+        return this.reg_200c_day_night;
+    }
+
+    public void setReg_200c_day_night(double reg_200c_day_night) {
+        this.reg_200c_day_night = reg_200c_day_night;
+    }
+
+    public String getSppProductType() {
+        return this.sppProductType;
+    }
+
+    public void setSppProductType(String productType) {
+        this.sppProductType = productType;
+    }
+
+    public double getSppParameterNum() {
+        return this.SppParameterNum;
+    }
+
+    public void setSppParameterNum(double sppParameterNum) {
+        this.SppParameterNum = sppParameterNum;
+    }
+
+    public boolean isControlerBatteryDefault() {
+        return this.isControlerBatteryDefault;
+    }
+
+    public void setControlerBatteryDefault(boolean isControlerBatteryDefault) {
+        this.isControlerBatteryDefault = isControlerBatteryDefault;
+    }
+
+    public boolean isLoadDefault() {
+        return this.isLoadDefault;
+    }
+
+    public void setLoadDefault(boolean isLoadDefault) {
+        this.isLoadDefault = isLoadDefault;
+    }
+
+    public String toString() {
+        return "SolarData [ saveTime = " + this.saveTime + "\nisLedDevice = " + this.isLedDevice + "\nisLoadTime2Checked = " + this.isLoadTime2Checked + "\nfileSaveName = " + this.fileSaveName + "\nreg_3000_charge_device_input_voltage_100 = " + this.reg_3000_charge_device_input_voltage_100 + "\nreg_3001_charge_device_input_voltage_100 = " + this.reg_3001_charge_device_input_voltage_100 + "\nreg_3002_charge_device_input_voltage_100_l = " + this.reg_3002_charge_device_input_voltage_100_l + "\nreg_3003_charge_device_input_voltage_100_h = " + this.reg_3003_charge_device_input_voltage_100_h + "\nreg_3004_charge_device_input_voltage_100 = " + this.reg_3004_charge_device_input_voltage_100 + "\nreg_3005_charge_device_input_voltage_100 = " + this.reg_3005_charge_device_input_voltage_100 + "\nreg_3006_charge_device_input_voltage_100_l = " + this.reg_3006_charge_device_input_voltage_100_l + "\nreg_3007_charge_device_input_voltage_100_h = " + this.reg_3007_charge_device_input_voltage_100_h + "\nreg_3008_charge_device_input_voltage = " + this.reg_3008_charge_device_input_voltage + "\nreg_3104_battery_voltage_100 = " + this.reg_3104_battery_voltage_100 + "\nreg_3100_array_voltage_100 = " + this.reg_3100_array_voltage_100 + "\nreg_3101_array_current_100 = " + this.reg_3101_array_current_100 + "\nreg_3102_array_power_100_low = " + this.reg_3102_array_power_100_low + "\nreg_3103_array_power_100_high = " + this.reg_3103_array_power_100_high + "\nreg_3104_battery_voltage_100 = " + this.reg_3104_battery_voltage_100 + "\nreg_3105_battery_current_100 = " + this.reg_3105_battery_current_100 + "\nreg_3106_battery_power_100_low = " + this.reg_3106_battery_power_100_low + "\nreg_3107_battery_power_100_high = " + this.reg_3107_battery_power_100_high + "\nreg_310c_discharge_device_input_voltage_100 = " + this.reg_310c_discharge_device_input_voltage_100 + "\nreg_310d_discharge_device_input_current_100 = " + this.reg_310d_discharge_device_input_current_100 + "\nreg_310e_discharge_device_load_power_100_low = " + this.reg_310e_discharge_device_load_power_100_low + "\nreg_310f_discharge_device_load_power_100_high = " + this.reg_310f_discharge_device_load_power_100_high + "\nreg_3110_battery_temperature_100 = " + this.reg_3110_battery_temperature_100 + "\nreg_3111_device_enclouse_temperature_100 = " + this.reg_3111_device_enclouse_temperature_100 + "\nreg_311a_battery_remain_percent = " + this.reg_311a_battery_remain_percent + "\nreg_311b_battery_long_distance_temperature_100 = " + this.reg_311b_battery_long_distance_temperature_100 + "\nreg_311d_battery_voltage_rank_100 = " + this.reg_311d_battery_voltage_rank_100 + "\nreg_3200_battery_status = " + this.reg_3200_battery_status + "\nreg_3201_charging_device_status = " + this.reg_3201_charging_device_status + "\nreg_3202_recharging_device_status = " + this.reg_3202_recharging_device_status + "\nreg_3300_day_input_max_voltage_100 = " + this.reg_3300_day_input_max_voltage_100 + "\nreg_3301_day_input_min_voltage_100 = " + this.reg_3301_day_input_min_voltage_100 + "\nreg_3302_day_battery_max_voltage_100 = " + this.reg_3302_day_battery_max_voltage_100 + "\nreg_3303_day_battery_min_voltage_100 = " + this.reg_3303_day_battery_min_voltage_100 + "\nreg_3304_day_consumption_electric_quantity_100_l = " + this.reg_3304_day_consumption_electric_quantity_100_l + "\nreg_3305_day_consumption_electric_quantity_100_h = " + this.reg_3305_day_consumption_electric_quantity_100_h + "\nreg_3306_month_consumption_electric_quantity_100_l = " + this.reg_3306_month_consumption_electric_quantity_100_l + "\nreg_3307_month_consumption_electric_quantity_100_h = " + this.reg_3307_month_consumption_electric_quantity_100_h + "\nreg_3308_year_consumption_electric_quantity_100_l = " + this.reg_3308_year_consumption_electric_quantity_100_l + "\nreg_3309_year_consumption_electric_quantity_100_h = " + this.reg_3309_year_consumption_electric_quantity_100_h + "\nreg_330a_total_consumption_electric_quantity_100_l = " + this.reg_330a_total_consumption_electric_quantity_100_l + "\nreg_330b_total_consumption_electric_quantity_100_h = " + this.reg_330b_total_consumption_electric_quantity_100_h + "\nreg_330c_day_charged_electric_quantity_100_l = " + this.reg_330c_day_charged_electric_quantity_100_l + "\nreg_330d_day_charged_electric_quantity_100_h = " + this.reg_330d_day_charged_electric_quantity_100_h + "\nreg_330e_month_charged_electric_quantity_100_l = " + this.reg_330e_month_charged_electric_quantity_100_l + "\nreg_330f_month_charged_electric_quantity_100_h = " + this.reg_330f_month_charged_electric_quantity_100_h + "\nreg_3310_year_charged_electric_quantity_100_l = " + this.reg_3310_year_charged_electric_quantity_100_l + "\nreg_3311_year_charged_electric_quantity_100_h = " + this.reg_3311_year_charged_electric_quantity_100_h + "\nreg_3312_total_charged_electric_quantity_100_l = " + this.reg_3312_total_charged_electric_quantity_100_l + "\nreg_3313_total_charged_electric_quantity_100_h = " + this.reg_3313_total_charged_electric_quantity_100_h + "\nreg_9000_battery_type = " + this.reg_9000_battery_type + "\nreg_9001_battery_capacity = " + this.reg_9001_battery_capacity + "\nreg_9002_temperature_compensation_algorithm_100 = " + this.reg_9002_temperature_compensation_algorithm_100 + "\nreg_9003_over_voltage_off_voltage_100 = " + this.reg_9003_over_voltage_off_voltage_100 + "\nreg_9004_charge_limit_voltage_100 = " + this.reg_9004_charge_limit_voltage_100 + "\nreg_9005_over_voltage_off_recover_voltage_100 = " + this.reg_9005_over_voltage_off_recover_voltage_100 + "\nreg_9006_balance_voltage_100 = " + this.reg_9006_balance_voltage_100 + "\nreg_9007_promote_voltage_100 = " + this.reg_9007_promote_voltage_100 + "\nreg_9008_floating_charge_voltage_100 = " + this.reg_9008_floating_charge_voltage_100 + "\nreg_9009_promote_rover_voltage_100 = " + this.reg_9009_promote_rover_voltage_100 + "\nreg_900a_low_voltage_off_recover_voltage_100 = " + this.reg_900a_low_voltage_off_recover_voltage_100 + "\nreg_900b_under_voltage_alarm_voltage_recover_100 = " + this.reg_900b_under_voltage_alarm_voltage_recover_100 + "\nreg_900c_under_voltage_alarm_voltage_100 = " + this.reg_900c_under_voltage_alarm_voltage_100 + "\nreg_900d_low_voltage_off_voltage_100 = " + this.reg_900d_low_voltage_off_voltage_100 + "\nreg_900e_recharge_limit_voltage_100 = " + this.reg_900e_recharge_limit_voltage_100 + "\nreg_9013_real_time_clock_second_minute = " + this.reg_9013_real_time_clock_second_minute + "\nreg_9014_real_time_clock_hour_day = " + this.reg_9014_real_time_clock_hour_day + "\nreg_9015_real_time_clock_month_year = " + this.reg_9015_real_time_clock_month_year + "\nreg_9016_balance_charge_period = " + this.reg_9016_balance_charge_period + "\nreg_9017_battery_temperature_alarm_upper_limit_value_100 = " + this.reg_9017_battery_temperature_alarm_upper_limit_value_100 + "\nreg_9018_battery_temperature_alarm_low_limit_value_100 = " + this.reg_9018_battery_temperature_alarm_low_limit_value_100 + "\nreg_9019_device_inner_temperature_uper_limit_100 = " + this.reg_9019_device_inner_temperature_uper_limit_100 + "\nreg_901a_device_inner_temperature_uper_limit_recover_100 = " + this.reg_901a_device_inner_temperature_uper_limit_recover_100 + "\nreg_901b_power_device_temperature_uper_limit_100 = " + this.reg_901b_power_device_temperature_uper_limit_100 + "\nreg_901c_power_device_temperature_uper_limit_recover_100 = " + this.reg_901c_power_device_temperature_uper_limit_recover_100 + "\nreg_901d_line_circuit_impedance_100 = " + this.reg_901d_line_circuit_impedance_100 + "\nreg_901e_optical_night_threshold_voltage_100 = " + this.reg_901e_optical_night_threshold_voltage_100 + "\nreg_901f_optical_open_ensure_time = " + this.reg_901f_optical_open_ensure_time + "\nreg_9020_optical_day_threshold_voltage_100 = " + this.reg_9020_optical_day_threshold_voltage_100 + "\nreg_9021_optical_signal_day_time_mode_100 = " + this.reg_9021_optical_signal_day_time_mode_100 + "\nreg_903d_load_output_control_mode = " + this.reg_903d_load_output_control_mode + "\nreg_903e_work_duration_one = " + this.reg_903e_work_duration_one + "\nreg_903f_work_duration_two = " + this.reg_903f_work_duration_two + "\nreg_9040_work_duration_three = " + this.reg_9040_work_duration_three + "\nreg_9042_time_one_open_second = " + this.reg_9042_time_one_open_second + "\nreg_9043_time_one_open_minute = " + this.reg_9043_time_one_open_minute + "\nreg_9044_time_one_open_hour = " + this.reg_9044_time_one_open_hour + "\nreg_9045_time_one_close_second = " + this.reg_9045_time_one_close_second + "\nreg_9046_time_one_close_minute = " + this.reg_9046_time_one_close_minute + "\nreg_9047_time_one_close_hour = " + this.reg_9047_time_one_close_hour + "\nreg_9048_time_two_open_second = " + this.reg_9048_time_two_open_second + "\nreg_9049_time_two_open_minute = " + this.reg_9049_time_two_open_minute + "\nreg_904a_time_two_open_hour = " + this.reg_904a_time_two_open_hour + "\nreg_904b_time_two_close_second = " + this.reg_904b_time_two_close_second + "\nreg_904c_time_two_close_minute = " + this.reg_904c_time_two_close_minute + "\nreg_904d_time_two_close_hour = " + this.reg_904d_time_two_close_hour + "\nreg_905a_output_power_1_percent_100 = " + this.reg_905a_output_power_1_percent_100 + "\nreg_905b_output_power_2_percent_100 = " + this.reg_905b_output_power_2_percent_100 + "\nreg_905c_output_power_3_percent_100 = " + this.reg_905c_output_power_3_percent_100 + "\nreg_9065_night_time_long = " + this.reg_9065_night_time_long + "\nreg_9063_liquid_display_time_long_100 = " + this.reg_9063_liquid_display_time_long_100 + "\nreg_9066_power_supply_device = " + this.reg_9066_power_supply_device + "\nreg_9067_system_nominal_voltage_control_code = " + this.reg_9067_system_nominal_voltage_control_code + "\nreg_9068_run_time_write_data_interval_time = " + this.reg_9068_run_time_write_data_interval_time + "\nreg_9069_timed_control_qutum = " + this.reg_9069_timed_control_qutum + "\nreg_906a_manual_operation_control_switch = " + this.reg_906a_manual_operation_control_switch + "\nreg_906b_balance_hold_time = " + this.reg_906b_balance_hold_time + "\nreg_906c_promot_hold_time = " + this.reg_906c_promot_hold_time + "\nreg_906d_recharge_deep_percent = " + this.reg_906d_recharge_deep_percent + "\nreg_906e_charge_deep_percent = " + this.reg_906e_charge_deep_percent + "\nreg_9070_battery_charge_recharge_manage_mode = " + this.reg_9070_battery_charge_recharge_manage_mode + "\nreg_9072 = " + this.reg_9072 + "\nreg_9073_100 = " + this.reg_9073_100 + "\nreg_9078 = " + this.reg_9078 + "\nreg_9079_manual_operation_percent = " + this.reg_9079_manual_operation_percent + "\nreg_907a = " + this.reg_907a + "\nreg_907b = " + this.reg_907b + "\nreg_907c = " + this.reg_907c + "\nreg_907d_100 = " + this.reg_907d_100 + "\nreg_907e_100 = " + this.reg_907e_100 + "\nreg_907f_100 = " + this.reg_907f_100 + "\nreg_9080led_current_1_percent_100 = " + this.reg_9080led_current_1_percent_100 + "\nreg_9081_led_current_2_percent = " + this.reg_9081_led_current_2_percent_100 + "\nreg_2_output_manual_operation_switch = " + this.reg_2_output_manual_operation_switch + "\nreg_3_default_output_switch_status = " + this.reg_3_default_output_switch_status + "\nreg_5_enter_test_status = " + this.reg_5_enter_test_status + "\nreg_6_device_switch_test = " + this.reg_6_device_switch_test + "\nreg_2000_device_tempertature_status = " + this.reg_2000_device_tempertature_status + "\nreg_200c_day_night = " + this.reg_200c_day_night + "\n]";
+    }
+
+    public Object clone() {
+        try {
+            SolarControlerData o = (SolarControlerData) super.clone();
+            return o;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
