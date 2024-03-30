@@ -28,4 +28,5 @@ https://github.com/sourceperl/pyModbusTCP.git
 
 https://github.com/martgras/esphome/tree/testing/esphome/components/modbus_controller/examples/epever  
 
+https://www.epever.com/support/softwares/  
 
