@@ -76,7 +76,7 @@
 	"address": "3006h",
 	"name": "batt_rated_power",
 	"description": "rated power to battery",
-	"unit": "V",
+	"unit": "W",
 	"scale": 0.01,
 	"dtype": "long",
 	"dbtable": "config"
@@ -155,7 +155,7 @@
 	"id": "B6",
 	"address": "3105h",
 	"name": "batt_rtcurrent_test",
-	"description": "battery charging current maybe? undocumented in ControllerProtocolV2.3 table",
+	"description": "charge_device_input_voltage_100 (duplicate?)",
 	"unit": "A",
 	"scale": 0.01,
 	"dbtable": "testing",
@@ -175,27 +175,12 @@
 
 }
 ,
-
-{
-	"type": "input",
-	"id": "B8",
-	"address": "3107h",
-	"name": "testing_b8",
-	"description": "zero ?",
-	"unit": "",
-	"scale": 0.01,
-	"dtype": "short",
-	"dbtable": "testing",
-	"skip_db": true
-
-}
-,
 {
 	"type": "input",
 	"id": "B9",
 	"address": "3108h",
 	"name": "testing_b9",
-	"description": "battery voltage ?",
+	"description": "battery voltage ? another duplicate?",
 	"unit": "",
 	"scale": 0.01,
 	"dtype": "short",
@@ -915,7 +900,17 @@
 	"unit": "℃C",
 	"scale": 0.01,
 	"dbtable": "config"
-
+}
+,
+{
+  "type": "holding",
+  "id": "E30",
+  "address": "901Dh",
+  "name": "line_circuit_impedance_100",
+  "scale": 0.01,
+  "description": "from SolarControlerdata decompile",
+  "dbtable": "testing",
+	"skip_db": true
 }
 ,
 {
@@ -996,14 +991,23 @@
 
 }
 ,
-
-
+{
+  "type": "holding",
+  "id": "E65",
+  "address": "9040h",
+  "name": "working_time_length_3",
+  "description": "probably unused or unimplemented?",
+  "dtype": "delay_hm",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
 {
 	"type": "holding",
 	"id": "E67",
 	"address": "9042h",
 	"name": "turn_on_timing_1",
-	"description": "Turn on timing 1. Turn on timing of load output",
+	"description": "Turn on timing 1. Turn on timing of load output. Please set Light ON/OFF, Test mode and Manual mode via Timer1. Timer2 will be disabled and display 2 n",
 	"dtype": "delay_smh",
 	"dbtable": "config"
 
@@ -1025,7 +1029,7 @@
 	"id": "E73",
 	"address": "9048h",
 	"name": "turn_on_timing_2",
-	"description": "Turn on timing 2. Turn on timing of load output",
+	"description": "Turn on timing 2. Turn on timing of load output. Timer 2 counts since sunrise?",
 	"dtype": "delay_smh",
 	"dbtable": "config"
 
@@ -1039,9 +1043,40 @@
 	"description": "Turn off timing 2, Turn off timing of load output",
 	"dtype": "delay_smh",
 	"dbtable": "config"
-
 }
-
+,
+{
+  "type": "holding",
+  "id": "E90",
+  "address": "905Ah",
+  "name": "output_power_1_percent",
+  "scale": 0.01,
+  "description": "related to timer 1? unimplemented?",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E91",
+  "address": "905Bh",
+  "name": "output_power_2_percent",
+  "scale": 0.01,
+  "description": "related to timer 2?",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E92",
+  "address": "905Ch",
+  "name": "output_power_3_percent",
+  "scale": 0.01,
+  "description": "related to timer 3?",
+  "dbtable": "testing",
+	"skip_db": true
+}
 ,
 {
 	"type": "holding",
@@ -1059,7 +1094,7 @@
 	"id": "E102",
 	"address": "9065h",
 	"name": "night_length",
-	"description": "Length of night. Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute",
+	"description": "Length of night. Affects light ON+timer mode? Set default values of the whole night length of time. D15-D8: hour, D7-D0: minute. Calculated or only user-set?",
 	"dbtable": "config",
 	"dtype": "delay_hm"
 }
@@ -1082,6 +1117,26 @@
 	"name": "batt_rated_voltage_code",
 	"description": "battery rated voltage code. 0, auto recognize. 1-12V, 2-24V ,3-36V，4-48V，5-60V， 6-110V，7-120V，8-220V，9-240V",
 	"dbtable": "config"
+}
+,
+{
+  "type": "holding",
+  "id": "E105",
+  "address": "9068h",
+  "name": "run_time_write_data_interval_time",
+  "description": "mystery",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E106",
+  "address": "9069h",
+  "name": "timed_control_qutum",
+  "description": "probably ON/OFF for timer 2",
+  "dbtable": "testing",
+	"skip_db": true
 }
 ,
 {
@@ -1147,7 +1202,124 @@
 	"name": "charging_management_modes",
 	"description": "Management modes of battery charge and discharge, voltage compensation: 0 and SOC: 1",
 	"dbtable": "config"
+}
+,
+{
+	"type": "holding",
+	"id": "E115",
+	"address": "9072h",
+	"name": "x_led_load_onoff",
+	"description": "if isLedLoad() , android app writes 65535 or 0.",
+	"dbtable": "testing",
+  "skipdb": true
+}
+,
+{
+  "type": "holding",
+  "id": "E116",
+  "address": "9073h",
+  "name": "x_mystery_night_thing",
+  "description": "android app writes 0.50, related to night_time ?",
+  "scale": 0.01,
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E122",
+  "address": "9079h",
+  "name": "x_manual_operation_percent",
+  "description": "mystery",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+	"type": "holding",
+	"id": "E123",
+	"address": "907Ah",
+	"name": "working_time2_length_1",
+	"description": "Second working time length 1",
+	"dtype": "delay_hm",
+	"dbtable": "config"
+}
+,
+{
+	"type": "holding",
+	"id": "E124",
+	"address": "907Bh",
+	"name": "working_time2_length_2",
+	"description": "Second working time length 2",
+	"dtype": "delay_hm",
+	"dbtable": "config"
 
+}
+,
+{
+  "type": "holding",
+  "id": "E125",
+  "address": "907Ch",
+  "name": "working_time2_length_3",
+  "description": "Second working time length 3",
+  "dtype": "delay_hm",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E123",
+  "address": "907Dh",
+  "name": "output_power_1_percent2",
+  "scale": 0.01,
+  "description": "used when mode is not 2 (light on+timer)",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E124",
+  "address": "907Eh",
+  "name": "output_power_2_percent2",
+  "scale": 0.01,
+  "description": "??",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E125",
+  "address": "907Fh",
+  "name": "output_power_3_percent2",
+  "scale": 0.01,
+  "description": "??",
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E126",
+  "address": "9080h",
+  "name": "led_current_1_percent",
+  "description": "mystery. maybe for PWM feature to run load at reduced power?",
+  "scale": 0.01,
+  "dbtable": "testing",
+	"skip_db": true
+}
+,
+{
+  "type": "holding",
+  "id": "E129",
+  "address": "9081h",
+  "name": "led_current_2_percent",
+  "description": "mystery",
+  "scale": 0.01,
+  "dbtable": "testing",
+	"skip_db": true
 }
 ],
 "coils_RW":[
