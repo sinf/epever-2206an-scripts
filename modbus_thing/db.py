@@ -74,6 +74,8 @@ def start_db(the_device):
                         co.commit()
                     except db.exc.IntegrityError as e:
                         print(traceback.format_exc(), file=sys.stderr) # same timestamp?
+                        co.execute('rollback')
+                        co.commit()
 
             time.sleep(delay)
     t=Thread(target=db_main, daemon=True, name='db-client')
