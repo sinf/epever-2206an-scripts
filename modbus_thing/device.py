@@ -4,6 +4,7 @@ import traceback
 import os
 
 from threading import Lock
+from pymodbus.client import ModbusTcpClient
 from pymodbus.bit_read_message import ReadDiscreteInputsResponse, ReadCoilsResponse
 from .util import *
 from .register import *
