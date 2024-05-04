@@ -70,12 +70,11 @@ def start_db(the_device):
                     values['t'] = t
                     values['device_id'] = 0 # future proofing database for when I have more devices
                     try:
-                        co.execute(db.insert(tables[table_name]).values(**values))
-                        co.commit()
+                        with co.begin_nested():
+                          co.execute(db.insert(tables[table_name]).values(**values))
+                          co.commit()
                     except db.exc.IntegrityError as e:
                         print(traceback.format_exc(), file=sys.stderr) # same timestamp?
-                        co.execute('rollback')
-                        co.commit()
 
             time.sleep(delay)
     t=Thread(target=db_main, daemon=True, name='db-client')
