@@ -19,7 +19,7 @@ def start_mqtt(the_device):
             delay = config("mqtt.poll_delay_s",30)
             debug_print(f'mqtt: deciding whether to publish')
             now=time.time()
-            the_device.read_regs(the_device.ids('stats'), update_older_than=now-delay)
+            the_device.read_regs(the_device.names('stats'), update_older_than=now-delay)
             if regs := the_device.collect_for_push('mqtt', config('mqtt.max_publish_interval')):
                 for reg in regs:
                     if reg.should_always_skip_logging() or reg.dtype == 'date_sm_hd_MY':
