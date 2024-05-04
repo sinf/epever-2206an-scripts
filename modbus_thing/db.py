@@ -64,7 +64,7 @@ def start_db(the_device):
                     values = {}
                     t=0
                     for r in the_device.dbtable_regs[table_name].values():
-                        values[r.name] = r.value
+                        values[r.name] = r.value if r.value is not None else 0
                         t = max(t, r.last_write_t)
                     t = int(t*1000) # s -> ms
                     values['t'] = t
